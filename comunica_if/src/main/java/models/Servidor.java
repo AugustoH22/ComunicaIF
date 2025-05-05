@@ -1,24 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package models;
 
 import java.util.Objects;
 
-/**
- *
- * @author pedro
- */
-public class Turma {
+public class Servidor {
     
     Integer id;
     String nome;
     
-    public Turma(){ 
+    public Servidor(){
     }
     
-    public Turma(Integer id, String nome){
+    public Servidor(Integer id, String nome){
         this.id = id;
         this.nome = nome;
     }
@@ -41,13 +33,13 @@ public class Turma {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        return hash;
     }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Turma turma)) return false;
-        return Objects.equals(id, turma.id);
-    }  
+        if (!(o instanceof Servidor servidor)) return false;
+        return Objects.equals(id, servidor.id);
+    }
 }
