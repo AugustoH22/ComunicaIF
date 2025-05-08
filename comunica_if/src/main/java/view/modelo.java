@@ -1,4 +1,4 @@
-package com.pv.comunica_if;
+package view;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

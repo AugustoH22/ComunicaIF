@@ -9,7 +9,7 @@ import java.util.List;
 import models.Aluno;
 import daos.AlunoDAO;
 
-class AlunoController {
+public class AlunoController {
     private AlunoDAO dao = new AlunoDAO();
     public void cadastrarAluno(Aluno a) { dao.salvar(a); }
     public List<Aluno> listarAlunos() { return dao.listar(); }
