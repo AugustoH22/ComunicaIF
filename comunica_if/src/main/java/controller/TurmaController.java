@@ -8,7 +8,7 @@ import daos.TurmaDAO;
 import java.util.List;
 import models.Turma;
 
-class TurmaController {
+public class TurmaController {
     private TurmaDAO dao = new TurmaDAO();
     public void cadastrarTurma(Turma t) { dao.salvar(t); }
     public List<Turma> listarTurmas() { return dao.listar(); }

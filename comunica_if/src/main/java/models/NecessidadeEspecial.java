@@ -10,10 +10,12 @@ package models;
  */
 public class NecessidadeEspecial {
     private int codigo;
+    private String codigoNecessidade;
     private String descricao;
 
-    public NecessidadeEspecial(int codigo, String descricao) {
+    public NecessidadeEspecial(int codigo, String codigoNecessidade, String descricao) {
         this.codigo = codigo;
+        this.codigoNecessidade = codigoNecessidade;
         this.descricao = descricao;
     }
 
@@ -25,6 +27,14 @@ public class NecessidadeEspecial {
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
+    }
+    
+    public String getCodigoNecessidade() {
+        return codigoNecessidade;
+    }
+
+    public void setCodigoNecessidade(String codigoNecessidade) {
+        this.codigoNecessidade = codigoNecessidade;
     }
 
     public String getDescricao() {
