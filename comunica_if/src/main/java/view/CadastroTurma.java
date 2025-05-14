@@ -181,7 +181,7 @@ public class CadastroTurma extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void BtnSalvarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalvarTurmaActionPerformed
-        if (modo == 0) {
+     /*   if (modo == 0) {
             Curso curso = retornaCurso();
             cc.cadastrarCurso(curso);
         }
@@ -190,6 +190,7 @@ public class CadastroTurma extends javax.swing.JFrame {
             cc.editarCurso(codigo, curso);
         }
         this.dispose();
+        */
     }//GEN-LAST:event_BtnSalvarTurmaActionPerformed
 
     private void cbCursosAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbCursosAncestorAdded
