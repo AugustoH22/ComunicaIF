@@ -65,6 +65,7 @@ public class CadastroAluno extends javax.swing.JDialog {
             }
         });
 
+        BotaoSalvar.setBackground(new java.awt.Color(51, 153, 137));
         BotaoSalvar.setText("Salvar");
         BotaoSalvar.setToolTipText("");
         BotaoSalvar.addActionListener(new java.awt.event.ActionListener() {

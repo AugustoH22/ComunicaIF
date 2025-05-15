@@ -60,6 +60,7 @@ public class CadastroTurma extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        BtnSalvarTurma.setBackground(new java.awt.Color(51, 153, 137));
         BtnSalvarTurma.setText("Salvar");
         BtnSalvarTurma.setPreferredSize(new java.awt.Dimension(76, 23));
         BtnSalvarTurma.addActionListener(new java.awt.event.ActionListener() {

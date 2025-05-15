@@ -77,6 +77,7 @@ public class CadastroCurso extends javax.swing.JFrame {
             }
         });
 
+        btnSalvar.setBackground(new java.awt.Color(51, 153, 137));
         btnSalvar.setText("Salvar");
         btnSalvar.setPreferredSize(new java.awt.Dimension(76, 23));
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {

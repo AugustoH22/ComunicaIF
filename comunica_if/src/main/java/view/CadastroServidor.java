@@ -69,6 +69,7 @@ public class CadastroServidor extends javax.swing.JPanel {
 
         BtnCancelServ.setText("Cancelar");
 
+        BtnSalvarServ.setBackground(new java.awt.Color(51, 153, 137));
         BtnSalvarServ.setText("Salvar");
         BtnSalvarServ.setPreferredSize(new java.awt.Dimension(76, 23));
         BtnSalvarServ.addActionListener(new java.awt.event.ActionListener() {
