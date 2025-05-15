@@ -207,15 +207,18 @@ public class CadastroTurma extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (modo == 0) {
             Turma turma = retornaTurma();
             tc.cadastrarTurma(turma);
+
         }
         if (modo == 1) {
         }
         this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
+
 
     private void cbCursosAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbCursosAncestorAdded
         if (modo == 0) {
