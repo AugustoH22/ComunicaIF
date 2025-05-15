@@ -1,31 +1,37 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 import controller.TurmaController;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import models.Curso;
+import models.Turma;
 
-/**
- *
- * @author pedro
- */
 public class CadastroTurma extends javax.swing.JFrame {
 
     private final TurmaController tc;
     int modo;
-    int id;
+    int codigo;
     String nome;
     String ano;
     String semestre;
     List<Curso> listaCursos = new ArrayList<>();
-    
-    public CadastroTurma() {
+
+    public CadastroTurma(int codigo, List<Curso> cursos, int modo) {
         initComponents();
+        this.codigo = codigo;
+        this.modo = modo;
         tc = new TurmaController();
+
+        btnSalvar.setEnabled(false);
+
+        if (!cursos.isEmpty()) {
+            listaCursos = cursos;
+        }
+
+        if (modo == 1) {
+
+        }
     }
 
     /**
@@ -39,16 +45,16 @@ public class CadastroTurma extends javax.swing.JFrame {
 
         jLabel8 = new javax.swing.JLabel();
         tfDescricao = new javax.swing.JTextField();
-        BtnSalvarTurma = new javax.swing.JButton();
-        BtnCancelTurma = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         cbCursos = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
-        tfDescricao1 = new javax.swing.JTextField();
+        tfNome = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        cbProfissionais2 = new javax.swing.JComboBox();
-        cbProfissionais3 = new javax.swing.JComboBox();
+        cbAno = new javax.swing.JComboBox();
+        cbSemestre = new javax.swing.JComboBox();
 
         jLabel8.setText("Nome:");
 
@@ -59,19 +65,30 @@ public class CadastroTurma extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cadastro de Turmas");
 
-        BtnSalvarTurma.setText("Salvar");
-        BtnSalvarTurma.setPreferredSize(new java.awt.Dimension(76, 23));
-        BtnSalvarTurma.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setText("Salvar");
+        btnSalvar.setPreferredSize(new java.awt.Dimension(76, 23));
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnSalvarTurmaActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
-        BtnCancelTurma.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel7.setText("Curso:");
 
+        cbCursos.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbCursosItemStateChanged(evt);
+            }
+        });
         cbCursos.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 cbCursosAncestorAdded(evt);
@@ -84,9 +101,9 @@ public class CadastroTurma extends javax.swing.JFrame {
 
         jLabel9.setText("Nome:");
 
-        tfDescricao1.addCaretListener(new javax.swing.event.CaretListener() {
+        tfNome.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                tfDescricao1CaretUpdate(evt);
+                tfNomeCaretUpdate(evt);
             }
         });
 
@@ -94,9 +111,14 @@ public class CadastroTurma extends javax.swing.JFrame {
 
         jLabel11.setText("Semestre:");
 
-        cbProfissionais2.addAncestorListener(new javax.swing.event.AncestorListener() {
+        cbAno.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbAnoItemStateChanged(evt);
+            }
+        });
+        cbAno.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                cbProfissionais2AncestorAdded(evt);
+                cbAnoAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -104,9 +126,14 @@ public class CadastroTurma extends javax.swing.JFrame {
             }
         });
 
-        cbProfissionais3.addAncestorListener(new javax.swing.event.AncestorListener() {
+        cbSemestre.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbSemestreItemStateChanged(evt);
+            }
+        });
+        cbSemestre.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                cbProfissionais3AncestorAdded(evt);
+                cbSemestreAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -124,21 +151,21 @@ public class CadastroTurma extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(92, 92, 92)
-                                .addComponent(BtnSalvarTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(BtnCancelTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbProfissionais2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbCursos, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tfDescricao1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfNome, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -146,7 +173,7 @@ public class CadastroTurma extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbProfissionais3, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(cbSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -161,37 +188,37 @@ public class CadastroTurma extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(tfDescricao1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbProfissionais2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbProfissionais3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnSalvarTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnCancelTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnSalvarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSalvarTurmaActionPerformed
-     /*   if (modo == 0) {
-            Curso curso = retornaCurso();
-            cc.cadastrarCurso(curso);
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        if (modo == 0) {
+            Turma turma = retornaTurma();
+            tc.cadastrarTurma(turma);
+
         }
         if (modo == 1) {
-            Curso curso = retornaCurso();
-            cc.editarCurso(codigo, curso);
         }
         this.dispose();
-        */
-    }//GEN-LAST:event_BtnSalvarTurmaActionPerformed
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
 
     private void cbCursosAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbCursosAncestorAdded
         if (modo == 0) {
@@ -206,20 +233,74 @@ public class CadastroTurma extends javax.swing.JFrame {
     }//GEN-LAST:event_cbCursosAncestorAdded
 
     private void tfDescricaoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfDescricaoCaretUpdate
-       
+
     }//GEN-LAST:event_tfDescricaoCaretUpdate
 
-    private void tfDescricao1CaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfDescricao1CaretUpdate
-       
-    }//GEN-LAST:event_tfDescricao1CaretUpdate
+    private void tfNomeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfNomeCaretUpdate
+        verificarCampos();
+    }//GEN-LAST:event_tfNomeCaretUpdate
 
-    private void cbProfissionais2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbProfissionais2AncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbProfissionais2AncestorAdded
+    private void cbAnoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbAnoAncestorAdded
+        List<String> listaAnos = new ArrayList<>();
+        listaAnos.add("1° Ano");
+        listaAnos.add("2° Ano");
+        listaAnos.add("3° Ano");
 
-    private void cbProfissionais3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbProfissionais3AncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbProfissionais3AncestorAdded
+        if (modo == 0) {
+            cbAno.removeAll();
+
+            if (!listaAnos.isEmpty()) {
+                for (String cf : listaAnos) {
+                    cbAno.addItem(cf);
+                }
+            }
+        }
+    }//GEN-LAST:event_cbAnoAncestorAdded
+
+    private void cbSemestreAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbSemestreAncestorAdded
+        List<String> listaSemestre = new ArrayList<>();
+        listaSemestre.add("1° Semestre");
+        listaSemestre.add("2° Semestre");
+
+        if (modo == 0) {
+            cbSemestre.removeAll();
+
+            if (!listaSemestre.isEmpty()) {
+                for (String cf : listaSemestre) {
+                    cbSemestre.addItem(cf);
+                }
+            }
+        }
+    }//GEN-LAST:event_cbSemestreAncestorAdded
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        int response = JOptionPane.showConfirmDialog(
+                this,
+                "Deseja sair sem salvar?",
+                "Sair sem salvar?",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        // Ação baseada na resposta do usuário
+        if (response == JOptionPane.YES_OPTION) {
+            this.dispose();
+        } else if (response == JOptionPane.NO_OPTION) {
+            // Usuário clicou em "Não"
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void cbCursosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCursosItemStateChanged
+        verificarCampos();
+    }//GEN-LAST:event_cbCursosItemStateChanged
+
+    private void cbAnoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAnoItemStateChanged
+        verificarCampos();
+    }//GEN-LAST:event_cbAnoItemStateChanged
+
+    private void cbSemestreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSemestreItemStateChanged
+        verificarCampos();
+    }//GEN-LAST:event_cbSemestreItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -249,25 +330,47 @@ public class CadastroTurma extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastroTurma().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            List<Curso> l = new ArrayList<>();
+            new CadastroTurma(0, l, 0).setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnCancelTurma;
-    private javax.swing.JButton BtnSalvarTurma;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox cbAno;
     private javax.swing.JComboBox cbCursos;
-    private javax.swing.JComboBox cbProfissionais2;
-    private javax.swing.JComboBox cbProfissionais3;
+    private javax.swing.JComboBox cbSemestre;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public javax.swing.JTextField tfDescricao;
-    public javax.swing.JTextField tfDescricao1;
+    public javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
+    private Turma retornaTurma() {
+        nome = tfNome.getText();
+        Curso curso = (Curso) cbCursos.getSelectedItem();
+        ano = (String) cbAno.getSelectedItem();
+        semestre = (String) cbSemestre.getSelectedItem();
+        int id1 = 0;
+
+        Turma turma = new Turma(id1, nome, curso, ano, semestre);
+
+        return turma;
+    }
+
+    private void verificarCampos() {
+        // Verifica se todos os campos estão preenchidos
+        boolean camposPreenchidos = !tfNome.getText().trim().isEmpty()
+                && cbCursos.getSelectedItem() != null
+                && cbAno.getSelectedItem() != null
+                && cbSemestre.getSelectedItem() != null;
+
+        // Habilita o botão "Salvar" somente quando todas as condições são atendidas
+        btnSalvar.setEnabled(camposPreenchidos);
+    }
+
 }
