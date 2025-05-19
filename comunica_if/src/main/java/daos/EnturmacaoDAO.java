@@ -46,44 +46,10 @@ public class EnturmacaoDAO {
             stmt.setInt(2, enturmacaoAtualizado.getCodAluno());
             stmt.setString(3, enturmacaoAtualizado.getAno());
             stmt.setString(4, enturmacaoAtualizado.getSemestre());
-            stmt.setInt(1, enturmacaoAtualizado.getCodigo());
+            stmt.setInt(5, enturmacaoAtualizado.getCodigo());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Erro ao atualizar Aluno: " + ex.getMessage());
         }
-    }
-
-    public Profissional buscarProfissionalPorId(int id) {
-        String sql = "SELECT * FROM Profissional WHERE id = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                String nome = rs.getString("nome");
-                String especialidade = rs.getString("especialidade");
-                return new Profissional(id, nome, especialidade);
-            }
-        } catch (SQLException ex) {
-            System.out.println("Erro ao buscar profissional: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    public List<Profissional> listarTodosProfissionais() {
-        List<Profissional> profissionais = new ArrayList<>();
-        String sql = "SELECT * FROM Profissional";
-        try (Statement stmt = conexao.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome");
-                String especialidade = rs.getString("especialidade");
-                profissionais.add(new Profissional(id, nome, especialidade));
-            }
-        } catch (SQLException ex) {
-            System.out.println("Erro ao listar profissionais: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        return profissionais;
     }
 }

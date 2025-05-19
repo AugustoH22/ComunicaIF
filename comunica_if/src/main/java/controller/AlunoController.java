@@ -10,7 +10,7 @@ import models.Aluno;
 import daos.AlunoDAO;
 
 public class AlunoController {
-    private AlunoDAO dao = new AlunoDAO();
+    private final AlunoDAO dao = new AlunoDAO();
     public void cadastrarAluno(Aluno a) { dao.salvar(a); }
-    public List<Aluno> listarAlunos() { return dao.listar(); }
+
 }

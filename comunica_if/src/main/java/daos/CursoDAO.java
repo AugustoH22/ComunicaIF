@@ -1,7 +1,10 @@
 package daos;
 
-import java.util.ArrayList;
-import java.util.List;
+import BD.Conexao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import models.Curso;
 
 
@@ -9,76 +12,39 @@ public class CursoDAO {
     
      private final Connection conexao;
 
-    public EnturmacaoDAO() {
+    public CursoDAO() {
         this.conexao = Conexao.conectar();
     }
     
-    public void salvar(Enturmacao e) {
-        String sql = "INSERT INTO Enturmacao (codigo, codTurma, codAluno, ano, semestre) VALUES (?, ?, ?, ?, ?)";
+    public void salvar(Curso c) {
+        String sql = "INSERT INTO Curso (codigo, nome, superior) VALUES (?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, e.getCodigo());
-            stmt.setInt(2, e.getCodTurma());
-            stmt.setInt(3, e.getCodAluno());
-            stmt.setString(4, e.getAno());
-            stmt.setString(5, e.getSemestre());
+            stmt.setInt(1, c.getCodigo());
+            stmt.setString(2, c.getNome());
+            stmt.setBoolean(3, c.isSuperior());
             stmt.executeUpdate();
             
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int idGerado = generatedKeys.getInt(1);
-                e.setCodigo(idGerado);  
+                c.setCodigo(idGerado);  
             }
             
         } catch (SQLException ex) {
-            System.out.println("Erro ao adicionar Aluno: " + ex.getMessage());
+            System.out.println("Erro ao adicionar Curso: " + ex.getMessage());
         }
     }
 
-    public void atualizarEnturmacao(Enturmacao enturmacaoAtualizado) {
-        String sql = "UPDATE Enturmacao SET codTurma = ?, codAluno = ?, ano = ?, semestre = ? WHERE codigo = ?";
+    public void editar(Curso cursoAtualizado) {
+        String sql = "UPDATE Curso SET nome = ?, superior = ? WHERE codigo = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, enturmacaoAtualizado.getCodTurma());
-            stmt.setInt(2, enturmacaoAtualizado.getCodAluno());
-            stmt.setString(3, enturmacaoAtualizado.getAno());
-            stmt.setString(4, enturmacaoAtualizado.getSemestre());
-            stmt.setInt(1, enturmacaoAtualizado.getCodigo());
+            stmt.setString(1, cursoAtualizado.getNome());
+            stmt.setBoolean(2, cursoAtualizado.isSuperior());
+            stmt.setInt(3, cursoAtualizado.getCodigo());
             stmt.executeUpdate();
         } catch (SQLException ex) {
-            System.out.println("Erro ao atualizar Aluno: " + ex.getMessage());
+            System.out.println("Erro ao atualizar Curso: " + ex.getMessage());
         }
     }
 
-    public Profissional buscarProfissionalPorId(int id) {
-        String sql = "SELECT * FROM Profissional WHERE id = ?";
-        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                String nome = rs.getString("nome");
-                String especialidade = rs.getString("especialidade");
-                return new Profissional(id, nome, especialidade);
-            }
-        } catch (SQLException ex) {
-            System.out.println("Erro ao buscar profissional: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        return null;
-    }
-
-    public List<Profissional> listarTodosProfissionais() {
-        List<Profissional> profissionais = new ArrayList<>();
-        String sql = "SELECT * FROM Profissional";
-        try (Statement stmt = conexao.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
-            while (rs.next()) {
-                int id = rs.getInt("id");
-                String nome = rs.getString("nome");
-                String especialidade = rs.getString("especialidade");
-                profissionais.add(new Profissional(id, nome, especialidade));
-            }
-        } catch (SQLException ex) {
-            System.out.println("Erro ao listar profissionais: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-        return profissionais;
-    }
 }
