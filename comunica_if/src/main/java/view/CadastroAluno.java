@@ -1,55 +1,81 @@
 package view;
 
-import javax.swing.JOptionPane;
-import java.text.NumberFormat;
+import controller.AlunoController;
+import controller.EnturmacaoController;
+import controller.TurmaController;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
+import javax.swing.JOptionPane;
+import models.Curso;
+import models.NecessidadeEspecial;
+import models.Turma;
 
 public class CadastroAluno extends javax.swing.JDialog {
 
-    
-       
-    public CadastroAluno() {
+    int codigo;
+    int modo;
+    String nome;
+    List<Curso> listaCursos = new ArrayList<>();
+    List<Turma> listaTurmas = new ArrayList<>();
+    List<NecessidadeEspecial> listaNecessidades = new ArrayList<>();
+    List<NecessidadeEspecial> necessidades = new ArrayList<>();
+    String ano;
+    String semestre;
+    private final AlunoController ac;
+    private final EnturmacaoController ec;
 
+    public CadastroAluno(int codigo, int modo, List<Curso> cursos, List<Turma> turmas, List<NecessidadeEspecial> necessidades) {
+        initComponents();
+        this.codigo = codigo;
+        this.modo = modo;
+        ac = new AlunoController();
+        ec = new EnturmacaoController();
 
- 
+        btnSalvar.setEnabled(false);
+
+        if (!cursos.isEmpty() && !turmas.isEmpty() && !necessidades.isEmpty()) {
+            listaCursos = cursos;
+            listaTurmas = turmas;
+            listaNecessidades = necessidades;
+        }
+
+        if (modo == 1) {
+            Enturmacao e = ec.
+
+        }
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        tfDescricao = new javax.swing.JTextField();
+        tfNome = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        BotaoCancelar = new javax.swing.JButton();
-        BotaoSalvar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        cbProfissionais = new javax.swing.JComboBox();
+        cbNecessidades = new javax.swing.JComboBox();
         btnAdicionar = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         btnExcluir = new javax.swing.JButton();
-        cbProfissionais1 = new javax.swing.JComboBox();
-        cbProfissionais2 = new javax.swing.JComboBox();
+        cbCursos = new javax.swing.JComboBox();
+        cbTurma = new javax.swing.JComboBox();
         jLabel6 = new javax.swing.JLabel();
-        cbProfissionais3 = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        cbAno = new javax.swing.JComboBox();
+        cbSemestre = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Nome:");
 
-        tfDescricao.addCaretListener(new javax.swing.event.CaretListener() {
+        tfNome.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                tfDescricaoCaretUpdate(evt);
+                tfNomeCaretUpdate(evt);
             }
         });
 
@@ -57,27 +83,27 @@ public class CadastroAluno extends javax.swing.JDialog {
 
         jLabel5.setText("Turma:");
 
-        BotaoCancelar.setText("Cancelar");
-        BotaoCancelar.setToolTipText("");
-        BotaoCancelar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setToolTipText("");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoCancelarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
-        BotaoSalvar.setText("Salvar");
-        BotaoSalvar.setToolTipText("");
-        BotaoSalvar.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setText("Salvar");
+        btnSalvar.setToolTipText("");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BotaoSalvarActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
         jLabel4.setText("Necessidades:");
 
-        cbProfissionais.addAncestorListener(new javax.swing.event.AncestorListener() {
+        cbNecessidades.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                cbProfissionaisAncestorAdded(evt);
+                cbNecessidadesAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -118,9 +144,9 @@ public class CadastroAluno extends javax.swing.JDialog {
             }
         });
 
-        cbProfissionais1.addAncestorListener(new javax.swing.event.AncestorListener() {
+        cbCursos.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                cbProfissionais1AncestorAdded(evt);
+                cbCursosAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -128,9 +154,9 @@ public class CadastroAluno extends javax.swing.JDialog {
             }
         });
 
-        cbProfissionais2.addAncestorListener(new javax.swing.event.AncestorListener() {
+        cbTurma.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                cbProfissionais2AncestorAdded(evt);
+                cbTurmaAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -140,9 +166,21 @@ public class CadastroAluno extends javax.swing.JDialog {
 
         jLabel6.setText("Ano:");
 
-        cbProfissionais3.addAncestorListener(new javax.swing.event.AncestorListener() {
+        jLabel7.setText("Semestre:");
+
+        cbAno.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                cbProfissionais3AncestorAdded(evt);
+                cbAnoAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        cbSemestre.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                cbSemestreAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -158,40 +196,45 @@ public class CadastroAluno extends javax.swing.JDialog {
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbProfissionais2, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbProfissionais1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(cbProfissionais3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfDescricao, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbProfissionais, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel6)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(cbAno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(tfNome, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(cbNecessidades, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnAdicionar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnExcluir))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
-                                .addGap(0, 441, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(BotaoSalvar)
+                                .addComponent(btnSalvar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(BotaoCancelar)))
+                                .addComponent(btnCancelar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(cbTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel7)
+                                    .addComponent(cbSemestre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(22, 22, 22))))
         );
         layout.setVerticalGroup(
@@ -199,42 +242,50 @@ public class CadastroAluno extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbProfissionais1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbCursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addGap(31, 31, 31))
-                    .addComponent(cbProfissionais3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cbProfissionais2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbTurma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(31, 31, 31)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionar)
-                    .addComponent(cbProfissionais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbNecessidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnExcluir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BotaoCancelar)
-                    .addComponent(BotaoSalvar))
-                .addContainerGap(19, Short.MAX_VALUE))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnSalvar))
+                .addGap(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BotaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoCancelarActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         int response = JOptionPane.showConfirmDialog(
                 this,
                 "Deseja sair sem salvar?",
@@ -249,229 +300,136 @@ public class CadastroAluno extends javax.swing.JDialog {
         } else if (response == JOptionPane.NO_OPTION) {
             // Usuário clicou em "Não"
         }
-    }//GEN-LAST:event_BotaoCancelarActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void BotaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoSalvarActionPerformed
-       
-    }//GEN-LAST:event_BotaoSalvarActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+ 
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void tfDescricaoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfDescricaoCaretUpdate
-         
-    }//GEN-LAST:event_tfDescricaoCaretUpdate
+    private void tfNomeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfNomeCaretUpdate
+         verificarCampos();
+    }//GEN-LAST:event_tfNomeCaretUpdate
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        
+
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void jTable2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTable2AncestorAdded
-       
+      jTable2.setModel(new NecessidadeTableModel1(profissionais));
     }//GEN-LAST:event_jTable2AncestorAdded
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-       
+
 
     }//GEN-LAST:event_btnExcluirActionPerformed
 
-    private void cbProfissionaisAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbProfissionaisAncestorAdded
-     
-    }//GEN-LAST:event_cbProfissionaisAncestorAdded
+    private void cbNecessidadesAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbNecessidadesAncestorAdded
+        if (modo == 0) {
+            cbNecessidades.removeAll();
 
-    private void cbProfissionais1AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbProfissionais1AncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbProfissionais1AncestorAdded
+            if (!listaNecessidades.isEmpty()) {
+                for (NecessidadeEspecial cf : listaNecessidades) {
+                    cbNecessidades.addItem(cf);
+                }
+            }
+        }
+    }//GEN-LAST:event_cbNecessidadesAncestorAdded
 
-    private void cbProfissionais2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbProfissionais2AncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbProfissionais2AncestorAdded
+    private void cbCursosAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbCursosAncestorAdded
+        if (modo == 0) {
+            cbCursos.removeAll();
 
-    private void cbProfissionais3AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbProfissionais3AncestorAdded
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbProfissionais3AncestorAdded
+            if (!listaCursos.isEmpty()) {
+                for (Curso cf : listaCursos) {
+                    cbCursos.addItem(cf);
+                }
+            }
+        }
+    }//GEN-LAST:event_cbCursosAncestorAdded
 
+    private void cbTurmaAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbTurmaAncestorAdded
+        if (modo == 0) {
+            cbTurma.removeAll();
+
+            if (!listaTurmas.isEmpty()) {
+                for (Turma cf : listaTurmas) {
+                    cbTurma.addItem(cf);
+                }
+            }
+        }
+    }//GEN-LAST:event_cbTurmaAncestorAdded
+
+    private void cbAnoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbAnoAncestorAdded
+        List<String> listaAnos = new ArrayList<>();
+        listaAnos.add("1° Ano");
+        listaAnos.add("2° Ano");
+        listaAnos.add("3° Ano");
+
+        if (modo == 0) {
+            cbAno.removeAll();
+
+            if (!listaAnos.isEmpty()) {
+                for (String cf : listaAnos) {
+                    cbAno.addItem(cf);
+                }
+            }
+        }
+    }//GEN-LAST:event_cbAnoAncestorAdded
+
+    private void cbSemestreAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbSemestreAncestorAdded
+        List<String> listaSemestre = new ArrayList<>();
+        listaSemestre.add("1° Semestre");
+        listaSemestre.add("2° Semestre");
+
+        if (modo == 0) {
+            cbSemestre.removeAll();
+
+            if (!listaSemestre.isEmpty()) {
+                for (String cf : listaSemestre) {
+                    cbSemestre.addItem(cf);
+                }
+            }
+        }
+    }//GEN-LAST:event_cbSemestreAncestorAdded
 
     public static void main(String args[]) {
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-              
-                CadastroAluno dialog = new CadastroAluno();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            List<Curso> c = new ArrayList<>();
+            List<Turma> t = new ArrayList<>();
+            List<NecessidadeEspecial> n = new ArrayList<>();
+            
+            CadastroAluno dialog = new CadastroAluno(0,0,c,t,n);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotaoCancelar;
-    private javax.swing.JButton BotaoSalvar;
     private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JComboBox cbProfissionais;
-    private javax.swing.JComboBox cbProfissionais1;
-    private javax.swing.JComboBox cbProfissionais2;
-    private javax.swing.JComboBox cbProfissionais3;
+    private javax.swing.JButton btnSalvar;
+    private javax.swing.JComboBox cbAno;
+    private javax.swing.JComboBox cbCursos;
+    private javax.swing.JComboBox cbNecessidades;
+    private javax.swing.JComboBox cbSemestre;
+    private javax.swing.JComboBox cbTurma;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable2;
-    public javax.swing.JTextField tfDescricao;
+    public javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
 
-   
-    
-  
-
-
-    private boolean isPrecoValido(String text) {
-        try {
-            // Remove o símbolo de moeda e substitui a vírgula por ponto para conversão
-            String precoSemCifrao = text.replace("R$ ", "").trim().replace(",", ".");
-
-            // Tenta converter para double
-            double preco = Double.parseDouble(precoSemCifrao);
-
-            // Verifica se o preço é maior que zero
-            return preco > 0;
-        } catch (NumberFormatException e) {
-            return false; // Retorna falso se a conversão falhar
-        }
-    }
-    
-    public class PrecoDocumento extends DocumentFilter {
-
-        private final JTextField textField;
-        private static final String CURRENCY_SYMBOL = "R$ ";
-        private static final int MAX_DIGITS = 9; // Limite de dígitos: 7 para reais e 2 para centavos
-
-        public PrecoDocumento(JTextField textField, String valor) {
-            this.textField = textField;
-        
-            
-        }
-
-        private void setPrecoInicial(String preco) {
-            this.textField.setText(CURRENCY_SYMBOL + preco);
-        }
-
-        private void setCaretPosition(int position) {
-            int safePosition = Math.min(position, textField.getText().length());
-            textField.setCaretPosition(safePosition);
-        }
-
-        @Override
-        public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-            // Permite apenas números
-            if (!string.matches("\\d")) {
-                return;
-            }
-
-            // Impede inserção se o número máximo de dígitos for excedido
-            String currentText = textField.getText().replace(CURRENCY_SYMBOL, "").replace(",", "");
-            if (currentText.length() >= MAX_DIGITS) {
-                return;
-            }
-
-            // Adiciona o novo dígito ao final
-            StringBuilder newText = new StringBuilder(currentText);
-            newText.append(string);
-
-            // Formata o texto para exibir como valor monetário
-            String formattedText = formatCurrency(newText.toString());
-
-            super.replace(fb, 0, textField.getText().length(), formattedText, attr);
-
-            // Ajusta o cursor para estar sempre após o símbolo de moeda e antes dos zeros
-            SwingUtilities.invokeLater(() -> setCaretPosition(CURRENCY_SYMBOL.length()));
-        }
-
-        @Override
-        public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-            // Permite apenas números
-            if (text != null && !text.matches("\\d*")) {
-                return;
-            }
-
-            // Obtém o texto atual sem o símbolo de moeda e vírgula
-            String currentText = textField.getText().replace(CURRENCY_SYMBOL, "").replace(",", "");
-            StringBuilder newText = new StringBuilder(currentText);
-
-            // Evita tentativa de substituir fora do comprimento da string
-            if (offset > newText.length()) {
-                return;
-            }
-
-            newText.replace(Math.max(0, offset), Math.min(newText.length(), offset + length), text != null ? text : "");
-
-            if (newText.length() > MAX_DIGITS) {
-                return; // Impede substituição se exceder o número máximo de dígitos
-            }
-
-            // Formata o texto para exibir como valor monetário
-            String formattedText = formatCurrency(newText.toString());
-
-            super.replace(fb, 0, textField.getText().length(), formattedText, attrs);
-
-            // Ajusta o cursor para estar sempre após o símbolo de moeda e antes dos zeros
-            SwingUtilities.invokeLater(() -> setCaretPosition(CURRENCY_SYMBOL.length()));
-        }
-
-        @Override
-        public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
-            if (offset < CURRENCY_SYMBOL.length()) {
-                SwingUtilities.invokeLater(() -> setCaretPosition(CURRENCY_SYMBOL.length()));
-                return; // Impede a remoção do símbolo de moeda
-            }
-
-            // Obtém o texto atual sem o símbolo de moeda e vírgula
-            String currentText = textField.getText().replace(CURRENCY_SYMBOL, "").replace(",", "");
-            StringBuilder newText = new StringBuilder(currentText);
-
-            // Evita tentativa de remoção fora do comprimento da string
-            if (newText.length() > 0 && offset - CURRENCY_SYMBOL.length() < newText.length()) {
-                newText.deleteCharAt(newText.length() - 1); // Remove o último dígito
-            }
-
-            // Formata o texto para exibir como valor monetário
-            String formattedText = formatCurrency(newText.toString());
-
-            super.replace(fb, 0, textField.getText().length(), formattedText, null);
-
-            // Ajusta o cursor para estar sempre após o símbolo de moeda e antes dos zeros
-            SwingUtilities.invokeLater(() -> setCaretPosition(CURRENCY_SYMBOL.length()));
-        }
-
-        private String formatCurrency(String value) {
-            // Remove zeros à esquerda, se houver
-            value = value.replaceFirst("^0+(?!$)", "");
-
-            // Preenche com zeros à esquerda, se necessário, para garantir pelo menos 3 dígitos
-            while (value.length() < 3) {
-                value = "0" + value;
-            }
-
-            // Insere a vírgula para centavos
-            String formattedValue = value.substring(0, value.length() - 2) + "," + value.substring(value.length() - 2);
-            return CURRENCY_SYMBOL + formattedValue;
-        }
-
-        private boolean isValid(String text) {
-            String numberPart = text.replace(CURRENCY_SYMBOL, "").replace(",", ""); // Remove o símbolo de moeda para validação
-
-            if (numberPart.isEmpty() || numberPart.equals(" ")) {
-                return true; // Permitir apenas o símbolo de moeda
-            }
-
-            return numberPart.matches("\\d*"); // Permite apenas números
-        }
-    }
-    
 }

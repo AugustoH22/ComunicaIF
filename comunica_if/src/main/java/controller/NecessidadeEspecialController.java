@@ -10,6 +10,8 @@ import models.NecessidadeEspecial;
 
 public class NecessidadeEspecialController {
     private NecessidadeEspecialDAO dao = new NecessidadeEspecialDAO();
+    
     public void cadastrarNecessidade(NecessidadeEspecial n) { dao.salvar(n); }
+    
     public List<NecessidadeEspecial> listarNecessidades() { return dao.listar(); }
 }
