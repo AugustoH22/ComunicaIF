@@ -4,18 +4,42 @@ import java.util.Objects;
 
 public class Turma {
     
-    Integer id;
+    int id;
     String nome;
+    Curso curso;
+    String ano;
+    String semestre;
+
     
     public Turma(){ 
     }
     
-    public Turma(Integer id, String nome){
+    public Turma(int id, String nome, Curso curso, String ano, String semestre){
         this.id = id;
         this.nome = nome;
+        this.curso = curso;
+        this.ano = ano;
+        this.semestre = semestre;
+        
     }
 
-    public Integer getId() {
+    public String getAno() {
+        return ano;
+    }
+
+    public void setAno(String ano) {
+        this.ano = ano;
+    }
+
+    public String getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(String semestre) {
+        this.semestre = semestre;
+    }
+
+    public int getId() {
         return id;
     }
 
@@ -29,6 +53,14 @@ public class Turma {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     @Override
