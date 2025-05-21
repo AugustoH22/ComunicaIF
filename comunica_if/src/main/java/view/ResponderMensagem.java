@@ -96,6 +96,7 @@ private int cliqueAux = 0;
 
         SairMsg.setText("Sair");
 
+        ResponderMsg.setBackground(new java.awt.Color(51, 153, 137));
         ResponderMsg.setText("Responder");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

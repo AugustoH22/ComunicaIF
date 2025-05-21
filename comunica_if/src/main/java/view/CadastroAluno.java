@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import models.Curso;
+import models.Enturmacao;
 import models.NecessidadeEspecial;
 import models.Turma;
 
@@ -40,7 +41,6 @@ public class CadastroAluno extends javax.swing.JDialog {
         }
 
         if (modo == 1) {
-          
 
         }
 
@@ -307,7 +307,7 @@ public class CadastroAluno extends javax.swing.JDialog {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void tfNomeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfNomeCaretUpdate
-         verificarCampos();
+       //  verificarCampos();
     }//GEN-LAST:event_tfNomeCaretUpdate
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed

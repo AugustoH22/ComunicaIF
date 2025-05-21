@@ -9,17 +9,15 @@ package models;
  * @author augustobraga
  */
 public class Enturmacao {
-    private int codigo;
     private int codTurma;
     private int codAluno;
-    private String ano;
-    private String semestre;
+    private int codServidor;
+    private int semestre;
 
-    public Enturmacao(int codigo, int codTurma, int codAluno, String ano, String semestre) {
-        this.codigo = codigo;
+    public Enturmacao(int codTurma, int codAluno, int codServidor, int semestre) {
         this.codTurma = codTurma;
         this.codAluno = codAluno;
-        this.ano = ano;
+        this.codServidor = codServidor;
         this.semestre = semestre;
     }
 
@@ -41,28 +39,19 @@ public class Enturmacao {
         this.codAluno = codAluno;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public int getCodServidor() {
+        return codServidor;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setCodServidor(int codServidor) {
+        this.codServidor = codServidor;
     }
 
-    public String getAno() {
-        return ano;
-    }
-
-    public void setAno(String ano) {
-        this.ano = ano;
-    }
-
-    public String getSemestre() {
+    public int getSemestre() {
         return semestre;
     }
 
-    public void setSemestre(String semestre) {
+    public void setSemestre(int semestre) {
         this.semestre = semestre;
     }
-
 }

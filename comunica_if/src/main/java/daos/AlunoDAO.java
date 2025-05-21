@@ -12,7 +12,6 @@ import models.Aluno;
 
 public class AlunoDAO {
 
-
     private final Connection conexao;
 
     public AlunoDAO() {
@@ -47,5 +46,4 @@ public class AlunoDAO {
             System.out.println("Erro ao atualizar Aluno: " + ex.getMessage());
         }
     }
-
 }
