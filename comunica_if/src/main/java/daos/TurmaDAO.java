@@ -20,7 +20,7 @@ public class TurmaDAO {
         String sql = "INSERT INTO Turma (id, nome, curso_id, ano, semestre) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, t.getId());
+            stmt.setInt(1, t.getCodigo());
             stmt.setString(2, t.getNome());
             stmt.setInt(3, t.getCurso().getCodigo());
             stmt.setString(4, t.getAno());
@@ -29,7 +29,7 @@ public class TurmaDAO {
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
-                t.setId(generatedKeys.getInt(1));
+                t.setCodigo(generatedKeys.getInt(1));
             }
 
         } catch (SQLException ex) {
@@ -46,7 +46,7 @@ public class TurmaDAO {
             stmt.setInt(2, t.getCurso().getCodigo());
             stmt.setString(3, t.getAno());
             stmt.setString(4, t.getSemestre());
-            stmt.setInt(5, t.getId());
+            stmt.setInt(5, t.getCodigo());
             stmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -63,7 +63,7 @@ public class TurmaDAO {
 
             while (rs.next()) {
                 Turma t = new Turma();
-                t.setId(rs.getInt("id"));
+                t.setCodigo(rs.getInt("id"));
                 t.setNome(rs.getString("nome"));
                 t.setAno(rs.getString("ano"));
                 t.setSemestre(rs.getString("semestre"));
@@ -92,7 +92,7 @@ public class TurmaDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     t = new Turma();
-                    t.setId(rs.getInt("id"));
+                    t.setCodigo(rs.getInt("id"));
                     t.setNome(rs.getString("nome"));
                     t.setAno(rs.getString("ano"));
                     t.setSemestre(rs.getString("semestre"));

@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Turma {
     
-    int id;
+    int codigo;
     String nome;
     Curso curso;
     String ano;
@@ -14,8 +14,8 @@ public class Turma {
     public Turma(){ 
     }
     
-    public Turma(int id, String nome, Curso curso, String ano, String semestre){
-        this.id = id;
+    public Turma(int codigo, String nome, Curso curso, String ano, String semestre){
+        this.codigo = codigo;
         this.nome = nome;
         this.curso = curso;
         this.ano = ano;
@@ -39,12 +39,12 @@ public class Turma {
         this.semestre = semestre;
     }
 
-    public int getId() {
-        return id;
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCodigo(Integer codigo) {
+        this.codigo = codigo;
     }
 
     public String getNome() {
@@ -65,13 +65,13 @@ public class Turma {
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(codigo);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Turma turma)) return false;
-        return Objects.equals(id, turma.id);
+        return Objects.equals(codigo, turma.codigo);
     }  
 }

@@ -2,10 +2,10 @@ package view;
 
 import controller.AlunoController;
 import controller.EnturmacaoController;
-import controller.TurmaController;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import models.Aluno;
 import models.Curso;
 import models.Enturmacao;
 import models.NecessidadeEspecial;
@@ -41,7 +41,13 @@ public class CadastroAluno extends javax.swing.JDialog {
         }
 
         if (modo == 1) {
-
+            Enturmacao e = ec.buscarPorId(codigo);
+            Aluno a = e.getAluno();
+            Turma t = e.getTurma();
+            Curso c = e.getTurma().getCurso();
+            ano = e.getAno();
+            semestre = e.getSemestre();
+            this.necessidades = e.getAluno().getNecessidades();
         }
 
     }
@@ -303,11 +309,20 @@ public class CadastroAluno extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
- 
+        if (modo == 0) {
+            Enturmacao enturmacao = retornaEturmacao();
+            ec.registrarEnturmacao(enturmacao);
+        }
+        if (modo == 1) {
+            Enturmacao enturmacao = retornaEturmacao();
+            enturmacao.setCodigo(codigo);
+            ec.atualizarEnturmacao(enturmacao);
+        }
+        this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void tfNomeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfNomeCaretUpdate
-       //  verificarCampos();
+        verificarCampos();
     }//GEN-LAST:event_tfNomeCaretUpdate
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
@@ -315,7 +330,7 @@ public class CadastroAluno extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void jTable2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTable2AncestorAdded
-      jTable2.setModel(new NecessidadeTableModel(necessidades));
+        jTable2.setModel(new NecessidadeTableModel(necessidades));
     }//GEN-LAST:event_jTable2AncestorAdded
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -398,8 +413,8 @@ public class CadastroAluno extends javax.swing.JDialog {
             List<Curso> c = new ArrayList<>();
             List<Turma> t = new ArrayList<>();
             List<NecessidadeEspecial> n = new ArrayList<>();
-            
-            CadastroAluno dialog = new CadastroAluno(0,0,c,t,n);
+
+            CadastroAluno dialog = new CadastroAluno(0, 0, c, t, n);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -434,6 +449,10 @@ public class CadastroAluno extends javax.swing.JDialog {
 
     private void verificarCampos() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    private Enturmacao retornaEturmacao() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

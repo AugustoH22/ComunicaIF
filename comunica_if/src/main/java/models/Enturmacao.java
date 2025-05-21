@@ -2,8 +2,8 @@ package models;
 
 public class Enturmacao {
     private int codigo;
-    private int codTurma;
-    private int codAluno;
+    private Turma turma;
+    private Aluno aluno;
     private String ano;
     private String semestre;
     
@@ -11,30 +11,30 @@ public class Enturmacao {
 
     }
 
-    public Enturmacao(int codigo, int codTurma, int codAluno, String ano, String semestre) {
+    public Enturmacao(int codigo, Turma turma, Aluno aluno, String ano, String semestre) {
         this.codigo = codigo;
-        this.codTurma = codTurma;
-        this.codAluno = codAluno;
+        this.turma = turma;
+        this.aluno = aluno;
         this.ano = ano;
         this.semestre = semestre;
     }
 
     // Getters e Setters
 
-    public int getCodTurma() {
-        return codTurma;
+    public Turma getTurma() {
+        return turma;
     }
 
-    public void setCodTurma(int codTurma) {
-        this.codTurma = codTurma;
+    public void setTurma(Turma turma) {
+        this.turma = turma;
     }
 
-    public int getCodAluno() {
-        return codAluno;
+    public Aluno getAluno() {
+        return aluno;
     }
 
-    public void setCodAluno(int codAluno) {
-        this.codAluno = codAluno;
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 
     public int getCodigo() {

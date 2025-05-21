@@ -4,10 +4,7 @@ import controller.CursoController;
 import javax.swing.JOptionPane;
 import models.Curso;
 
-/**
- *
- * @author pedro
- */
+
 public class CadastroCurso extends javax.swing.JFrame {
 
     int codigo;
@@ -16,11 +13,6 @@ public class CadastroCurso extends javax.swing.JFrame {
     int modo;
     private final CursoController cc;
 
-    /**
-     * Creates new form CadastroCurso
-     *
-     * @param codigo
-     */
     public CadastroCurso(int codigo, String nome, boolean superior, int modo) {
         initComponents();
         this.codigo = codigo;
