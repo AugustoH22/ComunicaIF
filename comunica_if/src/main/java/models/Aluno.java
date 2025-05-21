@@ -4,23 +4,23 @@ import java.util.Objects;
 
 
 public class Aluno {
-    Integer id;
+    int id;
     String nome;
     
     
     public Aluno(){   
     }
     
-    public Aluno(Integer id, String nome){
+    public Aluno(int id, String nome){
         this.id = id;
         this.nome = nome;
     }
 
-    public Integer getCodigo() {
+    public int getCodigo() {
         return id;
     }
 
-    public void setCodigo(Integer codigo) {
+    public void setCodigo(int codigo) {
         this.id = id;
     }
 

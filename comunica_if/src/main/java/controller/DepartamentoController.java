@@ -9,7 +9,7 @@ import java.util.List;
 import models.Departamento;
 
 class DepartamentoController {
-    private DepartamentoDAO dao = new DepartamentoDAO();
+    private final DepartamentoDAO dao = new DepartamentoDAO();
     public void cadastrarDepartamento(Departamento d) { dao.salvar(d); }
     public List<Departamento> listarDepartamentos() { return dao.listar(); }
 }

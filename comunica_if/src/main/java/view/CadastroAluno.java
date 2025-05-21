@@ -41,6 +41,7 @@ public class CadastroAluno extends javax.swing.JDialog {
         }
 
         if (modo == 1) {
+
         }
 
     }
@@ -314,7 +315,7 @@ public class CadastroAluno extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void jTable2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTable2AncestorAdded
-      //jTable2.setModel(new NecessidadeTableModel1(profissionais));
+      jTable2.setModel(new NecessidadeTableModel(necessidades));
     }//GEN-LAST:event_jTable2AncestorAdded
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -430,5 +431,9 @@ public class CadastroAluno extends javax.swing.JDialog {
     private javax.swing.JTable jTable2;
     public javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
+
+    private void verificarCampos() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }
