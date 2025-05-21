@@ -154,7 +154,8 @@ public class CadastroCurso extends javax.swing.JFrame {
         }
         if (modo == 1) {
             Curso curso = retornaCurso();
-            cc.editarCurso(codigo, curso);
+            curso.setCodigo(codigo);
+            cc.editarCurso(curso);
         }
         this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed

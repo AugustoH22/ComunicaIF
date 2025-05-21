@@ -1,15 +1,34 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import daos.HistoricoRestritoDAO;
 import java.util.List;
 import models.HistoricoRestrito;
 
-class HistoricoRestritoController {
-    private HistoricoRestritoDAO dao = new HistoricoRestritoDAO();
-    public void registrarHistorico(HistoricoRestrito h) { dao.salvar(h); }
-    public List<HistoricoRestrito> listarHistoricos() { return dao.listar(); }
+public class HistoricoRestritoController {
+
+    private final HistoricoRestritoDAO dao;
+
+    public HistoricoRestritoController() {
+        dao = new HistoricoRestritoDAO();
+    }
+
+    // Cadastrar novo histórico restrito
+    public void registrarHistorico(HistoricoRestrito h) {
+        dao.salvar(h);
+    }
+
+    // Atualizar histórico restrito existente
+    public void atualizarHistorico(HistoricoRestrito h) {
+        dao.atualizar(h);
+    }
+
+    // Listar todos os históricos restritos
+    public List<HistoricoRestrito> listarHistoricos() {
+        return dao.listar();
+    }
+
+    // Buscar histórico por ID
+    public HistoricoRestrito buscarHistoricoPorId(int id) {
+        return dao.buscarPorId(id);
+    }
 }

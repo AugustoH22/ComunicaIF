@@ -3,24 +3,24 @@ package models;
 import java.util.Objects;
 
 public class Departamento {
-    
-    Integer codigo;
+
+    int codigo;
     String nome;
-    
-    public Departamento(){
-    }
-    
-    public Departamento(Integer id, String nome){
-        this.codigo=codigo;
-        this.nome=nome;
+
+    public Departamento() {
     }
 
-    public Integer getId() {
+    public Departamento(int id, String nome) {
+        this.codigo = codigo;
+        this.nome = nome;
+    }
+
+    public int getId() {
         return codigo;
     }
 
-    public void setId(Integer id) {
-        this.codigo=codigo;
+    public void setId(int id) {
+        this.codigo = codigo;
     }
 
     public String getNome() {
@@ -30,14 +30,19 @@ public class Departamento {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
-        @Override
+
+    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Departamento departamento)) return false;
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Departamento departamento)) {
+            return false;
+        }
         return Objects.equals(codigo, departamento.codigo);
     }
-        @Override
+
+    @Override
     public int hashCode() {
         return Objects.hashCode(codigo);
     }

@@ -1,16 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
-
-import java.util.List;
 import models.Aluno;
 import daos.AlunoDAO;
 
-public class AlunoController {
-    private final AlunoDAO dao = new AlunoDAO();
-    public void cadastrarAluno(Aluno a) { dao.salvar(a); }
+import java.sql.SQLException;
+import java.util.List;
+import models.NecessidadeEspecial;
 
+public class AlunoController {
+
+    private final AlunoDAO dao;
+
+    public AlunoController() {
+        dao = new AlunoDAO();
+    }
+
+    // Cadastrar novo aluno com suas necessidades
+    public void cadastrarAluno(Aluno a) {
+        try {
+            dao.salvar(a);
+        } catch (SQLException e) {
+            System.out.println("Erro ao cadastrar aluno: " + e.getMessage());
+        }
+    }
+
+    // Atualizar aluno e suas necessidades
+    public void atualizarAluno(Aluno a) {
+        dao.atualizar(a);
+    }
+
+    // Listar todos os alunos
+    public List<Aluno> listarAlunos() {
+        return dao.listar();
+    }
+
+    // Buscar aluno por ID
+    public Aluno buscarPorId(int id) {
+        return dao.buscarPorId(id);
+    }
+
+    // Buscar somente as necessidades de um aluno
+    public List<NecessidadeEspecial> buscarNecessidadesDoAluno(int alunoId) {
+        return dao.buscarNecessidadesDoAluno(alunoId);
+    }
 }

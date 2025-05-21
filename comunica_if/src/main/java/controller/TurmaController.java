@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
 import daos.TurmaDAO;
@@ -9,7 +5,30 @@ import java.util.List;
 import models.Turma;
 
 public class TurmaController {
-    private TurmaDAO dao = new TurmaDAO();
-    public void cadastrarTurma(Turma t) { dao.salvar(t); }
-    public List<Turma> listarTurmas() { return dao.listar(); }
+
+    private final TurmaDAO dao;
+
+    public TurmaController() {
+        dao = new TurmaDAO();
+    }
+
+    // Cadastrar nova turma
+    public void cadastrarTurma(Turma t) {
+        dao.salvar(t);
+    }
+
+    // Atualizar turma existente
+    public void atualizarTurma(Turma t) {
+        dao.atualizar(t);
+    }
+
+    // Listar todas as turmas
+    public List<Turma> listarTurmas() {
+        return dao.listar();
+    }
+
+    // Buscar turma por ID
+    public Turma buscarTurmaPorId(int id) {
+        return dao.buscarPorId(id);
+    }
 }

@@ -1,19 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package models;
 
-/**
- *
- * @author augustobraga
- */
 public class Curso {
+
     private int codigo;
     private String nome;
     private boolean superior;
 
-    
+    public Curso() {
+    }
 
     public Curso(int codigo, String nome, boolean superior) {
         this.codigo = codigo;
@@ -22,7 +16,6 @@ public class Curso {
     }
 
     // Getters e Setters
-
     public int getCodigo() {
         return codigo;
     }
@@ -38,7 +31,7 @@ public class Curso {
     public void setNome(String nome) {
         this.nome = nome;
     }
-    
+
     public boolean isSuperior() {
         return superior;
     }

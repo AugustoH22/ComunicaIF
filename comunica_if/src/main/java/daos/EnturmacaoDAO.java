@@ -1,17 +1,22 @@
 package daos;
 
+import BD.Conexao;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import models.Enturmacao;
 
 public class EnturmacaoDAO {
-    
+
     private final Connection conexao;
 
     public EnturmacaoDAO() {
         this.conexao = Conexao.conectar();
     }
-    
+
     public void salvar(Enturmacao e) {
         String sql = "INSERT INTO Enturmacao (codigo, codTurma, codAluno, ano, semestre) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -21,19 +26,19 @@ public class EnturmacaoDAO {
             stmt.setString(4, e.getAno());
             stmt.setString(5, e.getSemestre());
             stmt.executeUpdate();
-            
+
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
                 int idGerado = generatedKeys.getInt(1);
-                e.setCodigo(idGerado);  
+                e.setCodigo(idGerado);
             }
-            
+
         } catch (SQLException ex) {
             System.out.println("Erro ao adicionar Aluno: " + ex.getMessage());
         }
     }
 
-    public void atualizarEnturmacao(Enturmacao enturmacaoAtualizado) {
+    public void atualizar(Enturmacao enturmacaoAtualizado) {
         String sql = "UPDATE Enturmacao SET codTurma = ?, codAluno = ?, ano = ?, semestre = ? WHERE codigo = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, enturmacaoAtualizado.getCodTurma());
@@ -46,4 +51,52 @@ public class EnturmacaoDAO {
             System.out.println("Erro ao atualizar Aluno: " + ex.getMessage());
         }
     }
+
+    public List<Enturmacao> listar() {
+        List<Enturmacao> lista = new ArrayList<>();
+        String sql = "SELECT * FROM Enturmacao";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Enturmacao e = new Enturmacao();
+                e.setCodigo(rs.getInt("codigo"));
+                e.setCodTurma(rs.getInt("codTurma"));
+                e.setCodAluno(rs.getInt("codAluno"));
+                e.setAno(rs.getString("ano"));
+                e.setSemestre(rs.getString("semestre"));
+                lista.add(e);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao listar Enturmações: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+
+    public Enturmacao buscarPorId(int id) {
+        String sql = "SELECT * FROM Enturmacao WHERE codigo = ?";
+        Enturmacao e = null;
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    e = new Enturmacao();
+                    e.setCodigo(rs.getInt("codigo"));
+                    e.setCodTurma(rs.getInt("codTurma"));
+                    e.setCodAluno(rs.getInt("codAluno"));
+                    e.setAno(rs.getString("ano"));
+                    e.setSemestre(rs.getString("semestre"));
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao procurar Enturmação por ID: " + ex.getMessage());
+        }
+
+        return e;
+    }
+
 }

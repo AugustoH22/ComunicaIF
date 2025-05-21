@@ -1,14 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package models;
 
-/**
- *
- * @author augustobraga
- */
 public class Mensagem {
+
     private int codigo;
     private String titulo;
     private String texto;
@@ -26,7 +19,6 @@ public class Mensagem {
     }
 
     // Getters e Setters
-
     public int getCodigo() {
         return codigo;
     }

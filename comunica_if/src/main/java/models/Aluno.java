@@ -1,27 +1,39 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 
 public class Aluno {
-    int id;
+    int codigo;
     String nome;
+    List<NecessidadeEspecial> necessidades = new ArrayList<>();
     
     
     public Aluno(){   
     }
     
-    public Aluno(int id, String nome){
-        this.id = id;
+    public Aluno(int codigo, String nome, List<NecessidadeEspecial> necessidades){
+        this.codigo = codigo;
         this.nome = nome;
+        this.necessidades = necessidades;
+    }
+
+    public List<NecessidadeEspecial> getNecessidades() {
+        return necessidades;
+    }
+
+    public void setNecessidades(List<NecessidadeEspecial> necessidades) {
+        this.necessidades = necessidades;
     }
 
     public int getCodigo() {
-        return id;
+        return codigo;
     }
 
     public void setCodigo(int codigo) {
-        this.id = id;
+        this.codigo = codigo;
     }
 
     public String getNome() {
@@ -36,11 +48,11 @@ public class Aluno {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Aluno aluno)) return false;
-        return Objects.equals(id, aluno.id);
+        return Objects.equals(codigo, aluno.codigo);
     }
     
     @Override
     public int hashCode() {
-        return Objects.hashCode(id);
+        return Objects.hashCode(codigo);
     }
 }

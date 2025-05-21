@@ -12,6 +12,10 @@ public class NecessidadeEspecial {
     private int codigo;
     private String codigoNecessidade;
     private String descricao;
+    
+    public NecessidadeEspecial() {
+        
+    }
 
     public NecessidadeEspecial(int codigo, String codigoNecessidade, String descricao) {
         this.codigo = codigo;
