@@ -23,7 +23,7 @@ public class ServidorDAO {
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             stmt.setInt(1, s.getId());
             stmt.setString(2, s.getNome());
-            stmt.setInt(3, s.getDepartamento().getId());
+            stmt.setInt(3, s.getDepartamento().getCodigo());
             stmt.setInt(4, s.getPermissao().getCodigo());
             stmt.executeUpdate();
 
@@ -43,7 +43,7 @@ public class ServidorDAO {
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, s.getNome());
-            stmt.setInt(2, s.getDepartamento().getId());
+            stmt.setInt(2, s.getDepartamento().getCodigo());
             stmt.setInt(3, s.getPermissao().getCodigo());
             stmt.setInt(4, s.getId());
             stmt.executeUpdate();

@@ -15,11 +15,11 @@ public class Departamento {
         this.nome = nome;
     }
 
-    public int getId() {
+    public int getCodigo() {
         return codigo;
     }
 
-    public void setId(int id) {
+    public void setCodigo(int id) {
         this.codigo = codigo;
     }
 
