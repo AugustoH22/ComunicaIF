@@ -16,12 +16,13 @@ public class AlunoController {
     }
 
     // Cadastrar novo aluno com suas necessidades
-    public void cadastrarAluno(Aluno a) {
+    public int cadastrarAluno(Aluno a) {
         try {
-            dao.salvar(a);
+            return dao.salvar(a);
         } catch (SQLException e) {
             System.out.println("Erro ao cadastrar aluno: " + e.getMessage());
         }
+        return 0;
     }
 
     // Atualizar aluno e suas necessidades

@@ -20,6 +20,9 @@ public class CadastroAluno extends javax.swing.JDialog {
     List<Turma> listaTurmas = new ArrayList<>();
     List<NecessidadeEspecial> listaNecessidades = new ArrayList<>();
     List<NecessidadeEspecial> necessidades = new ArrayList<>();
+    Aluno a;
+    Turma t;
+    Curso c;
     String ano;
     String semestre;
     private final AlunoController ac;
@@ -33,6 +36,7 @@ public class CadastroAluno extends javax.swing.JDialog {
         ec = new EnturmacaoController();
 
         btnSalvar.setEnabled(false);
+        btnExcluir.setEnabled(false);
 
         if (!cursos.isEmpty() && !turmas.isEmpty() && !necessidades.isEmpty()) {
             listaCursos = cursos;
@@ -42,9 +46,9 @@ public class CadastroAluno extends javax.swing.JDialog {
 
         if (modo == 1) {
             Enturmacao e = ec.buscarPorId(codigo);
-            Aluno a = e.getAluno();
-            Turma t = e.getTurma();
-            Curso c = e.getTurma().getCurso();
+            a = e.getAluno();
+            t = e.getTurma();
+            c = e.getTurma().getCurso();
             ano = e.getAno();
             semestre = e.getSemestre();
             this.necessidades = e.getAluno().getNecessidades();
@@ -326,7 +330,49 @@ public class CadastroAluno extends javax.swing.JDialog {
     }//GEN-LAST:event_tfNomeCaretUpdate
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        try {
+            // Verificar se há algum ActionListener no ComboBox antes de removê-lo
+            if (cbNecessidades.getActionListeners().length > 0) {
+                cbNecessidades.removeActionListener(cbNecessidades.getActionListeners()[0]);
+            }
 
+            if (cbNecessidades.getSelectedItem() != null) {
+                NecessidadeEspecial necessidadeSelecionada = (NecessidadeEspecial) cbNecessidades.getSelectedItem();
+
+                // Verificar se a necessidade já está na lista 'necessidades'
+                boolean necessidadeExiste = false;
+                for (NecessidadeEspecial n : necessidades) {
+                    if (n.getCodigo() == necessidadeSelecionada.getCodigo()) {
+                        necessidadeExiste = true;
+                        break;
+                    }
+                }
+
+                if (!necessidadeExiste) {
+                    NecessidadeEspecial novaNecessidade = new NecessidadeEspecial(
+                            necessidadeSelecionada.getCodigo(),
+                            necessidadeSelecionada.getCodigoNecessidade(),
+                            necessidadeSelecionada.getDescricao()
+                    );
+                    necessidades.add(novaNecessidade);
+                }
+
+                // Atualizar a tabela com as necessidades
+                jTable2.setModel(new NecessidadeTableModel(necessidades));
+
+                // Atualizar outros componentes visuais se necessário
+                verificarCampos(); // Você pode manter ou adaptar essa função conforme sua lógica
+
+                if (!necessidades.isEmpty()) {
+                    btnExcluir.setEnabled(true);
+                }
+            }
+        } finally {
+            // Adicionar novamente o ActionListener no ComboBox
+            if (cbNecessidades.getActionListeners().length > 0) {
+                cbNecessidades.addActionListener(cbNecessidades.getActionListeners()[0]);
+            }
+        }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void jTable2AncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_jTable2AncestorAdded
@@ -334,7 +380,29 @@ public class CadastroAluno extends javax.swing.JDialog {
     }//GEN-LAST:event_jTable2AncestorAdded
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        if (jTable2.getSelectedRow() != -1) {
+            int linhaSelecionada = jTable2.getSelectedRow();
+            int codigoSelecionado = (int) jTable2.getValueAt(linhaSelecionada, 0); // Supondo que a coluna 0 é o código
 
+            // Buscar a necessidade correspondente na lista
+            NecessidadeEspecial necessidadeParaRemover = null;
+            for (NecessidadeEspecial n : necessidades) {
+                if (n.getCodigo() == codigoSelecionado) {
+                    necessidadeParaRemover = n;
+                    break;
+                }
+            }
+
+            if (necessidadeParaRemover != null) {
+                necessidades.remove(necessidadeParaRemover);
+                jTable2.setModel(new NecessidadeTableModel(necessidades));
+                verificarCampos(); // Se houver validações adicionais
+
+                if (necessidades.isEmpty()) {
+                    btnExcluir.setEnabled(false);
+                }
+            }
+        }
 
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -448,11 +516,31 @@ public class CadastroAluno extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     private void verificarCampos() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // Verifica se todos os campos estão preenchidos
+        boolean camposPreenchidos = !tfNome.getText().trim().isEmpty()
+                && cbCursos.getSelectedItem() != null
+                && cbTurma.getSelectedItem() != null
+                && cbAno.getSelectedItem() != null
+                && cbSemestre.getSelectedItem() != null;
+
+        // Habilita o botão "Salvar" somente quando todas as condições são atendidas
+        btnSalvar.setEnabled(camposPreenchidos);
     }
 
     private Enturmacao retornaEturmacao() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+        Aluno aux = new Aluno(0, tfNome.getText(), necessidades);
+        int cod = ac.cadastrarAluno(aux);
+        aux.setCodigo(cod);
+        
+        Turma turma = (Turma)cbTurma.getSelectedItem();
+        String anoAux = (String)cbAno.getSelectedItem();
+        String semestreAux = (String)cbSemestre.getSelectedItem();
+        
+        Enturmacao e = new Enturmacao (0, turma, aux, anoAux, semestreAux);
+        
+       return e;
+        
     }
 
 }

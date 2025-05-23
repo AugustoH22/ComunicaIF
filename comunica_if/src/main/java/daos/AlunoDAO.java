@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import models.Aluno;
@@ -18,23 +19,25 @@ public class AlunoDAO {
         this.conexao = Conexao.conectar();
     }
 
-    public void salvar(Aluno a) throws SQLException {
-        String sql = "INSERT INTO Aluno (codigo, nome) VALUES (?, ?)";
+    public int salvar(Aluno a) throws SQLException {
+        String sql = "INSERT INTO Aluno (nome) VALUES (?)"; // Removido 'codigo', assumindo auto_increment
         String sqlNecessidades = "INSERT INTO aluno_necessidades (aluno_id, necessidade_id) VALUES (?, ?)";
 
-        try (PreparedStatement stmt = conexao.prepareStatement(sql); PreparedStatement stmtNecessidades = conexao.prepareStatement(sqlNecessidades)) {
-            stmt.setInt(1, a.getCodigo());
-            stmt.setString(2, a.getNome());
+        int idGerado = -1;
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); PreparedStatement stmtNecessidades = conexao.prepareStatement(sqlNecessidades)) {
+
+            stmt.setString(1, a.getNome());
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
-                int idGerado = generatedKeys.getInt(1);
+                idGerado = generatedKeys.getInt(1);
                 a.setCodigo(idGerado);
 
                 for (NecessidadeEspecial n : a.getNecessidades()) {
-                    stmtNecessidades.setInt(1, idGerado); 
-                    stmtNecessidades.setInt(2, n.getCodigo()); 
+                    stmtNecessidades.setInt(1, idGerado);
+                    stmtNecessidades.setInt(2, n.getCodigo());
                     stmtNecessidades.addBatch();
                 }
 
@@ -43,7 +46,10 @@ public class AlunoDAO {
 
         } catch (SQLException ex) {
             System.out.println("Erro ao adicionar Aluno: " + ex.getMessage());
+            throw ex; // opcional: relança a exceção para tratamento externo
         }
+
+        return idGerado;
     }
 
     public void atualizar(Aluno alunoAtualizado) {
