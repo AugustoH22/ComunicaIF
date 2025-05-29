@@ -1,35 +1,47 @@
 package view;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.swing.JOptionPane;
+import models.Curso;
+import models.Departamento;
+import models.NecessidadeEspecial;
+import models.Permissao;
+import models.Turma;
 
 public class FormPrincipal extends javax.swing.JFrame {
-private int clique = 0;
-private int cliqueAux = 0;
-private static boolean autenticado = false;
 
-private String rota;
+    private int clique = 0;
+    private int cliqueAux = 0;
+    private static boolean autenticado = false;
+    List<Curso> cursos = new ArrayList();
+    List<Turma> turmas = new ArrayList();
+    List<NecessidadeEspecial> necessidades = new ArrayList();
+    List<Departamento> departamentos = new ArrayList();
+    List<Permissao> permissoes = new ArrayList();
+
+    private String rota;
 
     public FormPrincipal() {
-        
-            initComponents();
-            tblDados.getSelectionModel().addListSelectionListener(e -> linhaselecionada());
-            configurarTabela();
-            cbFiltro.setVisible(false);
-            BD.Conexao.conectar();
-        }
-       
+
+        initComponents();
+        tblDados.getSelectionModel().addListSelectionListener(e -> linhaselecionada());
+        configurarTabela();
+        cbFiltro.setVisible(false);
+        BD.Conexao.conectar();
+    }
+
     public static void setAutenticado(boolean status) {
         autenticado = status;
     }
- 
+
     private void configurarTabela() {
-       
+
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -53,7 +65,6 @@ private String rota;
         Necessidades = new javax.swing.JButton();
         Servidor = new javax.swing.JButton();
         Departamento = new javax.swing.JButton();
-        Permissao = new javax.swing.JButton();
         Categoria = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -254,40 +265,28 @@ private String rota;
             }
         });
 
-        Permissao.setBackground(new java.awt.Color(23, 130, 56));
-        Permissao.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        Permissao.setForeground(new java.awt.Color(255, 255, 255));
-        Permissao.setText("Permissão");
-        Permissao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PermissaoActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Permissao, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Necessidades, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Departamento, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Home, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Alunos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Cursos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Turmas, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Necessidades, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Departamento, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(Home, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Alunos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Cursos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Turmas, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(40, 40, 40)
                 .addComponent(Home, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Alunos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -301,9 +300,7 @@ private String rota;
                 .addComponent(Servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Departamento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(Permissao, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         Categoria.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
@@ -365,31 +362,33 @@ private String rota;
     }//GEN-LAST:event_formWindowActivated
 
     private void DepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepartamentoActionPerformed
-        
-        
+
+
     }//GEN-LAST:event_DepartamentoActionPerformed
 
     private void ServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServidorActionPerformed
-        
-        
+
+
     }//GEN-LAST:event_ServidorActionPerformed
 
     private void NecessidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NecessidadesActionPerformed
-       
-       
+
+
     }//GEN-LAST:event_NecessidadesActionPerformed
 
     private void TurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TurmasActionPerformed
-       
-        
+
+
     }//GEN-LAST:event_TurmasActionPerformed
 
     private void CursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CursosActionPerformed
-
+CadastroCurso CadastroCurso = new CadastroCurso(0, 0);
+                CadastroCurso.setVisible(true);
     }//GEN-LAST:event_CursosActionPerformed
 
     private void AlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlunosActionPerformed
-
+        CadastroAluno CadastroAluno = new CadastroAluno(0, 0, cursos, turmas, necessidades);
+        CadastroAluno.setVisible(true);
     }//GEN-LAST:event_AlunosActionPerformed
 
     private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
@@ -397,7 +396,7 @@ private String rota;
     }//GEN-LAST:event_HomeActionPerformed
 
     private void BotaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoExcluirActionPerformed
-             
+
 
     }//GEN-LAST:event_BotaoExcluirActionPerformed
 
@@ -412,7 +411,30 @@ private String rota;
     private void tblDadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDadosMouseClicked
         contaClique();
         if (clique == 2) {
-            clique = 0;           
+            clique = 0;
+            int linhaSelecionada = tblDados.getSelectedRow();
+            int aux = (int) tblDados.getValueAt(linhaSelecionada, 0);
+            if ("Home".equals(rota)) {
+
+            } else if ("Alunos".equals(rota)) {
+                CadastroAluno CadastroAluno = new CadastroAluno(aux, 1, cursos, turmas, necessidades);
+                CadastroAluno.setVisible(true);
+            } else if ("Cursos".equals(rota)) {
+                CadastroCurso CadastroCurso = new CadastroCurso(aux, 1);
+                CadastroCurso.setVisible(true);
+            } else if ("Turmas".equals(rota)) {
+                CadastroTurma CadastroTurma = new CadastroTurma(aux, cursos, 1);
+                CadastroTurma.setVisible(true);
+            } else if ("Necessidades".equals(rota)) {
+                CadastroNecessidade CadastroNecessidade = new CadastroNecessidade(aux, 1);
+                CadastroNecessidade.setVisible(true);
+            } else if ("Servidor".equals(rota)) {
+                CadastroServidor CadastroServidor = new CadastroServidor(aux, departamentos, permissoes, 1);
+                CadastroServidor.setVisible(true);
+            } else if ("Departamento".equals(rota)) {
+                CadastroDepartamento CadastroDepartamento = new CadastroDepartamento(aux, 1);
+                CadastroDepartamento.setVisible(true);
+            }
         }
     }//GEN-LAST:event_tblDadosMouseClicked
 
@@ -421,13 +443,8 @@ private String rota;
     }//GEN-LAST:event_TelaMouseClicked
 
     private void cbFiltroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFiltroItemStateChanged
-      
-    }//GEN-LAST:event_cbFiltroItemStateChanged
 
-    private void PermissaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PermissaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PermissaoActionPerformed
-    
+    }//GEN-LAST:event_cbFiltroItemStateChanged
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
@@ -447,7 +464,6 @@ private String rota;
     private javax.swing.JButton LogOut;
     private javax.swing.JButton Necessidades;
     private javax.swing.JPanel PanelSuperior;
-    private javax.swing.JButton Permissao;
     private javax.swing.JButton Servidor;
     private javax.swing.JPanel Tela;
     private javax.swing.JButton Turmas;
@@ -458,21 +474,19 @@ private String rota;
     private javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTable tblDados;
     // End of variables declaration//GEN-END:variables
-     
 
-    private void contaClique() {       
+    private void contaClique() {
         int linhaSelecionada = tblDados.getSelectedRow();
-        if(clique == 0){
+        if (clique == 0) {
             cliqueAux = linhaSelecionada;
             clique++;
-        }else{
-            if(cliqueAux == linhaSelecionada){
+        } else {
+            if (cliqueAux == linhaSelecionada) {
                 clique++;
-            }else{
+            } else {
                 clique = 0;
-            }       
+            }
         }
     }
-
 
 }

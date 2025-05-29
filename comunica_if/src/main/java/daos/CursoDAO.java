@@ -18,11 +18,10 @@ public class CursoDAO {
     }
 
     public void salvar(Curso c) {
-        String sql = "INSERT INTO Curso (codigo, nome, superior) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO Curso (nome, superior) VALUES (?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, c.getCodigo());
-            stmt.setString(2, c.getNome());
-            stmt.setBoolean(3, c.isSuperior());
+            stmt.setString(1, c.getNome());
+            stmt.setBoolean(2, c.isSuperior());
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();

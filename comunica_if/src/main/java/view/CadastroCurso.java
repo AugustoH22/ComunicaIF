@@ -13,7 +13,7 @@ public class CadastroCurso extends javax.swing.JFrame {
     int modo;
     private final CursoController cc;
 
-    public CadastroCurso(int codigo, String nome, boolean superior, int modo) {
+    public CadastroCurso(int codigo, int modo) {
         initComponents();
         this.codigo = codigo;
         this.modo = modo;
@@ -24,8 +24,7 @@ public class CadastroCurso extends javax.swing.JFrame {
         ensinoMedio.setEnabled(true);
 
         if (this.modo == 1) {
-            this.nome = nome;
-            this.superior = superior;
+
         }
     }
 
@@ -194,7 +193,7 @@ public class CadastroCurso extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new CadastroCurso(0, "0", true, 0).setVisible(true);
+            new CadastroCurso(0,0).setVisible(true);
         });
     }
 

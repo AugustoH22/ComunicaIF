@@ -20,7 +20,7 @@ public class CadastroNecessidade extends javax.swing.JFrame {
     int modo;
     private final NecessidadeEspecialController nc;
 
-    public CadastroNecessidade(int codigo, String codigoNecessidade, String descricao, int modo) {
+    public CadastroNecessidade(int codigo, int modo) {
         initComponents();
         this.codigo = codigo;
         this.modo = modo;
@@ -29,8 +29,7 @@ public class CadastroNecessidade extends javax.swing.JFrame {
         btnSalvar.setEnabled(false);
 
         if (this.modo == 1) {
-            this.codigoNecessidade = codigoNecessidade;
-            this.descricao = descricao;
+
         }
     }
 
@@ -229,7 +228,7 @@ public class CadastroNecessidade extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new CadastroNecessidade(0,"0","0",0).setVisible(true);
+            new CadastroNecessidade(0, 0).setVisible(true);
         });
     }
 

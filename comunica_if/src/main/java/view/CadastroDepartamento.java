@@ -1,6 +1,7 @@
 package view;
 
 import controller.DepartamentoController;
+import javax.swing.JOptionPane;
 import models.Departamento;
 
 public class CadastroDepartamento extends javax.swing.JFrame {
@@ -10,7 +11,7 @@ public class CadastroDepartamento extends javax.swing.JFrame {
     int modo;
     private final DepartamentoController dc;
 
-    public CadastroDepartamento(int codigo, String nome, int modo) {
+    public CadastroDepartamento(int codigo, int modo) {
         initComponents();
         this.codigo = codigo;
         this.modo = modo;
@@ -19,9 +20,10 @@ public class CadastroDepartamento extends javax.swing.JFrame {
         btnSalvar.setEnabled(false);
 
         if (this.modo == 1) {
-            this.nome = nome;
+  
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -34,6 +36,11 @@ public class CadastroDepartamento extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         btnSalvar.setBackground(new java.awt.Color(51, 153, 137));
         btnSalvar.setText("Salvar");
@@ -101,6 +108,23 @@ public class CadastroDepartamento extends javax.swing.JFrame {
         verificarCampos();
     }//GEN-LAST:event_tfNomeCaretUpdate
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        int response = JOptionPane.showConfirmDialog(
+                this,
+                "Deseja sair sem salvar?",
+                "Sair sem salvar?",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
+        );
+
+        // Ação baseada na resposta do usuário
+        if (response == JOptionPane.YES_OPTION) {
+            this.dispose();
+        } else if (response == JOptionPane.NO_OPTION) {
+            // Usuário clicou em "Não"
+        }
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -121,12 +145,12 @@ public class CadastroDepartamento extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CadastroDepartamento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new CadastroDepartamento(0,"0",0).setVisible(true);
+            new CadastroDepartamento(0, 0).setVisible(true);
         });
     }
 
