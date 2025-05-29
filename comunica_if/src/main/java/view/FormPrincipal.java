@@ -1,15 +1,24 @@
 package view;
 
+import controller.AlunoController;
+import controller.CursoController;
+import controller.DepartamentoController;
+import controller.NecessidadeEspecialController;
+import controller.PermissaoController;
+import controller.ServidorController;
+import controller.TurmaController;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import javax.swing.JOptionPane;
+import models.Aluno;
 import models.Curso;
 import models.Departamento;
 import models.NecessidadeEspecial;
 import models.Permissao;
+import models.Servidor;
 import models.Turma;
 
 public class FormPrincipal extends javax.swing.JFrame {
@@ -17,15 +26,32 @@ public class FormPrincipal extends javax.swing.JFrame {
     private int clique = 0;
     private int cliqueAux = 0;
     private static boolean autenticado = false;
+    List<Aluno> alunos = new ArrayList();
     List<Curso> cursos = new ArrayList();
     List<Turma> turmas = new ArrayList();
     List<NecessidadeEspecial> necessidades = new ArrayList();
     List<Departamento> departamentos = new ArrayList();
     List<Permissao> permissoes = new ArrayList();
+    List<Servidor> servidores = new ArrayList();
+    AlunoController ac = new AlunoController();
+    CursoController cc = new CursoController();
+    DepartamentoController dc = new DepartamentoController();
+    NecessidadeEspecialController nc = new NecessidadeEspecialController();
+    PermissaoController pc = new PermissaoController();
+    ServidorController sc = new ServidorController();
+    TurmaController tc = new TurmaController();
 
     private String rota;
 
     public FormPrincipal() {
+
+        alunos = ac.listarAlunos();
+        cursos = cc.listarCursos();
+        turmas = tc.listarTurmas();
+        necessidades = nc.listarNecessidades();
+        departamentos = dc.listarDepartamentos();
+        permissoes = pc.listarPermissoes();
+        servidores = sc.listarServidores();
 
         initComponents();
         tblDados.getSelectionModel().addListSelectionListener(e -> linhaselecionada());
@@ -36,10 +62,6 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     public static void setAutenticado(boolean status) {
         autenticado = status;
-    }
-
-    private void configurarTabela() {
-
     }
 
     @SuppressWarnings("unchecked")
@@ -382,13 +404,14 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_TurmasActionPerformed
 
     private void CursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CursosActionPerformed
-CadastroCurso CadastroCurso = new CadastroCurso(0, 0);
-                CadastroCurso.setVisible(true);
+        CadastroCurso CadastroCurso = new CadastroCurso(0, 0);
+        CadastroCurso.setVisible(true);
     }//GEN-LAST:event_CursosActionPerformed
 
     private void AlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlunosActionPerformed
         CadastroAluno CadastroAluno = new CadastroAluno(0, 0, cursos, turmas, necessidades);
         CadastroAluno.setVisible(true);
+        configurarTabela();
     }//GEN-LAST:event_AlunosActionPerformed
 
     private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
@@ -487,6 +510,59 @@ CadastroCurso CadastroCurso = new CadastroCurso(0, 0);
                 clique = 0;
             }
         }
+    }
+
+    private void configurarTabela() {
+        if (null != rota) {
+            switch (rota) {
+                case "Home" ->
+                    atulizarTabelaHome();
+                case "Alunos" ->
+                    atulizarTabelaAluno();
+                case "Cursos" ->
+                    atulizarTabelaCurso();
+                case "Turmas" ->
+                    atulizarTabelaTurma();
+                case "Necessidades" ->
+                    atulizarTabelaNecessidade();
+                case "Servidor" ->
+                    atulizarTabelaServidor();
+                case "Departamento" ->
+                    atulizarTabelaDepartamento();
+                default -> {
+                }
+            }
+        }
+    }
+
+    private void atulizarTabelaHome() {
+
+    }
+
+    private void atulizarTabelaAluno() {
+        Collections.sort(alunos, Comparator.comparingInt(Aluno::getCodigo));
+        tblDados.setModel(new AlunoTabelModel(alunos));
+    }
+
+    private void atulizarTabelaCurso() {
+        Collections.sort(cursos, Comparator.comparingInt(Curso::getCodigo));
+        tblDados.setModel(new CursoTabelModel(cursos));
+    }
+
+    private void atulizarTabelaTurma() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void atulizarTabelaNecessidade() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void atulizarTabelaDepartamento() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private void atulizarTabelaServidor() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
