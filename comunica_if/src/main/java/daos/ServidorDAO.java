@@ -21,7 +21,7 @@ public class ServidorDAO {
         String sql = "INSERT INTO Servidor (id, nome, departamento_id, permissao_id) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, s.getId());
+            stmt.setInt(1, s.getCodigo());
             stmt.setString(2, s.getNome());
             stmt.setInt(3, s.getDepartamento().getCodigo());
             stmt.setInt(4, s.getPermissao().getCodigo());
@@ -29,7 +29,7 @@ public class ServidorDAO {
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
-                s.setId(generatedKeys.getInt(1));
+                s.setCodigo(generatedKeys.getInt(1));
             }
 
         } catch (SQLException ex) {
@@ -45,7 +45,7 @@ public class ServidorDAO {
             stmt.setString(1, s.getNome());
             stmt.setInt(2, s.getDepartamento().getCodigo());
             stmt.setInt(3, s.getPermissao().getCodigo());
-            stmt.setInt(4, s.getId());
+            stmt.setInt(4, s.getCodigo());
             stmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -62,7 +62,7 @@ public class ServidorDAO {
 
             while (rs.next()) {
                 Servidor s = new Servidor();
-                s.setId(rs.getInt("id"));
+                s.setCodigo(rs.getInt("id"));
                 s.setNome(rs.getString("nome"));
 
                 // Busca o departamento e a permissão pelos IDs
@@ -92,7 +92,7 @@ public class ServidorDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     s = new Servidor();
-                    s.setId(rs.getInt("id"));
+                    s.setCodigo(rs.getInt("id"));
                     s.setNome(rs.getString("nome"));
 
                     Departamento departamento = new DepartamentoDAO().buscarPorId(rs.getInt("departamento_id"));

@@ -253,15 +253,15 @@
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="Necessidades" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
-                              <Component id="Servidor" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
-                              <Component id="Departamento" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
+                              <Component id="btnNecessidades" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
+                              <Component id="btnServidor" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
+                              <Component id="btnDepartamento" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="Home" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
-                              <Component id="Alunos" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
-                              <Component id="Cursos" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
-                              <Component id="Turmas" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
+                              <Component id="btnHome" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
+                              <Component id="btnAlunos" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
+                              <Component id="btnCursos" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
+                              <Component id="btnTurmas" alignment="0" min="-2" pref="197" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="37" max="32767" attributes="0"/>
@@ -272,26 +272,26 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                      <Component id="Home" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnHome" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Alunos" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnAlunos" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Cursos" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnCursos" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Turmas" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnTurmas" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Necessidades" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnNecessidades" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Servidor" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnServidor" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="Departamento" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnDepartamento" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace pref="48" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="Home">
+            <Component class="javax.swing.JButton" name="btnHome">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="35" green="82" red="17" type="rgb"/>
@@ -305,10 +305,10 @@
                 <Property name="text" type="java.lang.String" value="Home"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HomeActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHomeActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Alunos">
+            <Component class="javax.swing.JButton" name="btnAlunos">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="38" green="82" red="17" type="rgb"/>
@@ -322,10 +322,10 @@
                 <Property name="text" type="java.lang.String" value="Alunos"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AlunosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAlunosActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Cursos">
+            <Component class="javax.swing.JButton" name="btnCursos">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="38" green="82" red="17" type="rgb"/>
@@ -339,10 +339,10 @@
                 <Property name="text" type="java.lang.String" value="Cursos"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CursosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCursosActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Turmas">
+            <Component class="javax.swing.JButton" name="btnTurmas">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="38" green="82" red="17" type="rgb"/>
@@ -356,10 +356,10 @@
                 <Property name="text" type="java.lang.String" value="Turmas"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TurmasActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTurmasActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Necessidades">
+            <Component class="javax.swing.JButton" name="btnNecessidades">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="38" green="82" red="17" type="rgb"/>
@@ -373,10 +373,10 @@
                 <Property name="text" type="java.lang.String" value="Necessidades"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NecessidadesActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNecessidadesActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Servidor">
+            <Component class="javax.swing.JButton" name="btnServidor">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="38" green="82" red="17" type="rgb"/>
@@ -390,10 +390,10 @@
                 <Property name="text" type="java.lang.String" value="Servidor"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ServidorActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnServidorActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="Departamento">
+            <Component class="javax.swing.JButton" name="btnDepartamento">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="38" green="82" red="17" type="rgb"/>
@@ -407,7 +407,7 @@
                 <Property name="text" type="java.lang.String" value="Departamento"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DepartamentoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDepartamentoActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

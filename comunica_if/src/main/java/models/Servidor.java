@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Servidor {
     
-    Integer id;
+    int codigo;
     String nome;
     Departamento departamento;
     Permissao permissao;
@@ -12,19 +12,19 @@ public class Servidor {
     public Servidor(){
     }
     
-    public Servidor(Integer id, String nome, Departamento departamento, Permissao permissao){
-        this.id = id;
+    public Servidor(int codigo, String nome, Departamento departamento, Permissao permissao){
+        this.codigo = codigo;
         this.nome = nome;
         this.departamento = departamento;
         this.permissao = permissao;
     }
 
-    public Integer getId() {
-        return id;
+    public int getCodigo() {
+        return codigo;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getNome() {
@@ -54,7 +54,7 @@ public class Servidor {
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.codigo);
         return hash;
     }
     
@@ -62,6 +62,6 @@ public class Servidor {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Servidor servidor)) return false;
-        return Objects.equals(id, servidor.id);
+        return Objects.equals(codigo, servidor.codigo);
     }
 }

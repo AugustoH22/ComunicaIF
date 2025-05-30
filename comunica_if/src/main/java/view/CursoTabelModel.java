@@ -6,13 +6,14 @@ import java.util.List;
 import models.Curso;
 
 public class CursoTabelModel extends AbstractTableModel {
+
     private final List<Curso> cursos;
-    private final String[] colunas = {"Código","Nome", "Superior"};
+    private final String[] colunas = {"Código", "Nome", "Ensino"};
 
     private CursoController cc = new CursoController();
-    
+
     public CursoTabelModel(List<Curso> cursos) {
-        this.cursos=cursos;
+        this.cursos = cursos;
     }
 
     public CursoTabelModel() {
@@ -37,6 +38,12 @@ public class CursoTabelModel extends AbstractTableModel {
                 return cc.getCodigo();
             case 1:
                 return cc.getNome();
+            case 2:
+                if(cc.isSuperior()){
+                   return "Superior"; 
+                }else{
+                   return "Médio"; 
+                }               
             default:
                 return null;
         }

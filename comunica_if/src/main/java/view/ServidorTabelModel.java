@@ -34,7 +34,7 @@ public class ServidorTabelModel extends AbstractTableModel {
         Servidor sc = servidores.get(rowIndex);
         switch (columnIndex) {
             case 0:
-                return sc.getId();
+                return sc.getCodigo();
             case 1:
                 return sc.getNome();
             case 2:

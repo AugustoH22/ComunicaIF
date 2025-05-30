@@ -80,13 +80,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         cbFiltro = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        Home = new javax.swing.JButton();
-        Alunos = new javax.swing.JButton();
-        Cursos = new javax.swing.JButton();
-        Turmas = new javax.swing.JButton();
-        Necessidades = new javax.swing.JButton();
-        Servidor = new javax.swing.JButton();
-        Departamento = new javax.swing.JButton();
+        btnHome = new javax.swing.JButton();
+        btnAlunos = new javax.swing.JButton();
+        btnCursos = new javax.swing.JButton();
+        btnTurmas = new javax.swing.JButton();
+        btnNecessidades = new javax.swing.JButton();
+        btnServidor = new javax.swing.JButton();
+        btnDepartamento = new javax.swing.JButton();
         Categoria = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -217,73 +217,73 @@ public class FormPrincipal extends javax.swing.JFrame {
         jPanel2.setAlignmentX(0.0F);
         jPanel2.setAlignmentY(0.0F);
 
-        Home.setBackground(new java.awt.Color(23, 130, 53));
-        Home.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        Home.setForeground(new java.awt.Color(255, 255, 255));
-        Home.setText("Home");
-        Home.addActionListener(new java.awt.event.ActionListener() {
+        btnHome.setBackground(new java.awt.Color(23, 130, 53));
+        btnHome.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        btnHome.setForeground(new java.awt.Color(255, 255, 255));
+        btnHome.setText("Home");
+        btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HomeActionPerformed(evt);
+                btnHomeActionPerformed(evt);
             }
         });
 
-        Alunos.setBackground(new java.awt.Color(23, 130, 56));
-        Alunos.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        Alunos.setForeground(new java.awt.Color(255, 255, 255));
-        Alunos.setText("Alunos");
-        Alunos.addActionListener(new java.awt.event.ActionListener() {
+        btnAlunos.setBackground(new java.awt.Color(23, 130, 56));
+        btnAlunos.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        btnAlunos.setForeground(new java.awt.Color(255, 255, 255));
+        btnAlunos.setText("Alunos");
+        btnAlunos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AlunosActionPerformed(evt);
+                btnAlunosActionPerformed(evt);
             }
         });
 
-        Cursos.setBackground(new java.awt.Color(23, 130, 56));
-        Cursos.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        Cursos.setForeground(new java.awt.Color(255, 255, 255));
-        Cursos.setText("Cursos");
-        Cursos.addActionListener(new java.awt.event.ActionListener() {
+        btnCursos.setBackground(new java.awt.Color(23, 130, 56));
+        btnCursos.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        btnCursos.setForeground(new java.awt.Color(255, 255, 255));
+        btnCursos.setText("Cursos");
+        btnCursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CursosActionPerformed(evt);
+                btnCursosActionPerformed(evt);
             }
         });
 
-        Turmas.setBackground(new java.awt.Color(23, 130, 56));
-        Turmas.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        Turmas.setForeground(new java.awt.Color(255, 255, 255));
-        Turmas.setText("Turmas");
-        Turmas.addActionListener(new java.awt.event.ActionListener() {
+        btnTurmas.setBackground(new java.awt.Color(23, 130, 56));
+        btnTurmas.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        btnTurmas.setForeground(new java.awt.Color(255, 255, 255));
+        btnTurmas.setText("Turmas");
+        btnTurmas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TurmasActionPerformed(evt);
+                btnTurmasActionPerformed(evt);
             }
         });
 
-        Necessidades.setBackground(new java.awt.Color(23, 130, 56));
-        Necessidades.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        Necessidades.setForeground(new java.awt.Color(255, 255, 255));
-        Necessidades.setText("Necessidades");
-        Necessidades.addActionListener(new java.awt.event.ActionListener() {
+        btnNecessidades.setBackground(new java.awt.Color(23, 130, 56));
+        btnNecessidades.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        btnNecessidades.setForeground(new java.awt.Color(255, 255, 255));
+        btnNecessidades.setText("Necessidades");
+        btnNecessidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NecessidadesActionPerformed(evt);
+                btnNecessidadesActionPerformed(evt);
             }
         });
 
-        Servidor.setBackground(new java.awt.Color(23, 130, 56));
-        Servidor.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        Servidor.setForeground(new java.awt.Color(255, 255, 255));
-        Servidor.setText("Servidor");
-        Servidor.addActionListener(new java.awt.event.ActionListener() {
+        btnServidor.setBackground(new java.awt.Color(23, 130, 56));
+        btnServidor.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        btnServidor.setForeground(new java.awt.Color(255, 255, 255));
+        btnServidor.setText("Servidor");
+        btnServidor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ServidorActionPerformed(evt);
+                btnServidorActionPerformed(evt);
             }
         });
 
-        Departamento.setBackground(new java.awt.Color(23, 130, 56));
-        Departamento.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        Departamento.setForeground(new java.awt.Color(255, 255, 255));
-        Departamento.setText("Departamento");
-        Departamento.addActionListener(new java.awt.event.ActionListener() {
+        btnDepartamento.setBackground(new java.awt.Color(23, 130, 56));
+        btnDepartamento.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        btnDepartamento.setForeground(new java.awt.Color(255, 255, 255));
+        btnDepartamento.setText("Departamento");
+        btnDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DepartamentoActionPerformed(evt);
+                btnDepartamentoActionPerformed(evt);
             }
         });
 
@@ -295,33 +295,33 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Necessidades, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Departamento, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnNecessidades, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(Home, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Alunos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Cursos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Turmas, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(Home, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Alunos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Cursos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Turmas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Necessidades, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNecessidades, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Servidor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Departamento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
@@ -383,40 +383,88 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowActivated
 
-    private void DepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepartamentoActionPerformed
+    private void btnDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepartamentoActionPerformed
+        Diretorio.setText("Departamentos");
+        rota = "Departamento";
+        cbFiltro.setVisible(false);
 
-
-    }//GEN-LAST:event_DepartamentoActionPerformed
-
-    private void ServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServidorActionPerformed
-
-
-    }//GEN-LAST:event_ServidorActionPerformed
-
-    private void NecessidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NecessidadesActionPerformed
-
-
-    }//GEN-LAST:event_NecessidadesActionPerformed
-
-    private void TurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TurmasActionPerformed
-
-
-    }//GEN-LAST:event_TurmasActionPerformed
-
-    private void CursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CursosActionPerformed
-        CadastroCurso CadastroCurso = new CadastroCurso(0, 0);
-        CadastroCurso.setVisible(true);
-    }//GEN-LAST:event_CursosActionPerformed
-
-    private void AlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlunosActionPerformed
-        CadastroAluno CadastroAluno = new CadastroAluno(0, 0, cursos, turmas, necessidades);
-        CadastroAluno.setVisible(true);
         configurarTabela();
-    }//GEN-LAST:event_AlunosActionPerformed
 
-    private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
+        BotaoNovo.setEnabled(true);
+        BotaoExcluir.setEnabled(false);
+        BotaoExcluir.setVisible(true);
+        clique = 0;
+    }//GEN-LAST:event_btnDepartamentoActionPerformed
 
-    }//GEN-LAST:event_HomeActionPerformed
+    private void btnServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServidorActionPerformed
+        Diretorio.setText("Servidores");
+        rota = "Servidor";
+        cbFiltro.setVisible(false);
+
+        configurarTabela();
+
+        BotaoNovo.setEnabled(true);
+        BotaoExcluir.setEnabled(false);
+        BotaoExcluir.setVisible(true);
+        clique = 0;
+    }//GEN-LAST:event_btnServidorActionPerformed
+
+    private void btnNecessidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNecessidadesActionPerformed
+        Diretorio.setText("Necessidades");
+        rota = "Necessidades";
+        cbFiltro.setVisible(false);
+
+        configurarTabela();
+
+        BotaoNovo.setEnabled(true);
+        BotaoExcluir.setEnabled(false);
+        BotaoExcluir.setVisible(true);
+        clique = 0;
+    }//GEN-LAST:event_btnNecessidadesActionPerformed
+
+    private void btnTurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTurmasActionPerformed
+        Diretorio.setText("Turmas");
+        rota = "Turmas";
+        cbFiltro.setVisible(false);
+
+        configurarTabela();
+
+        BotaoNovo.setEnabled(true);
+        BotaoExcluir.setEnabled(false);
+        BotaoExcluir.setVisible(true);
+        clique = 0;
+
+    }//GEN-LAST:event_btnTurmasActionPerformed
+
+    private void btnCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCursosActionPerformed
+        Diretorio.setText("Cursos");
+        rota = "Cursos";
+        cbFiltro.setVisible(false);
+
+        configurarTabela();
+
+        BotaoNovo.setEnabled(true);
+        BotaoExcluir.setEnabled(false);
+        BotaoExcluir.setVisible(true);
+        clique = 0;
+    }//GEN-LAST:event_btnCursosActionPerformed
+
+    private void btnAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlunosActionPerformed
+        Diretorio.setText("Alunos");
+        rota = "Alunos";
+        cbFiltro.setVisible(false);
+
+        configurarTabela();
+
+        BotaoNovo.setEnabled(true);
+        BotaoExcluir.setEnabled(false);
+        BotaoExcluir.setVisible(true);
+        clique = 0;
+    }//GEN-LAST:event_btnAlunosActionPerformed
+
+    private void btnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHomeActionPerformed
+
+    }//GEN-LAST:event_btnHomeActionPerformed
 
     private void BotaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoExcluirActionPerformed
 
@@ -476,20 +524,20 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Alunos;
     private javax.swing.JButton BotaoExcluir;
     private javax.swing.JButton BotaoNovo;
     private javax.swing.JLabel Categoria;
-    private javax.swing.JButton Cursos;
-    private javax.swing.JButton Departamento;
     private javax.swing.JLabel Diretorio;
-    private javax.swing.JButton Home;
     private javax.swing.JButton LogOut;
-    private javax.swing.JButton Necessidades;
     private javax.swing.JPanel PanelSuperior;
-    private javax.swing.JButton Servidor;
     private javax.swing.JPanel Tela;
-    private javax.swing.JButton Turmas;
+    private javax.swing.JButton btnAlunos;
+    private javax.swing.JButton btnCursos;
+    private javax.swing.JButton btnDepartamento;
+    private javax.swing.JButton btnHome;
+    private javax.swing.JButton btnNecessidades;
+    private javax.swing.JButton btnServidor;
+    private javax.swing.JButton btnTurmas;
     private javax.swing.JComboBox cbFiltro;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
@@ -550,19 +598,23 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
 
     private void atulizarTabelaTurma() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Collections.sort(turmas, Comparator.comparingInt(Turma::getCodigo));
+        tblDados.setModel(new TurmaTabelModel(turmas));
     }
 
     private void atulizarTabelaNecessidade() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Collections.sort(necessidades, Comparator.comparingInt(NecessidadeEspecial::getCodigo));
+        tblDados.setModel(new NecessidadeTableModel(necessidades));
     }
 
     private void atulizarTabelaDepartamento() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Collections.sort(departamentos, Comparator.comparingInt(Departamento::getCodigo));
+        tblDados.setModel(new DepartamentoTabelModel(departamentos));
     }
 
     private void atulizarTabelaServidor() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Collections.sort(servidores, Comparator.comparingInt(Servidor::getCodigo));
+        tblDados.setModel(new ServidorTabelModel(servidores));
     }
 
 }
