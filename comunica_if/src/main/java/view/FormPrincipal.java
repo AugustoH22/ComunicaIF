@@ -472,7 +472,27 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_BotaoExcluirActionPerformed
 
     private void BotaoNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoNovoActionPerformed
+        if ("Home".equals(rota)) {
 
+        } else if ("Alunos".equals(rota)) {
+            CadastroAluno CadastroAluno = new CadastroAluno(0, 0, cursos, turmas, necessidades);
+            CadastroAluno.setVisible(true);
+        } else if ("Cursos".equals(rota)) {
+            CadastroCurso CadastroCurso = new CadastroCurso(0, 0);
+            CadastroCurso.setVisible(true);
+        } else if ("Turmas".equals(rota)) {
+            CadastroTurma CadastroTurma = new CadastroTurma(0, cursos, 0);
+            CadastroTurma.setVisible(true);
+        } else if ("Necessidades".equals(rota)) {
+            CadastroNecessidade CadastroNecessidade = new CadastroNecessidade(0, 0);
+            CadastroNecessidade.setVisible(true);
+        } else if ("Servidor".equals(rota)) {
+            CadastroServidor CadastroServidor = new CadastroServidor(0, departamentos, permissoes, 0);
+            CadastroServidor.setVisible(true);
+        } else if ("Departamento".equals(rota)) {
+            CadastroDepartamento CadastroDepartamento = new CadastroDepartamento(0, 0);
+            CadastroDepartamento.setVisible(true);
+        }
     }//GEN-LAST:event_BotaoNovoActionPerformed
 
     private void LogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutActionPerformed

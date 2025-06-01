@@ -73,5 +73,10 @@ public class Turma {
         if (this == o) return true;
         if (!(o instanceof Turma turma)) return false;
         return Objects.equals(codigo, turma.codigo);
-    }  
+    } 
+    
+    @Override
+    public String toString() {
+        return this.getNome();
+    }
 }

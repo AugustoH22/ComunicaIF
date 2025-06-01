@@ -39,4 +39,9 @@ public class Curso {
     public void setSuperior(boolean superior) {
         this.superior = superior;
     }
+    
+    @Override
+    public String toString() {
+        return this.getNome();
+    }
 }

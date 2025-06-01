@@ -64,4 +64,9 @@ public class Servidor {
         if (!(o instanceof Servidor servidor)) return false;
         return Objects.equals(codigo, servidor.codigo);
     }
+    
+    @Override
+    public String toString() {
+        return this.getNome();
+    }
 }

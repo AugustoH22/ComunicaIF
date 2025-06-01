@@ -55,4 +55,9 @@ public class Aluno {
     public int hashCode() {
         return Objects.hashCode(codigo);
     }
+    
+    @Override
+    public String toString() {
+        return this.getNome();
+    }
 }
