@@ -38,9 +38,12 @@ public class CadastroAluno extends javax.swing.JDialog {
         btnSalvar.setEnabled(false);
         btnExcluir.setEnabled(false);
 
-        if (!cursos.isEmpty() && !turmas.isEmpty() && !necessidades.isEmpty()) {
+        if (!cursos.isEmpty() && !turmas.isEmpty()) {
             listaCursos = cursos;
             listaTurmas = turmas;
+        }
+        
+        if (!necessidades.isEmpty()) {
             listaNecessidades = necessidades;
         }
 
@@ -461,8 +464,8 @@ public class CadastroAluno extends javax.swing.JDialog {
 
     private void cbSemestreAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbSemestreAncestorAdded
         List<String> listaSemestre = new ArrayList<>();
-        listaSemestre.add("1° Semestre");
-        listaSemestre.add("2° Semestre");
+        listaSemestre.add("1° Sem.");
+        listaSemestre.add("2° Sem.");
 
         if (modo == 0) {
             cbSemestre.removeAll();

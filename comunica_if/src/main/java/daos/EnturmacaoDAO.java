@@ -22,13 +22,12 @@ public class EnturmacaoDAO {
     }
     
     public void salvar(Enturmacao e) {
-        String sql = "INSERT INTO Enturmacao (codigo, codTurma, codAluno, ano, semestre) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Enturmacao (codTurma, codAluno, ano, semestre) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, e.getCodigo());
-            stmt.setInt(2, e.getTurma().getCodigo());
-            stmt.setInt(3, e.getAluno().getCodigo());
-            stmt.setString(4, e.getAno());
-            stmt.setString(5, e.getSemestre());
+            stmt.setInt(1, e.getTurma().getCodigo());
+            stmt.setInt(2, e.getAluno().getCodigo());
+            stmt.setString(3, e.getAno());
+            stmt.setString(4, e.getSemestre());
             stmt.executeUpdate();
             
             ResultSet generatedKeys = stmt.getGeneratedKeys();

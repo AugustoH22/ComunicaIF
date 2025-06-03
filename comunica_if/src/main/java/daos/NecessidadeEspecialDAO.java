@@ -18,11 +18,10 @@ public class NecessidadeEspecialDAO {
     }
 
     public void salvar(NecessidadeEspecial e) {
-        String sql = "INSERT INTO NecessidadeEspecial (codigo, codigoNecessidade, descricao ) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO NecessidadeEspecial (codigoNecessidade, descricao ) VALUES (?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setInt(1, e.getCodigo());
-            stmt.setString(2, e.getCodigoNecessidade());
-            stmt.setString(3, e.getDescricao());
+            stmt.setString(1, e.getCodigoNecessidade());
+            stmt.setString(2, e.getDescricao());
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();

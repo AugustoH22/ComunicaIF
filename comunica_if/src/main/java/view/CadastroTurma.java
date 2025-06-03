@@ -260,8 +260,8 @@ public class CadastroTurma extends javax.swing.JFrame {
 
     private void cbSemestreAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbSemestreAncestorAdded
         List<String> listaSemestre = new ArrayList<>();
-        listaSemestre.add("1° Semestre");
-        listaSemestre.add("2° Semestre");
+        listaSemestre.add("1° Sem.");
+        listaSemestre.add("2° Sem.");
 
         if (modo == 0) {
             cbSemestre.removeAll();

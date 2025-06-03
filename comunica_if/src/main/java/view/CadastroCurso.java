@@ -9,7 +9,7 @@ public class CadastroCurso extends javax.swing.JFrame {
 
     int codigo;
     String nome;
-    boolean superior;
+    boolean superior = true;
     int modo;
     private final CursoController cc;
 
