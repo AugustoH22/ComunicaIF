@@ -11,6 +11,10 @@
             <artifactId>AbsoluteLayout</artifactId>
             <version>RELEASE220</version>
         </dependency>
+        <dependecy>
+            <grouId>org.springframework.boot</grouId>
+            <artifactyId>spring-boot-started</artifactyId>
+        </dependecy>
         <dependency>
             <groupId>com.toedter</groupId>
             <artifactId>jcalendar</artifactId>

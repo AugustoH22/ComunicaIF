@@ -31,7 +31,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel10" min="-2" pref="63" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jTextField5" max="32767" attributes="0"/>
+                      <Component id="assText" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -40,15 +40,15 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jTextField10" max="32767" attributes="0"/>
+                          <Component id="TextoMensagem" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="jTextField8" min="-2" pref="227" max="-2" attributes="0"/>
+                              <Component id="cursoText" min="-2" pref="227" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="BuscaCursoMsg" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel12" min="-2" pref="63" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField9" min="-2" pref="227" max="-2" attributes="0"/>
+                              <Component id="turmaText" min="-2" pref="227" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="BuscaTurmaMsg" max="32767" attributes="0"/>
                           </Group>
@@ -60,7 +60,7 @@
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel6" min="-2" pref="63" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jTextField1" min="-2" pref="607" max="-2" attributes="0"/>
+                              <Component id="destText" min="-2" pref="607" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="BuscaTurmaMsg1" min="-2" pref="84" max="-2" attributes="0"/>
                           </Group>
@@ -81,13 +81,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jTextField1" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Component id="destText" min="-2" pref="30" max="-2" attributes="0"/>
                   <Component id="jLabel6" max="32767" attributes="0"/>
                   <Component id="BuscaTurmaMsg1" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="jTextField5" pref="30" max="32767" attributes="0"/>
+                  <Component id="assText" pref="30" max="32767" attributes="0"/>
                   <Component id="jLabel10" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -96,11 +96,11 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jTextField8" pref="30" max="32767" attributes="0"/>
+                              <Component id="cursoText" pref="30" max="32767" attributes="0"/>
                               <Component id="jLabel11" max="32767" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jTextField9" alignment="0" max="32767" attributes="0"/>
+                              <Component id="turmaText" alignment="0" max="32767" attributes="0"/>
                               <Component id="jLabel12" alignment="0" pref="30" max="32767" attributes="0"/>
                               <Component id="BuscaTurmaMsg" max="32767" attributes="0"/>
                           </Group>
@@ -111,7 +111,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel13" min="-2" pref="29" max="-2" attributes="0"/>
-                  <Component id="jTextField10" min="-2" pref="293" max="-2" attributes="0"/>
+                  <Component id="TextoMensagem" min="-2" pref="293" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -134,23 +134,23 @@
         <Property name="text" type="java.lang.String" value="Assunto:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="destText">
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField5">
+    <Component class="javax.swing.JTextField" name="assText">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel11">
       <Properties>
         <Property name="text" type="java.lang.String" value="Curso:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField8">
+    <Component class="javax.swing.JTextField" name="cursoText">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel12">
       <Properties>
         <Property name="text" type="java.lang.String" value="Turma:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField9">
+    <Component class="javax.swing.JTextField" name="turmaText">
     </Component>
     <Component class="javax.swing.JButton" name="BuscaCursoMsg">
       <Properties>
@@ -167,7 +167,7 @@
         <Property name="text" type="java.lang.String" value="Texto:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField10">
+    <Component class="javax.swing.JTextField" name="TextoMensagem">
     </Component>
     <Component class="javax.swing.JButton" name="CancelMsg">
       <Properties>
@@ -181,11 +181,17 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Enviar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EnviarMsgActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BuscaTurmaMsg1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BuscaTurmaMsg1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
