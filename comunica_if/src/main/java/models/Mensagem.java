@@ -1,6 +1,8 @@
 package models;
 
-public class Mensagem {
+import java.io.Serializable;
+
+public class  Mensagem implements Serializable{
 
     private int codigo;
     private String titulo;
@@ -16,6 +18,8 @@ public class Mensagem {
         this.codServidorRemetente = remetente;
         this.codServidorDestinatario = destinatario;
         this.dataHoraCriacao = dataHora;
+    }
+    public Mensagem(){
     }
 
     // Getters e Setters
@@ -34,7 +38,7 @@ public class Mensagem {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
-
+    
     public String getTexto() {
         return texto;
     }
@@ -47,7 +51,7 @@ public class Mensagem {
         return codServidorRemetente;
     }
 
-    public void setCodServidorRemetente(int codServidorRemetente) {
+    public void setCodServidorRemetente() {
         this.codServidorRemetente = codServidorRemetente;
     }
 
@@ -55,7 +59,7 @@ public class Mensagem {
         return codServidorDestinatario;
     }
 
-    public void setCodServidorDestinatario(int codServidorDestinatario) {
+    public void setCodServidorDestinatario() {
         this.codServidorDestinatario = codServidorDestinatario;
     }
 
@@ -65,5 +69,9 @@ public class Mensagem {
 
     public void setDataHoraCriacao(String dataHoraCriacao) {
         this.dataHoraCriacao = dataHoraCriacao;
+    }
+
+    public void setCodServidorDestinatario(int codDestinatario) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
