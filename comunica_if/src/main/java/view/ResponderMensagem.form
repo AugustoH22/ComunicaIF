@@ -216,6 +216,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Sair"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SairMsgActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="ResponderMsg">
       <Properties>
@@ -224,6 +227,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Responder"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResponderMsgActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

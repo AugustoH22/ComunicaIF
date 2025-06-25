@@ -95,9 +95,19 @@ private int cliqueAux = 0;
         jLabel9.setText("Mensagem:");
 
         SairMsg.setText("Sair");
+        SairMsg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SairMsgActionPerformed(evt);
+            }
+        });
 
         ResponderMsg.setBackground(new java.awt.Color(51, 153, 137));
         ResponderMsg.setText("Responder");
+        ResponderMsg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ResponderMsgActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -219,6 +229,15 @@ private int cliqueAux = 0;
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField7ActionPerformed
+
+    private void ResponderMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResponderMsgActionPerformed
+       CadastroMensagem cadMsg = new CadastroMensagem();
+       cadMsg.setVisible(true);
+    }//GEN-LAST:event_ResponderMsgActionPerformed
+
+    private void SairMsgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairMsgActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_SairMsgActionPerformed
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

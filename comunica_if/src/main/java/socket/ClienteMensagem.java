@@ -35,7 +35,6 @@ public class ClienteMensagem {
                 while (true) {
                     Mensagem m = (Mensagem) entrada.readObject();
                     System.out.println("Nova mensagem de " + m.getCodServidorRemetente()+ ": " + m.getTexto());
-                    // Aqui você pode repassar para a tela
                 }
             } catch (Exception e) {
                 System.out.println("Desconectado ou erro: " + e.getMessage());

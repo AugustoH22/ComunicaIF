@@ -16,8 +16,8 @@ public class ServidorMensagem {
     private static ConcurrentHashMap<String, ObjectOutputStream> clientes = new ConcurrentHashMap<>();
 
     public static void main(String[] args) throws IOException {
-        ServerSocket servidor = new ServerSocket(12345);
-        System.out.println("Servidor iniciado na porta 12345...");
+        ServerSocket servidor = new ServerSocket(8080);
+        System.out.println("Servidor iniciado na porta 8080...");
 
         while (true) {
             Socket socket = servidor.accept();
