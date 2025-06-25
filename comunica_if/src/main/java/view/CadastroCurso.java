@@ -9,7 +9,6 @@ public class CadastroCurso extends javax.swing.JFrame {
 
     int codigo;
     String nome;
-    boolean superior = true;
     int modo;
     private final CursoController cc;
 
@@ -20,8 +19,7 @@ public class CadastroCurso extends javax.swing.JFrame {
         cc = new CursoController();
 
         btnSalvar.setEnabled(false);
-        ensinoSuperior.setEnabled(true);
-        ensinoMedio.setEnabled(true);
+
 
         if (this.modo == 1) {
 
@@ -34,8 +32,6 @@ public class CadastroCurso extends javax.swing.JFrame {
 
         jLabel9 = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        ensinoSuperior = new javax.swing.JRadioButton();
-        ensinoMedio = new javax.swing.JRadioButton();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -47,24 +43,6 @@ public class CadastroCurso extends javax.swing.JFrame {
         tfNome.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 tfNomeCaretUpdate(evt);
-            }
-        });
-
-        ensinoSuperior.setSelected(true);
-        ensinoSuperior.setText("Ensino Superior");
-        ensinoSuperior.setEnabled(false);
-        ensinoSuperior.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ensinoSuperiorActionPerformed(evt);
-            }
-        });
-
-        ensinoMedio.setText("Ensino Médio");
-        ensinoMedio.setToolTipText("");
-        ensinoMedio.setEnabled(false);
-        ensinoMedio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ensinoMedioActionPerformed(evt);
             }
         });
 
@@ -92,11 +70,7 @@ public class CadastroCurso extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(ensinoSuperior)
-                        .addGap(18, 18, 18)
-                        .addComponent(ensinoMedio)))
+                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 381, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -112,11 +86,7 @@ public class CadastroCurso extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ensinoSuperior)
-                    .addComponent(ensinoMedio))
-                .addGap(18, 18, 18)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -129,14 +99,6 @@ public class CadastroCurso extends javax.swing.JFrame {
     private void tfNomeCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfNomeCaretUpdate
         verificarCampos();
     }//GEN-LAST:event_tfNomeCaretUpdate
-
-    private void ensinoSuperiorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ensinoSuperiorActionPerformed
-        RadioButtonSelected(true);
-    }//GEN-LAST:event_ensinoSuperiorActionPerformed
-
-    private void ensinoMedioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ensinoMedioActionPerformed
-        RadioButtonSelected(false);
-    }//GEN-LAST:event_ensinoMedioActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (modo == 0) {
@@ -200,8 +162,6 @@ public class CadastroCurso extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
-    public javax.swing.JRadioButton ensinoMedio;
-    public javax.swing.JRadioButton ensinoSuperior;
     private javax.swing.JLabel jLabel9;
     public javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
@@ -209,21 +169,8 @@ public class CadastroCurso extends javax.swing.JFrame {
     private Curso retornaCurso() {
         nome = tfNome.getText();
         int id1 = 0;
-        Curso curso = new Curso(id1, nome, superior);
+        Curso curso = new Curso(id1, nome);
         return curso;
-    }
-
-    public void RadioButtonSelected(boolean selecao) {
-        if (selecao) {
-            ensinoSuperior.setSelected(true);
-            ensinoMedio.setSelected(false);
-            superior = true;
-        }
-        if (!selecao) {
-            ensinoSuperior.setSelected(false);
-            ensinoMedio.setSelected(true);
-            superior = false;
-        }
     }
 
     private void verificarCampos() {

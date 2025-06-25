@@ -1,4 +1,4 @@
-package view;
+package tablemodel;
 
 import controller.AlunoController;
 import javax.swing.table.AbstractTableModel;

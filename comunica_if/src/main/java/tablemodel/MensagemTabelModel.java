@@ -1,4 +1,4 @@
-package view;
+package tablemodel;
 
 import controller.MensagemController;
 import javax.swing.table.AbstractTableModel;

@@ -1,4 +1,4 @@
-package view;
+package tablemodel;
 
 import controller.NecessidadeEspecialController;
 import javax.swing.table.AbstractTableModel;

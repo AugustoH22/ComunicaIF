@@ -4,15 +4,13 @@ public class Curso {
 
     private int codigo;
     private String nome;
-    private boolean superior;
 
     public Curso() {
     }
 
-    public Curso(int codigo, String nome, boolean superior) {
+    public Curso(int codigo, String nome) {
         this.codigo = codigo;
         this.nome = nome;
-        this.superior = superior;
     }
 
     // Getters e Setters
@@ -31,15 +29,7 @@ public class Curso {
     public void setNome(String nome) {
         this.nome = nome;
     }
-
-    public boolean isSuperior() {
-        return superior;
-    }
-
-    public void setSuperior(boolean superior) {
-        this.superior = superior;
-    }
-    
+   
     @Override
     public String toString() {
         return this.getNome();

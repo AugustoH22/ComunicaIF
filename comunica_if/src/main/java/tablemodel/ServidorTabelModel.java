@@ -1,4 +1,4 @@
-package view;
+package tablemodel;
 
 import controller.ServidorController;
 import javax.swing.table.AbstractTableModel;
