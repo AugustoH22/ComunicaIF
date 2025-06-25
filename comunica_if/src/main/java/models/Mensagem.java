@@ -6,15 +6,21 @@ public class  Mensagem implements Serializable{
 
     private int codigo;
     private String titulo;
+    private String assunto;
     private String texto;
+    private int curso;
+    private int turma;
     private int codServidorRemetente;
     private int codServidorDestinatario;
     private String dataHoraCriacao;
 
-    public Mensagem(int codigo, String titulo, String texto, int remetente, int destinatario, String dataHora) {
+    public Mensagem(int codigo, String titulo, String texto, String assunto, int curso, int turma, int remetente, int destinatario, String dataHora) {
         this.codigo = codigo;
         this.titulo = titulo;
         this.texto = texto;
+        this.assunto = assunto;
+        this.curso = curso;
+        this.turma = turma;
         this.codServidorRemetente = remetente;
         this.codServidorDestinatario = destinatario;
         this.dataHoraCriacao = dataHora;
@@ -47,6 +53,30 @@ public class  Mensagem implements Serializable{
         this.texto = texto;
     }
 
+    public void setAssunto(String assunto){
+        this.assunto = assunto;
+    }
+
+    public String getAssunto() {
+        return assunto;
+    }
+
+    public int getCurso() {
+        return curso;
+    }
+
+    public void setCurso(int curso) {
+        this.curso = curso;
+    }
+
+    public int getTurma() {
+        return turma;
+    }
+
+    public void setTurma(int turma) {
+        this.turma = turma;
+    }
+    
     public int getCodServidorRemetente() {
         return codServidorRemetente;
     }
