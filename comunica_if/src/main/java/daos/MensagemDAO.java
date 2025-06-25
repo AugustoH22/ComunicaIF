@@ -65,7 +65,7 @@ public class MensagemDAO {
         try (PreparedStatement stmt = conexao.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
 
-            while (rs.next()) {
+          /*  while (rs.next()) {
                 Mensagem m = new Mensagem(
                     rs.getInt("codigo"),
                     rs.getString("titulo"),
@@ -76,7 +76,7 @@ public class MensagemDAO {
                 );
                 mensagens.add(m);
             }
-
+*/
         } catch (SQLException ex) {
             System.out.println("Erro ao listar mensagens: " + ex.getMessage());
         }
@@ -91,7 +91,7 @@ public class MensagemDAO {
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
+          /*  try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     m = new Mensagem(
                         rs.getInt("codigo"),
@@ -102,7 +102,7 @@ public class MensagemDAO {
                         rs.getString("dataHoraCriacao")
                     );
                 }
-            }
+            }*/
 
         } catch (SQLException ex) {
             System.out.println("Erro ao buscar mensagem por ID: " + ex.getMessage());

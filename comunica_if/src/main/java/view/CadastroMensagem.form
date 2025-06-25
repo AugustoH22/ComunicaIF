@@ -32,7 +32,7 @@
                       <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel15" min="-2" pref="51" max="-2" attributes="0"/>
+                              <Component id="labelDestino" min="-2" pref="51" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="codDest" min="-2" pref="118" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -41,7 +41,7 @@
                               <Component id="buscaDestino" min="-2" pref="84" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="CancelMsg" min="-2" pref="101" max="-2" attributes="0"/>
+                              <Component id="cancelMsg" min="-2" pref="101" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnEnviar" min="-2" pref="105" max="-2" attributes="0"/>
                           </Group>
@@ -51,13 +51,13 @@
                       <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabel10" min="-2" pref="51" max="-2" attributes="0"/>
+                              <Component id="labelAssunto" min="-2" pref="51" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="assText" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel11" min="-2" pref="51" max="-2" attributes="0"/>
+                                  <Component id="labelCurso" min="-2" pref="51" max="-2" attributes="0"/>
                                   <Component id="jLabel16" min="-2" pref="51" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -68,15 +68,15 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="descCurso" min="-2" pref="157" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="BuscaCursoMsg" min="-2" max="-2" attributes="0"/>
+                                      <Component id="buscaCursoMsg" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel14" min="-2" pref="62" max="-2" attributes="0"/>
+                                      <Component id="labelTurma" min="-2" pref="62" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="codTurma" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="descTurma" min="-2" pref="157" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="BuscaTurmaMsg" max="32767" attributes="0"/>
+                                      <Component id="buscaTurmaMsg" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -94,7 +94,7 @@
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="codDest" alignment="3" pref="30" max="32767" attributes="0"/>
-                      <Component id="jLabel15" alignment="3" max="32767" attributes="0"/>
+                      <Component id="labelDestino" alignment="3" max="32767" attributes="0"/>
                   </Group>
                   <Component id="destText" alignment="0" max="32767" attributes="0"/>
                   <Component id="buscaDestino" alignment="0" max="32767" attributes="0"/>
@@ -102,25 +102,25 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="assText" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="jLabel10" alignment="3" max="32767" attributes="0"/>
+                  <Component id="labelAssunto" alignment="3" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
+                      <Component id="labelTurma" max="32767" attributes="0"/>
+                  </Group>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="BuscaTurmaMsg" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="buscaTurmaMsg" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       <Component id="codTurma" alignment="3" pref="30" max="32767" attributes="0"/>
                       <Component id="descTurma" alignment="3" pref="30" max="32767" attributes="0"/>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
-                          <Component id="jLabel14" max="32767" attributes="0"/>
-                      </Group>
                   </Group>
                   <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="BuscaCursoMsg" alignment="0" pref="30" max="32767" attributes="0"/>
+                      <Component id="buscaCursoMsg" alignment="0" pref="30" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" max="-2" attributes="0">
                           <Component id="codCurso" alignment="3" pref="30" max="32767" attributes="0"/>
                           <Component id="descCurso" alignment="3" pref="30" max="32767" attributes="0"/>
-                          <Component id="jLabel11" alignment="3" max="32767" attributes="0"/>
+                          <Component id="labelCurso" alignment="3" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -137,7 +137,7 @@
               </Group>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnEnviar" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                  <Component id="CancelMsg" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
+                  <Component id="cancelMsg" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
@@ -145,7 +145,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel10">
+    <Component class="javax.swing.JLabel" name="labelAssunto">
       <Properties>
         <Property name="text" type="java.lang.String" value="Assunto:"/>
       </Properties>
@@ -154,29 +154,29 @@
     </Component>
     <Component class="javax.swing.JTextField" name="assText">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel11">
+    <Component class="javax.swing.JLabel" name="labelCurso">
       <Properties>
         <Property name="text" type="java.lang.String" value="Curso:"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="codCurso">
     </Component>
-    <Component class="javax.swing.JButton" name="BuscaCursoMsg">
+    <Component class="javax.swing.JButton" name="buscaCursoMsg">
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BuscaCursoMsgActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscaCursoMsgActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="BuscaTurmaMsg">
+    <Component class="javax.swing.JButton" name="buscaTurmaMsg">
       <Properties>
         <Property name="text" type="java.lang.String" value="Buscar"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textoMsg">
     </Component>
-    <Component class="javax.swing.JButton" name="CancelMsg">
+    <Component class="javax.swing.JButton" name="cancelMsg">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
@@ -211,12 +211,12 @@
     </Component>
     <Component class="javax.swing.JTextField" name="codTurma">
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel14">
+    <Component class="javax.swing.JLabel" name="labelTurma">
       <Properties>
         <Property name="text" type="java.lang.String" value="Turma:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel15">
+    <Component class="javax.swing.JLabel" name="labelDestino">
       <Properties>
         <Property name="text" type="java.lang.String" value="Destino:"/>
       </Properties>
