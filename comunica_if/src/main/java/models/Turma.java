@@ -8,18 +8,16 @@ public class Turma {
     String nome;
     Curso curso;
     String ano;
-    String semestre;
 
     
     public Turma(){ 
     }
     
-    public Turma(int codigo, String nome, Curso curso, String ano, String semestre){
+    public Turma(int codigo, String nome, Curso curso, String ano){
         this.codigo = codigo;
         this.nome = nome;
         this.curso = curso;
         this.ano = ano;
-        this.semestre = semestre;
         
     }
 
@@ -29,14 +27,6 @@ public class Turma {
 
     public void setAno(String ano) {
         this.ano = ano;
-    }
-
-    public String getSemestre() {
-        return semestre;
-    }
-
-    public void setSemestre(String semestre) {
-        this.semestre = semestre;
     }
 
     public int getCodigo() {

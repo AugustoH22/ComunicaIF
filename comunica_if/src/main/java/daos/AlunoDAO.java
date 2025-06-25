@@ -19,11 +19,9 @@ public class AlunoDAO {
         this.conexao = Conexao.conectar();
     }
 
-    public int salvar(Aluno a) throws SQLException {
+    public void salvar(Aluno a) {
         String sql = "INSERT INTO Aluno (nome) VALUES (?)"; // Removido 'codigo', assumindo auto_increment
         String sqlNecessidades = "INSERT INTO aluno_necessidades (aluno_id, necessidade_id) VALUES (?, ?)";
-
-        int idGerado = -1;
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); PreparedStatement stmtNecessidades = conexao.prepareStatement(sqlNecessidades)) {
 
@@ -32,7 +30,7 @@ public class AlunoDAO {
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
             if (generatedKeys.next()) {
-                idGerado = generatedKeys.getInt(1);
+                int idGerado = generatedKeys.getInt(1);
                 a.setCodigo(idGerado);
 
                 for (NecessidadeEspecial n : a.getNecessidades()) {
@@ -46,10 +44,8 @@ public class AlunoDAO {
 
         } catch (SQLException ex) {
             System.out.println("Erro ao adicionar Aluno: " + ex.getMessage());
-            throw ex; // opcional: relança a exceção para tratamento externo
         }
 
-        return idGerado;
     }
 
     public void atualizar(Aluno alunoAtualizado) {

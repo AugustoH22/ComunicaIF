@@ -1,4 +1,4 @@
-package view;
+package tablemodel;
 
 import controller.TurmaController;
 import javax.swing.table.AbstractTableModel;
@@ -7,7 +7,7 @@ import models.Turma;
 
 public class TurmaTabelModel extends AbstractTableModel {
     private final List<Turma> turmas;
-    private final String[] colunas = {"Código","Nome", "Curso", "Ano", "Semestre"};
+    private final String[] colunas = {"Código","Nome", "Curso", "Ano"};
 
     private TurmaController tc = new TurmaController();
     
@@ -40,9 +40,7 @@ public class TurmaTabelModel extends AbstractTableModel {
             case 2:
                 return tc.getCurso();
             case 3:
-                return tc.getAno();
-            case 4:
-                return tc.getSemestre();                
+                return tc.getAno();               
             default:
                 return null;
         }

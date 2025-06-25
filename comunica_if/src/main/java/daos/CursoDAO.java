@@ -18,10 +18,9 @@ public class CursoDAO {
     }
 
     public void salvar(Curso c) {
-        String sql = "INSERT INTO Curso (nome, superior) VALUES (?, ?)";
+        String sql = "INSERT INTO Curso (nome) VALUES (?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, c.getNome());
-            stmt.setBoolean(2, c.isSuperior());
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
@@ -36,11 +35,10 @@ public class CursoDAO {
     }
 
     public void atualizar(Curso cursoAtualizado) {
-        String sql = "UPDATE Curso SET nome = ?, superior = ? WHERE codigo = ?";
+        String sql = "UPDATE Curso SET nome = ? WHERE codigo = ?";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, cursoAtualizado.getNome());
-            stmt.setBoolean(2, cursoAtualizado.isSuperior());
-            stmt.setInt(3, cursoAtualizado.getCodigo());
+            stmt.setInt(2, cursoAtualizado.getCodigo());
             stmt.executeUpdate();
         } catch (SQLException ex) {
             System.out.println("Erro ao atualizar Curso: " + ex.getMessage());
@@ -57,7 +55,6 @@ public class CursoDAO {
                 Curso c = new Curso();
                 c.setCodigo(rs.getInt("codigo"));
                 c.setNome(rs.getString("nome"));
-                c.setSuperior(rs.getBoolean("superior"));
                 cursos.add(c);
             }
 
@@ -80,7 +77,6 @@ public class CursoDAO {
                     c = new Curso();
                     c.setCodigo(rs.getInt("codigo"));
                     c.setNome(rs.getString("nome"));
-                    c.setSuperior(rs.getBoolean("superior"));
                 }
             }
 

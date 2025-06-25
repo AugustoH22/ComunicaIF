@@ -3,7 +3,6 @@ package controller;
 import models.Aluno;
 import daos.AlunoDAO;
 
-import java.sql.SQLException;
 import java.util.List;
 import models.NecessidadeEspecial;
 
@@ -16,13 +15,8 @@ public class AlunoController {
     }
 
     // Cadastrar novo aluno com suas necessidades
-    public int cadastrarAluno(Aluno a) {
-        try {
-            return dao.salvar(a);
-        } catch (SQLException e) {
-            System.out.println("Erro ao cadastrar aluno: " + e.getMessage());
-        }
-        return 0;
+    public void cadastrarAluno(Aluno a) {
+        dao.salvar(a);
     }
 
     // Atualizar aluno e suas necessidades

@@ -52,9 +52,7 @@ public class CadastroTurma extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         cbAno = new javax.swing.JComboBox();
-        cbSemestre = new javax.swing.JComboBox();
 
         jLabel8.setText("Nome:");
 
@@ -110,8 +108,6 @@ public class CadastroTurma extends javax.swing.JFrame {
 
         jLabel10.setText("Ano:");
 
-        jLabel11.setText("Semestre:");
-
         cbAno.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbAnoItemStateChanged(evt);
@@ -120,21 +116,6 @@ public class CadastroTurma extends javax.swing.JFrame {
         cbAno.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
                 cbAnoAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-
-        cbSemestre.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbSemestreItemStateChanged(evt);
-            }
-        });
-        cbSemestre.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                cbSemestreAncestorAdded(evt);
             }
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
@@ -169,12 +150,7 @@ public class CadastroTurma extends javax.swing.JFrame {
                             .addComponent(tfNome, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cbSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -187,17 +163,11 @@ public class CadastroTurma extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cbAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,22 +228,6 @@ public class CadastroTurma extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbAnoAncestorAdded
 
-    private void cbSemestreAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbSemestreAncestorAdded
-        List<String> listaSemestre = new ArrayList<>();
-        listaSemestre.add("1° Sem.");
-        listaSemestre.add("2° Sem.");
-
-        if (modo == 0) {
-            cbSemestre.removeAll();
-
-            if (!listaSemestre.isEmpty()) {
-                for (String cf : listaSemestre) {
-                    cbSemestre.addItem(cf);
-                }
-            }
-        }
-    }//GEN-LAST:event_cbSemestreAncestorAdded
-
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         int response = JOptionPane.showConfirmDialog(
                 this,
@@ -298,10 +252,6 @@ public class CadastroTurma extends javax.swing.JFrame {
     private void cbAnoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbAnoItemStateChanged
         verificarCampos();
     }//GEN-LAST:event_cbAnoItemStateChanged
-
-    private void cbSemestreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSemestreItemStateChanged
-        verificarCampos();
-    }//GEN-LAST:event_cbSemestreItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -342,9 +292,7 @@ public class CadastroTurma extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox cbAno;
     private javax.swing.JComboBox cbCursos;
-    private javax.swing.JComboBox cbSemestre;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -355,10 +303,9 @@ public class CadastroTurma extends javax.swing.JFrame {
         nome = tfNome.getText();
         Curso curso = (Curso) cbCursos.getSelectedItem();
         ano = (String) cbAno.getSelectedItem();
-        semestre = (String) cbSemestre.getSelectedItem();
         int id1 = 0;
 
-        Turma turma = new Turma(id1, nome, curso, ano, semestre);
+        Turma turma = new Turma(id1, nome, curso, ano);
 
         return turma;
     }
@@ -367,8 +314,7 @@ public class CadastroTurma extends javax.swing.JFrame {
         // Verifica se todos os campos estão preenchidos
         boolean camposPreenchidos = !tfNome.getText().trim().isEmpty()
                 && cbCursos.getSelectedItem() != null
-                && cbAno.getSelectedItem() != null
-                && cbSemestre.getSelectedItem() != null;
+                && cbAno.getSelectedItem() != null;
 
         // Habilita o botão "Salvar" somente quando todas as condições são atendidas
         btnSalvar.setEnabled(camposPreenchidos);

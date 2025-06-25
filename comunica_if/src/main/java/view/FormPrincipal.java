@@ -20,6 +20,13 @@ import models.NecessidadeEspecial;
 import models.Permissao;
 import models.Servidor;
 import models.Turma;
+import tablemodel.AlunoTabelModel;
+import tablemodel.CursoTabelModel;
+import tablemodel.DepartamentoTabelModel;
+import tablemodel.NecessidadeTableModel;
+import tablemodel.ServidorTabelModel;
+import tablemodel.TurmaAlunoTabelModel;
+import tablemodel.TurmaTabelModel;
 
 public class FormPrincipal extends javax.swing.JFrame {
 
@@ -56,7 +63,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         initComponents();
         tblDados.getSelectionModel().addListSelectionListener(e -> linhaselecionada());
         configurarTabela();
-        cbFiltro.setVisible(false);
+        cbCursos.setVisible(false);
+        cbTurmas.setVisible(false);
+        btnCadastrarTurma.setVisible(false);
+        btnVincularAluno.setVisible(false);
+        btnVincularServidor.setVisible(false);
         BD.Conexao.conectar();
     }
 
@@ -71,23 +82,32 @@ public class FormPrincipal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         PanelSuperior = new javax.swing.JPanel();
         Diretorio = new javax.swing.JLabel();
-        LogOut = new javax.swing.JButton();
         Tela = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDados = new javax.swing.JTable();
         BotaoNovo = new javax.swing.JButton();
         BotaoExcluir = new javax.swing.JButton();
-        cbFiltro = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        cbCursos = new javax.swing.JComboBox();
+        cbTurmas = new javax.swing.JComboBox();
+        LogOut = new javax.swing.JButton();
+        Categoria = new javax.swing.JLabel();
         btnHome = new javax.swing.JButton();
         btnAlunos = new javax.swing.JButton();
         btnCursos = new javax.swing.JButton();
-        btnTurmas = new javax.swing.JButton();
         btnNecessidades = new javax.swing.JButton();
         btnServidor = new javax.swing.JButton();
         btnDepartamento = new javax.swing.JButton();
-        Categoria = new javax.swing.JLabel();
+        btnTurmas = new javax.swing.JToggleButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        jSeparator6 = new javax.swing.JSeparator();
+        jSeparator8 = new javax.swing.JSeparator();
+        jSeparator9 = new javax.swing.JSeparator();
+        btnCadastrarTurma = new javax.swing.JButton();
+        btnVincularAluno = new javax.swing.JButton();
+        btnVincularServidor = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -96,7 +116,8 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(new java.awt.Color(15, 68, 78));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setForeground(new java.awt.Color(153, 153, 153));
 
         PanelSuperior.setBackground(new java.awt.Color(225, 225, 225));
         PanelSuperior.setAlignmentX(0.0F);
@@ -104,15 +125,6 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         Diretorio.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         Diretorio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-
-        LogOut.setBackground(new java.awt.Color(255, 51, 51));
-        LogOut.setForeground(new java.awt.Color(255, 255, 255));
-        LogOut.setText("LogOut");
-        LogOut.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LogOutActionPerformed(evt);
-            }
-        });
 
         Tela.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -152,9 +164,33 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        cbFiltro.addItemListener(new java.awt.event.ItemListener() {
+        cbCursos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbFiltroItemStateChanged(evt);
+                cbCursosItemStateChanged(evt);
+            }
+        });
+        cbCursos.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                cbCursosAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        cbTurmas.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbTurmasItemStateChanged(evt);
+            }
+        });
+        cbTurmas.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                cbTurmasAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
 
@@ -163,33 +199,46 @@ public class FormPrincipal extends javax.swing.JFrame {
         TelaLayout.setHorizontalGroup(
             TelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TelaLayout.createSequentialGroup()
-                .addContainerGap(9, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addGroup(TelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 693, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(TelaLayout.createSequentialGroup()
                         .addComponent(BotaoNovo)
                         .addGap(18, 18, 18)
-                        .addComponent(BotaoExcluir)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                        .addComponent(BotaoExcluir))
+                    .addGroup(TelaLayout.createSequentialGroup()
+                        .addGroup(TelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(TelaLayout.createSequentialGroup()
+                                .addComponent(cbCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(cbTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 855, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(5, 5, 5)))
+                .addGap(0, 20, Short.MAX_VALUE))
         );
         TelaLayout.setVerticalGroup(
             TelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TelaLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(TelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addGroup(TelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbCursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(TelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BotaoNovo)
                     .addComponent(BotaoExcluir))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
+
+        LogOut.setBackground(new java.awt.Color(255, 51, 51));
+        LogOut.setForeground(new java.awt.Color(255, 255, 255));
+        LogOut.setText("LogOut");
+        LogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LogOutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelSuperiorLayout = new javax.swing.GroupLayout(PanelSuperior);
         PanelSuperior.setLayout(PanelSuperiorLayout);
@@ -200,8 +249,10 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addComponent(Diretorio, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(LogOut)
-                .addContainerGap())
-            .addComponent(Tela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(23, 23, 23))
+            .addGroup(PanelSuperiorLayout.createSequentialGroup()
+                .addComponent(Tela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelSuperiorLayout.setVerticalGroup(
             PanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,42 +265,82 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addComponent(Tela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setAlignmentX(0.0F);
-        jPanel2.setAlignmentY(0.0F);
+        Categoria.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        Categoria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Categoria.setText("ComunicaIF");
 
-        btnHome.setBackground(new java.awt.Color(23, 130, 53));
+        btnHome.setBackground(new java.awt.Color(204, 204, 204));
         btnHome.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
         btnHome.setForeground(new java.awt.Color(255, 255, 255));
         btnHome.setText("Home");
+        btnHome.setBorder(null);
+        btnHome.setFocusable(false);
         btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHomeActionPerformed(evt);
             }
         });
 
-        btnAlunos.setBackground(new java.awt.Color(23, 130, 56));
+        btnAlunos.setBackground(new java.awt.Color(204, 204, 204));
         btnAlunos.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
         btnAlunos.setForeground(new java.awt.Color(255, 255, 255));
         btnAlunos.setText("Alunos");
+        btnAlunos.setBorder(null);
+        btnAlunos.setFocusable(false);
         btnAlunos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlunosActionPerformed(evt);
             }
         });
 
-        btnCursos.setBackground(new java.awt.Color(23, 130, 56));
+        btnCursos.setBackground(new java.awt.Color(204, 204, 204));
         btnCursos.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
         btnCursos.setForeground(new java.awt.Color(255, 255, 255));
         btnCursos.setText("Cursos");
+        btnCursos.setBorder(null);
+        btnCursos.setFocusable(false);
         btnCursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCursosActionPerformed(evt);
             }
         });
 
-        btnTurmas.setBackground(new java.awt.Color(23, 130, 56));
-        btnTurmas.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        btnTurmas.setForeground(new java.awt.Color(255, 255, 255));
+        btnNecessidades.setBackground(new java.awt.Color(204, 204, 204));
+        btnNecessidades.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        btnNecessidades.setForeground(new java.awt.Color(255, 255, 255));
+        btnNecessidades.setText("Necessidades");
+        btnNecessidades.setBorder(null);
+        btnNecessidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNecessidadesActionPerformed(evt);
+            }
+        });
+
+        btnServidor.setBackground(new java.awt.Color(204, 204, 204));
+        btnServidor.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        btnServidor.setForeground(new java.awt.Color(255, 255, 255));
+        btnServidor.setText("Servidor");
+        btnServidor.setBorder(null);
+        btnServidor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnServidorActionPerformed(evt);
+            }
+        });
+
+        btnDepartamento.setBackground(new java.awt.Color(204, 204, 204));
+        btnDepartamento.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
+        btnDepartamento.setForeground(new java.awt.Color(255, 255, 255));
+        btnDepartamento.setText("Departamento");
+        btnDepartamento.setBorder(null);
+        btnDepartamento.setMaximumSize(new java.awt.Dimension(139, 22));
+        btnDepartamento.setMinimumSize(new java.awt.Dimension(139, 22));
+        btnDepartamento.setPreferredSize(new java.awt.Dimension(139, 22));
+        btnDepartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDepartamentoActionPerformed(evt);
+            }
+        });
+
         btnTurmas.setText("Turmas");
         btnTurmas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,78 +348,47 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnNecessidades.setBackground(new java.awt.Color(23, 130, 56));
-        btnNecessidades.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        btnNecessidades.setForeground(new java.awt.Color(255, 255, 255));
-        btnNecessidades.setText("Necessidades");
-        btnNecessidades.addActionListener(new java.awt.event.ActionListener() {
+        jSeparator2.setBackground(new java.awt.Color(204, 204, 204));
+        jSeparator2.setForeground(new java.awt.Color(153, 153, 153));
+
+        jSeparator3.setBackground(new java.awt.Color(204, 204, 204));
+        jSeparator3.setForeground(new java.awt.Color(153, 153, 153));
+
+        jSeparator4.setBackground(new java.awt.Color(204, 204, 204));
+        jSeparator4.setForeground(new java.awt.Color(153, 153, 153));
+
+        jSeparator5.setBackground(new java.awt.Color(204, 204, 204));
+        jSeparator5.setForeground(new java.awt.Color(153, 153, 153));
+
+        jSeparator6.setBackground(new java.awt.Color(204, 204, 204));
+        jSeparator6.setForeground(new java.awt.Color(153, 153, 153));
+
+        jSeparator8.setBackground(new java.awt.Color(204, 204, 204));
+        jSeparator8.setForeground(new java.awt.Color(153, 153, 153));
+
+        jSeparator9.setBackground(new java.awt.Color(204, 204, 204));
+        jSeparator9.setForeground(new java.awt.Color(153, 153, 153));
+
+        btnCadastrarTurma.setText("Cadastrar");
+        btnCadastrarTurma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNecessidadesActionPerformed(evt);
+                btnCadastrarTurmaActionPerformed(evt);
             }
         });
 
-        btnServidor.setBackground(new java.awt.Color(23, 130, 56));
-        btnServidor.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        btnServidor.setForeground(new java.awt.Color(255, 255, 255));
-        btnServidor.setText("Servidor");
-        btnServidor.addActionListener(new java.awt.event.ActionListener() {
+        btnVincularAluno.setText("Vincular Alunos");
+        btnVincularAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnServidorActionPerformed(evt);
+                btnVincularAlunoActionPerformed(evt);
             }
         });
 
-        btnDepartamento.setBackground(new java.awt.Color(23, 130, 56));
-        btnDepartamento.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        btnDepartamento.setForeground(new java.awt.Color(255, 255, 255));
-        btnDepartamento.setText("Departamento");
-        btnDepartamento.addActionListener(new java.awt.event.ActionListener() {
+        btnVincularServidor.setText("Vincular Servidor");
+        btnVincularServidor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDepartamentoActionPerformed(evt);
+                btnVincularServidorActionPerformed(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnNecessidades, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnNecessidades, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
-        );
-
-        Categoria.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        Categoria.setForeground(new java.awt.Color(255, 255, 255));
-        Categoria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Categoria.setText("ComunicaIF");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -336,20 +396,78 @@ public class FormPrincipal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 19, Short.MAX_VALUE)
+                        .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnServidor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnCursos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAlunos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnHome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnDepartamento, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnTurmas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnNecessidades, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jSeparator2)
+                                    .addComponent(jSeparator4)
+                                    .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jSeparator6)
+                                    .addComponent(jSeparator8)
+                                    .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnCadastrarTurma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnVincularAluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnVincularServidor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(PanelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnHome, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnNecessidades, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnTurmas)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCadastrarTurma)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVincularAluno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnVincularServidor)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(PanelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -357,13 +475,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -386,7 +502,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void btnDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepartamentoActionPerformed
         Diretorio.setText("Departamentos");
         rota = "Departamento";
-        cbFiltro.setVisible(false);
+        cbCursos.setVisible(false);
+        cbTurmas.setVisible(false);
 
         configurarTabela();
 
@@ -399,7 +516,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void btnServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnServidorActionPerformed
         Diretorio.setText("Servidores");
         rota = "Servidor";
-        cbFiltro.setVisible(false);
+        cbCursos.setVisible(false);
+        cbTurmas.setVisible(false);
 
         configurarTabela();
 
@@ -412,7 +530,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void btnNecessidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNecessidadesActionPerformed
         Diretorio.setText("Necessidades");
         rota = "Necessidades";
-        cbFiltro.setVisible(false);
+        cbCursos.setVisible(false);
+        cbTurmas.setVisible(false);
 
         configurarTabela();
 
@@ -422,24 +541,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         clique = 0;
     }//GEN-LAST:event_btnNecessidadesActionPerformed
 
-    private void btnTurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTurmasActionPerformed
-        Diretorio.setText("Turmas");
-        rota = "Turmas";
-        cbFiltro.setVisible(false);
-
-        configurarTabela();
-
-        BotaoNovo.setEnabled(true);
-        BotaoExcluir.setEnabled(false);
-        BotaoExcluir.setVisible(true);
-        clique = 0;
-
-    }//GEN-LAST:event_btnTurmasActionPerformed
-
     private void btnCursosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCursosActionPerformed
         Diretorio.setText("Cursos");
         rota = "Cursos";
-        cbFiltro.setVisible(false);
+        cbCursos.setVisible(false);
+        cbTurmas.setVisible(false);
 
         configurarTabela();
 
@@ -452,7 +558,8 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void btnAlunosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlunosActionPerformed
         Diretorio.setText("Alunos");
         rota = "Alunos";
-        cbFiltro.setVisible(false);
+        cbCursos.setVisible(false);
+        cbTurmas.setVisible(false);
 
         configurarTabela();
 
@@ -466,8 +573,30 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnHomeActionPerformed
 
-    private void BotaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoExcluirActionPerformed
+    private void LogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutActionPerformed
 
+    }//GEN-LAST:event_LogOutActionPerformed
+
+    private void TelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TelaMouseClicked
+        clique = 0;
+    }//GEN-LAST:event_TelaMouseClicked
+
+    private void cbCursosItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCursosItemStateChanged
+        if (cbCursos.getSelectedItem() != null) {
+            Curso curso = (Curso) cbCursos.getSelectedItem();
+            cbTurmas.removeAllItems();
+
+            if (!turmas.isEmpty()) {
+                for (Turma cf : turmas) {
+                    if (curso.getCodigo() == cf.getCurso().getCodigo()) {
+                        cbTurmas.addItem(cf);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_cbCursosItemStateChanged
+
+    private void BotaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoExcluirActionPerformed
 
     }//GEN-LAST:event_BotaoExcluirActionPerformed
 
@@ -494,10 +623,6 @@ public class FormPrincipal extends javax.swing.JFrame {
             CadastroDepartamento.setVisible(true);
         }
     }//GEN-LAST:event_BotaoNovoActionPerformed
-
-    private void LogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutActionPerformed
-
-    }//GEN-LAST:event_LogOutActionPerformed
 
     private void tblDadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDadosMouseClicked
         contaClique();
@@ -529,13 +654,79 @@ public class FormPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tblDadosMouseClicked
 
-    private void TelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TelaMouseClicked
+    private void btnTurmasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTurmasActionPerformed
+        if (btnTurmas.isSelected()) {
+            btnCadastrarTurma.setVisible(true);
+            btnVincularAluno.setVisible(true);
+            btnVincularServidor.setVisible(true);
+        } else {
+            btnCadastrarTurma.setVisible(false);
+            btnVincularAluno.setVisible(false);
+            btnVincularServidor.setVisible(false);
+        }
+    }//GEN-LAST:event_btnTurmasActionPerformed
+
+    private void btnVincularAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVincularAlunoActionPerformed
+        Diretorio.setText("Turmas");
+        rota = "TurmaAluno";
+        cbCursos.setVisible(true);
+        cbTurmas.setVisible(true);
+
+        configurarTabela();
+
+        BotaoNovo.setEnabled(true);
+        BotaoExcluir.setEnabled(false);
+        BotaoExcluir.setVisible(true);
         clique = 0;
-    }//GEN-LAST:event_TelaMouseClicked
+    }//GEN-LAST:event_btnVincularAlunoActionPerformed
 
-    private void cbFiltroItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbFiltroItemStateChanged
+    private void btnVincularServidorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVincularServidorActionPerformed
+        Diretorio.setText("Turmas");
+        rota = "TurmaServidor";
+        cbCursos.setVisible(true);
+        cbTurmas.setVisible(true);
 
-    }//GEN-LAST:event_cbFiltroItemStateChanged
+        configurarTabela();
+
+        BotaoNovo.setEnabled(true);
+        BotaoExcluir.setEnabled(false);
+        BotaoExcluir.setVisible(true);
+        clique = 0;
+    }//GEN-LAST:event_btnVincularServidorActionPerformed
+
+    private void btnCadastrarTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarTurmaActionPerformed
+        Diretorio.setText("Turmas");
+        rota = "Turmas";
+        cbCursos.setVisible(false);
+        cbTurmas.setVisible(false);
+
+        configurarTabela();
+
+        BotaoNovo.setEnabled(true);
+        BotaoExcluir.setEnabled(false);
+        BotaoExcluir.setVisible(true);
+        clique = 0;
+    }//GEN-LAST:event_btnCadastrarTurmaActionPerformed
+
+    private void cbTurmasItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbTurmasItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTurmasItemStateChanged
+
+    private void cbCursosAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbCursosAncestorAdded
+
+        cbCursos.removeAll();
+
+        if (!cursos.isEmpty()) {
+            for (Curso cf : cursos) {
+                cbCursos.addItem(cf);
+            }
+        }
+
+    }//GEN-LAST:event_cbCursosAncestorAdded
+
+    private void cbTurmasAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbTurmasAncestorAdded
+
+    }//GEN-LAST:event_cbTurmasAncestorAdded
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
@@ -552,17 +743,26 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel PanelSuperior;
     private javax.swing.JPanel Tela;
     private javax.swing.JButton btnAlunos;
+    private javax.swing.JButton btnCadastrarTurma;
     private javax.swing.JButton btnCursos;
     private javax.swing.JButton btnDepartamento;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnNecessidades;
     private javax.swing.JButton btnServidor;
-    private javax.swing.JButton btnTurmas;
-    private javax.swing.JComboBox cbFiltro;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JToggleButton btnTurmas;
+    private javax.swing.JButton btnVincularAluno;
+    private javax.swing.JButton btnVincularServidor;
+    private javax.swing.JComboBox cbCursos;
+    private javax.swing.JComboBox cbTurmas;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     public javax.swing.JTable tblDados;
     // End of variables declaration//GEN-END:variables
 
@@ -597,6 +797,10 @@ public class FormPrincipal extends javax.swing.JFrame {
                     atulizarTabelaServidor();
                 case "Departamento" ->
                     atulizarTabelaDepartamento();
+                case "TurmaAluno" ->
+                    atulizarTabelaDepartamento();
+                case "TurmaServidor" ->
+                    atulizarTabelaDepartamento();
                 default -> {
                 }
             }
@@ -604,6 +808,10 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
 
     private void atulizarTabelaHome() {
+        int linhaSelecionada = tblDados.getSelectedRow();
+        int aux = (int) tblDados.getValueAt(linhaSelecionada, 0);
+        AddAluno NewJFrame2 = new AddAluno(aux);
+        NewJFrame2.setVisible(true);
 
     }
 
@@ -635,6 +843,13 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void atulizarTabelaServidor() {
         Collections.sort(servidores, Comparator.comparingInt(Servidor::getCodigo));
         tblDados.setModel(new ServidorTabelModel(servidores));
+    }
+    
+    private void atulizarTabelaTurmaAluno() {
+        if (cbTurmas.getSelectedItem() != null) {
+            Turma turma = (Turma) cbTurmas.getSelectedItem();
+            tblDados.setModel(new TurmaAlunoTabelModel(turma.getCodigo()));
+        }     
     }
 
 }
