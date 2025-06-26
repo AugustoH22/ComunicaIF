@@ -137,6 +137,8 @@ public class CadastroMensagem extends javax.swing.JFrame {
                                         .addComponent(descTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buscaTurmaMsg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+
+
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -256,6 +258,19 @@ public class CadastroMensagem extends javax.swing.JFrame {
     private javax.swing.JLabel labelDestino;
     private javax.swing.JLabel labelTurma;
     private javax.swing.JTextField textoMsg;
+
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel6;
+
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField11;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
+
     // End of variables declaration//GEN-END:variables
 
 
