@@ -26,6 +26,7 @@ import tablemodel.DepartamentoTabelModel;
 import tablemodel.NecessidadeTableModel;
 import tablemodel.ServidorTabelModel;
 import tablemodel.TurmaAlunoTabelModel;
+import tablemodel.TurmaServidorTabelModel;
 import tablemodel.TurmaTabelModel;
 
 public class FormPrincipal extends javax.swing.JFrame {
@@ -798,9 +799,9 @@ public class FormPrincipal extends javax.swing.JFrame {
                 case "Departamento" ->
                     atulizarTabelaDepartamento();
                 case "TurmaAluno" ->
-                    atulizarTabelaDepartamento();
+                    atulizarTabelaTurmaAluno();
                 case "TurmaServidor" ->
-                    atulizarTabelaDepartamento();
+                    atulizarTabelaServidorAluno();
                 default -> {
                 }
             }
@@ -849,6 +850,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         if (cbTurmas.getSelectedItem() != null) {
             Turma turma = (Turma) cbTurmas.getSelectedItem();
             tblDados.setModel(new TurmaAlunoTabelModel(turma.getCodigo()));
+        }     
+    }
+    
+    private void atulizarTabelaServidorAluno() {
+        if (cbTurmas.getSelectedItem() != null) {
+            Turma turma = (Turma) cbTurmas.getSelectedItem();
+            tblDados.setModel(new TurmaServidorTabelModel(turma.getCodigo()));
         }     
     }
 

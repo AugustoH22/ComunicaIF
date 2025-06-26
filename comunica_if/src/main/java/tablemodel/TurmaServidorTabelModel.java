@@ -1,37 +1,30 @@
 package tablemodel;
 
-import controller.AlunoController;
+import controller.ServidorController;
+import controller.TurmaController;
 import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
-import models.Aluno;
+import models.Servidor;
 
 public class TurmaServidorTabelModel extends AbstractTableModel {
-    private final List<Aluno> alunos;
+    private final List<Servidor> servidores;
     private final List<Boolean> selecionados;
     private final String[] colunas = {"Select","Código","Nome"};
 
-    private AlunoController ac = new AlunoController();
+    private TurmaController tc = new TurmaController();
     
-    public TurmaServidorTabelModel(List<Aluno> alunos) {
-        this.alunos=alunos;
+    public TurmaServidorTabelModel(int t) {
+        this.servidores = tc.listarServidores(t);
         this.selecionados = new ArrayList<>();
-        for (int i = 0; i < alunos.size(); i++) {
-            selecionados.add(false); // Inicialmente todos desmarcados
-        }
-    }
-
-    public TurmaServidorTabelModel() {
-        alunos = ac.listarAlunos();
-        this.selecionados = new ArrayList<>();
-        for (int i = 0; i < alunos.size(); i++) {
+        for (int i = 0; i < servidores.size(); i++) {
             selecionados.add(false); // Inicialmente todos desmarcados
         }
     }
 
     @Override
     public int getRowCount() {
-        return alunos.size();
+        return servidores.size();
     }
 
     @Override
@@ -41,7 +34,7 @@ public class TurmaServidorTabelModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Aluno ac = alunos.get(rowIndex);
+        Servidor ac = servidores.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return selecionados.get(rowIndex);
@@ -81,13 +74,13 @@ public class TurmaServidorTabelModel extends AbstractTableModel {
     }
 
     // 🔥 Método utilitário para pegar os cursos selecionados
-    public List<Aluno> getAlunosSelecionados() {
-        List<Aluno> selecionadosAlunos = new ArrayList<>();
-        for (int i = 0; i < alunos.size(); i++) {
+    public List<Servidor> getServidoresSelecionados() {
+        List<Servidor> selecionadosServidores = new ArrayList<>();
+        for (int i = 0; i < servidores.size(); i++) {
             if (selecionados.get(i)) {
-                selecionadosAlunos.add(alunos.get(i));
+                selecionadosServidores.add(servidores.get(i));
             }
         }
-        return selecionadosAlunos;
+        return selecionadosServidores;
     }
 }

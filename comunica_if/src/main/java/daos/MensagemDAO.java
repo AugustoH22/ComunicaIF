@@ -66,7 +66,7 @@ public class MensagemDAO {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                Mensagem m = new Mensagem(
+                /*Mensagem m = new Mensagem(
                     rs.getInt("codigo"),
                     rs.getString("titulo"),
                     rs.getString("texto"),
@@ -74,7 +74,7 @@ public class MensagemDAO {
                     rs.getInt("codServidorDestinatario"),
                     rs.getString("dataHoraCriacao")
                 );
-                mensagens.add(m);
+                mensagens.add(m);*/
             }
 
         } catch (SQLException ex) {
@@ -93,14 +93,14 @@ public class MensagemDAO {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    m = new Mensagem(
+                    /*m = new Mensagem(
                         rs.getInt("codigo"),
                         rs.getString("titulo"),
                         rs.getString("texto"),
                         rs.getInt("codServidorRemetente"),
                         rs.getInt("codServidorDestinatario"),
                         rs.getString("dataHoraCriacao")
-                    );
+                    );*/
                 }
             }
 

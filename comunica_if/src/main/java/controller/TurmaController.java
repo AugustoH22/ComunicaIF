@@ -62,7 +62,7 @@ public class TurmaController {
         return dao.listarAlunosDaTurma(t);
     }
     
-    public List<Servidor> listarServidores(Turma t){
-        return dao.listarServidoresDaTurma(t.getCodigo());
+    public List<Servidor> listarServidores(int t){
+        return dao.listarServidoresDaTurma(t);
     }
 }
