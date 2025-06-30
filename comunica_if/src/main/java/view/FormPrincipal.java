@@ -622,6 +622,18 @@ public class FormPrincipal extends javax.swing.JFrame {
         } else if ("Departamento".equals(rota)) {
             CadastroDepartamento CadastroDepartamento = new CadastroDepartamento(0, 0);
             CadastroDepartamento.setVisible(true);
+        } else if ("TurmaAluno".equals(rota)) {
+            if (cbTurmas.getSelectedItem() != null) {
+                Turma turma = (Turma) cbTurmas.getSelectedItem();
+                AddAluno AddAluno = new AddAluno(turma.getCodigo());
+                AddAluno.setVisible(true);
+            }
+        } else if ("TurmaServidor".equals(rota)) {
+            if (cbTurmas.getSelectedItem() != null) {
+                Turma turma = (Turma) cbTurmas.getSelectedItem();
+                AddServidor AddServidor = new AddServidor(turma.getCodigo());
+                AddServidor.setVisible(true);
+            }
         }
     }//GEN-LAST:event_BotaoNovoActionPerformed
 
@@ -676,6 +688,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         configurarTabela();
 
         BotaoNovo.setEnabled(true);
+        BotaoNovo.setText("Adicionar");
         BotaoExcluir.setEnabled(false);
         BotaoExcluir.setVisible(true);
         clique = 0;
@@ -690,6 +703,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         configurarTabela();
 
         BotaoNovo.setEnabled(true);
+        BotaoNovo.setText("Adicionar");
         BotaoExcluir.setEnabled(false);
         BotaoExcluir.setVisible(true);
         clique = 0;
@@ -704,6 +718,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         configurarTabela();
 
         BotaoNovo.setEnabled(true);
+        BotaoNovo.setText("Novo");
         BotaoExcluir.setEnabled(false);
         BotaoExcluir.setVisible(true);
         clique = 0;
@@ -845,19 +860,19 @@ public class FormPrincipal extends javax.swing.JFrame {
         Collections.sort(servidores, Comparator.comparingInt(Servidor::getCodigo));
         tblDados.setModel(new ServidorTabelModel(servidores));
     }
-    
+
     private void atulizarTabelaTurmaAluno() {
         if (cbTurmas.getSelectedItem() != null) {
             Turma turma = (Turma) cbTurmas.getSelectedItem();
             tblDados.setModel(new TurmaAlunoTabelModel(turma.getCodigo()));
-        }     
+        }
     }
-    
+
     private void atulizarTabelaServidorAluno() {
         if (cbTurmas.getSelectedItem() != null) {
             Turma turma = (Turma) cbTurmas.getSelectedItem();
             tblDados.setModel(new TurmaServidorTabelModel(turma.getCodigo()));
-        }     
+        }
     }
 
 }

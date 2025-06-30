@@ -12,7 +12,7 @@ public class Conexao {
     public static Connection conectar() {
         if (conexao == null) { // Apenas cria uma nova conexão se ainda não houver uma
             try {
-                String url = "jdbc:postgresql://localhost:5432/ComunicaIF";
+                String url = "jdbc:postgresql://69.62.101.144:5242/comunica_if_db";
                 String usuario = "postgres";
                 String senha = "admin";
 

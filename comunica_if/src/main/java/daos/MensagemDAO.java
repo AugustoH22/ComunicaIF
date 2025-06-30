@@ -16,16 +16,16 @@ public class MensagemDAO {
 
     // Salvar nova mensagem
     public void salvar(Mensagem m) {
-        String sql = "INSERT INTO Mensagem (codigo, titulo, texto, codServidorRemetente, codServidorDestinatario, dataHoraCriacao) " +
-                     "VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Mensagem (titulo, texto, codServidorRemetente, codServidorDestinatario, dataHoraCriacao) " +
+                     "VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, m.getCodigo());
-            stmt.setString(2, m.getTitulo());
-            stmt.setString(3, m.getTexto());
-            stmt.setInt(4, m.getCodServidorRemetente());
-            stmt.setInt(5, m.getCodServidorDestinatario());
-            stmt.setString(6, m.getDataHoraCriacao());
+            
+            stmt.setString(1, m.getTitulo());
+            stmt.setString(2, m.getTexto());
+            stmt.setInt(3, m.getCodServidorRemetente());
+            stmt.setInt(4, m.getCodServidorDestinatario());
+            stmt.setString(5, m.getDataHoraCriacao());
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
