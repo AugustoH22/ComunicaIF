@@ -33,7 +33,7 @@ public class CadastroDepartamento extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
