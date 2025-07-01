@@ -54,6 +54,8 @@ public class CadastroNecessidade extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Necessidades");
 
+        jPanel2.setToolTipText("");
+
         jLabel2.setText("Código:");
 
         tfCodigo.addCaretListener(new javax.swing.event.CaretListener() {
