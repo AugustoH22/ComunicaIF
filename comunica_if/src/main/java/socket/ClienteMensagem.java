@@ -1,13 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package socket;
 
-/**
- *
- * @author pedro
- */
 
 import models.Mensagem;
 
@@ -34,7 +27,7 @@ public class ClienteMensagem {
             try {
                 while (true) {
                     Mensagem m = (Mensagem) entrada.readObject();
-                    System.out.println("Nova mensagem de " + m.getCodServidorRemetente()+ ": " + m.getTexto());
+                    System.out.println("Nova mensagem de " + m.getRemetente()+ ": " + m.getTexto());
                 }
             } catch (Exception e) {
                 System.out.println("Desconectado ou erro: " + e.getMessage());

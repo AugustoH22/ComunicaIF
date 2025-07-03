@@ -18,13 +18,15 @@ public class ServidorDAO {
 
     // Salvar novo servidor
     public void salvar(Servidor s) {
-        String sql = "INSERT INTO Servidor (id, nome, departamento_id, permissao_id) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO Servidor (nome, usuario, senha, departamento_id, permissao_id) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, s.getCodigo());
-            stmt.setString(2, s.getNome());
-            stmt.setInt(3, s.getDepartamento().getCodigo());
-            stmt.setInt(4, s.getPermissao().getCodigo());
+
+            stmt.setString(1, s.getNome());
+            stmt.setString(2, s.getUsuario());
+            stmt.setString(3, s.getSenha());
+            stmt.setInt(4, s.getDepartamento().getCodigo());
+            stmt.setInt(5, s.getPermissao().getCodigo());
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
@@ -39,13 +41,15 @@ public class ServidorDAO {
 
     // Atualizar servidor existente
     public void atualizar(Servidor s) {
-        String sql = "UPDATE Servidor SET nome = ?, departamento_id = ?, permissao_id = ? WHERE id = ?";
+        String sql = "UPDATE Servidor SET nome = ?, usario = ?, senha = ?, departamento_id = ?, permissao_id = ? WHERE id = ?";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, s.getNome());
-            stmt.setInt(2, s.getDepartamento().getCodigo());
-            stmt.setInt(3, s.getPermissao().getCodigo());
-            stmt.setInt(4, s.getCodigo());
+            stmt.setString(2, s.getUsuario());
+            stmt.setString(3, s.getSenha());
+            stmt.setInt(4, s.getDepartamento().getCodigo());
+            stmt.setInt(5, s.getPermissao().getCodigo());
+            stmt.setInt(6, s.getCodigo());
             stmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -64,13 +68,15 @@ public class ServidorDAO {
                 Servidor s = new Servidor();
                 s.setCodigo(rs.getInt("id"));
                 s.setNome(rs.getString("nome"));
-
-                // Busca o departamento e a permissão pelos IDs
+ 
                 Departamento departamento = new DepartamentoDAO().buscarPorId(rs.getInt("departamento_id"));
                 Permissao permissao = new PermissaoDAO().buscarPorId(rs.getInt("permissao_id"));
 
                 s.setDepartamento(departamento);
                 s.setPermissao(permissao);
+
+                s.setUsuario(rs.getString("usuario"));
+                s.setSenha(rs.getString("senha"));
 
                 lista.add(s);
             }
@@ -100,6 +106,9 @@ public class ServidorDAO {
 
                     s.setDepartamento(departamento);
                     s.setPermissao(permissao);
+
+                    s.setUsuario(rs.getString("usuario"));
+                    s.setSenha(rs.getString("senha"));
                 }
             }
 

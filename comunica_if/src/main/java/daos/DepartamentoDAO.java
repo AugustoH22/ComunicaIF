@@ -19,10 +19,9 @@ public class DepartamentoDAO {
     }
 
     public void salvar(Departamento e) {
-        String sql = "INSERT INTO Departamento (codigo, nome) VALUES (?, ?)";
+        String sql = "INSERT INTO Departamento (nome) VALUES (?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, e.getCodigo());
-            stmt.setString(2, e.getNome());
+            stmt.setString(1, e.getNome());
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();

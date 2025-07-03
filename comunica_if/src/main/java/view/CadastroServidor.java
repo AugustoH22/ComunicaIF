@@ -14,6 +14,7 @@ public class CadastroServidor extends javax.swing.JFrame {
     int codigo;
     int modo;
     String nome;
+    String usuario;
     List<Departamento> listaDepartamento = new ArrayList<>();
     List<Permissao> listaPermissao = new ArrayList<>();
     private final ServidorController sc;
@@ -23,6 +24,14 @@ public class CadastroServidor extends javax.swing.JFrame {
         this.codigo = codigo;
         this.modo = modo;
         sc = new ServidorController();
+        
+        if(!listaDepartamento.isEmpty()){
+            this.listaDepartamento = listaDepartamento;
+        }
+        
+        if(!listaPermissao.isEmpty()){
+            this.listaPermissao = listaPermissao;
+        }
 
         btnSalvar.setEnabled(false);
 
@@ -38,12 +47,14 @@ public class CadastroServidor extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        cbDepartamento = new javax.swing.JComboBox();
-        jLabel8 = new javax.swing.JLabel();
-        cbPermissao = new javax.swing.JComboBox();
+        jLabel10 = new javax.swing.JLabel();
+        tfUsuario = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        cbPermissao = new javax.swing.JComboBox();
+        cbDepartamento = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastro de Necessidades");
@@ -56,37 +67,11 @@ public class CadastroServidor extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setText("Departamento:");
+        jLabel10.setText("Usuário:");
 
-        cbDepartamento.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbDepartamentoItemStateChanged(evt);
-            }
-        });
-        cbDepartamento.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                cbDepartamentoAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-            }
-        });
-
-        jLabel8.setText("Permissão:");
-
-        cbPermissao.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbPermissaoItemStateChanged(evt);
-            }
-        });
-        cbPermissao.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                cbPermissaoAncestorAdded(evt);
-            }
-            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+        tfUsuario.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                tfUsuarioCaretUpdate(evt);
             }
         });
 
@@ -107,24 +92,60 @@ public class CadastroServidor extends javax.swing.JFrame {
             }
         });
 
+        cbPermissao.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbPermissaoItemStateChanged(evt);
+            }
+        });
+        cbPermissao.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                cbPermissaoAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        cbDepartamento.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbDepartamentoItemStateChanged(evt);
+            }
+        });
+        cbDepartamento.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                cbDepartamentoAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+
+        jLabel7.setText("Departamento:");
+
+        jLabel8.setText("Permissão:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(cbDepartamento, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(tfNome)
+            .addComponent(tfUsuario)
+            .addComponent(cbDepartamento, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(cbPermissao, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 82, Short.MAX_VALUE)
+                .addGap(0, 106, Short.MAX_VALUE)
                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel8))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,7 +153,11 @@ public class CadastroServidor extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -144,7 +169,7 @@ public class CadastroServidor extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGap(10, 10, 10))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -230,6 +255,10 @@ public class CadastroServidor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void tfUsuarioCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfUsuarioCaretUpdate
+       verificarCampos();
+    }//GEN-LAST:event_tfUsuarioCaretUpdate
+
     /**
      * @param args the command line arguments
      */
@@ -277,20 +306,24 @@ public class CadastroServidor extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox cbDepartamento;
     private javax.swing.JComboBox cbPermissao;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JTextField tfNome;
+    public javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 
     private Servidor retornaServidor() {
         nome = tfNome.getText();
+        usuario = tfUsuario.getText();
+        System.out.print(usuario);
         Departamento departamento = (Departamento) cbDepartamento.getSelectedItem();
         Permissao permissao = (Permissao) cbPermissao.getSelectedItem();
         int id1 = 0;
 
-        Servidor servidor = new Servidor(id1, nome, departamento, permissao);
+        Servidor servidor = new Servidor(id1, nome, usuario, "123456", departamento, permissao);
 
         return servidor;
     }
@@ -298,6 +331,7 @@ public class CadastroServidor extends javax.swing.JFrame {
     private void verificarCampos() {
 
         boolean camposPreenchidos = !tfNome.getText().trim().isEmpty()
+                && !tfUsuario.getText().trim().isEmpty()
                 && cbDepartamento.getSelectedItem() != null
                 && cbPermissao.getSelectedItem() != null;
 

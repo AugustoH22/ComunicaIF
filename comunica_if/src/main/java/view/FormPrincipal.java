@@ -20,6 +20,7 @@ import models.NecessidadeEspecial;
 import models.Permissao;
 import models.Servidor;
 import models.Turma;
+import observer.MensagemListener;
 import tablemodel.AlunoTabelModel;
 import tablemodel.CursoTabelModel;
 import tablemodel.DepartamentoTabelModel;
@@ -70,6 +71,12 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnVincularAluno.setVisible(false);
         btnVincularServidor.setVisible(false);
         BD.Conexao.conectar();
+
+        Runnable callback = this::configurarTabela;
+
+        MensagemListener listener = new MensagemListener(callback);
+        listener.start();
+
     }
 
     public static void setAutenticado(boolean status) {
@@ -486,18 +493,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void linhaselecionada() {
-        int selectedRowIndex = tblDados.getSelectedRow();
-
-        if (selectedRowIndex != -1) {
-            BotaoExcluir.setEnabled(true);
-        } else {
-            BotaoExcluir.setEnabled(false);
-        }
-    }
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
-
+        configurarTabela();
     }//GEN-LAST:event_formWindowActivated
 
     private void btnDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepartamentoActionPerformed
@@ -622,6 +620,18 @@ public class FormPrincipal extends javax.swing.JFrame {
         } else if ("Departamento".equals(rota)) {
             CadastroDepartamento CadastroDepartamento = new CadastroDepartamento(0, 0);
             CadastroDepartamento.setVisible(true);
+        } else if ("TurmaAluno".equals(rota)) {
+            if (cbTurmas.getSelectedItem() != null) {
+                Turma turma = (Turma) cbTurmas.getSelectedItem();
+                AddAluno AddAluno = new AddAluno(turma.getCodigo());
+                AddAluno.setVisible(true);
+            }
+        } else if ("TurmaServidor".equals(rota)) {
+            if (cbTurmas.getSelectedItem() != null) {
+                Turma turma = (Turma) cbTurmas.getSelectedItem();
+                AddServidor AddServidor = new AddServidor(turma.getCodigo());
+                AddServidor.setVisible(true);
+            }
         }
     }//GEN-LAST:event_BotaoNovoActionPerformed
 
@@ -676,6 +686,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         configurarTabela();
 
         BotaoNovo.setEnabled(true);
+        BotaoNovo.setText("Adicionar");
         BotaoExcluir.setEnabled(false);
         BotaoExcluir.setVisible(true);
         clique = 0;
@@ -690,6 +701,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         configurarTabela();
 
         BotaoNovo.setEnabled(true);
+        BotaoNovo.setText("Adicionar");
         BotaoExcluir.setEnabled(false);
         BotaoExcluir.setVisible(true);
         clique = 0;
@@ -704,6 +716,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         configurarTabela();
 
         BotaoNovo.setEnabled(true);
+        BotaoNovo.setText("Novo");
         BotaoExcluir.setEnabled(false);
         BotaoExcluir.setVisible(true);
         clique = 0;
@@ -808,6 +821,16 @@ public class FormPrincipal extends javax.swing.JFrame {
         }
     }
 
+    public void linhaselecionada() {
+        int selectedRowIndex = tblDados.getSelectedRow();
+
+        if (selectedRowIndex != -1) {
+            BotaoExcluir.setEnabled(true);
+        } else {
+            BotaoExcluir.setEnabled(false);
+        }
+    }
+
     private void atulizarTabelaHome() {
         int linhaSelecionada = tblDados.getSelectedRow();
         int aux = (int) tblDados.getValueAt(linhaSelecionada, 0);
@@ -817,47 +840,53 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
 
     private void atulizarTabelaAluno() {
+        alunos = ac.listarAlunos();
         Collections.sort(alunos, Comparator.comparingInt(Aluno::getCodigo));
         tblDados.setModel(new AlunoTabelModel(alunos));
     }
 
     private void atulizarTabelaCurso() {
+        cursos = cc.listarCursos();
         Collections.sort(cursos, Comparator.comparingInt(Curso::getCodigo));
         tblDados.setModel(new CursoTabelModel(cursos));
     }
 
     private void atulizarTabelaTurma() {
+        turmas = tc.listarTurmas();
         Collections.sort(turmas, Comparator.comparingInt(Turma::getCodigo));
         tblDados.setModel(new TurmaTabelModel(turmas));
     }
 
     private void atulizarTabelaNecessidade() {
+        necessidades = nc.listarNecessidades();
         Collections.sort(necessidades, Comparator.comparingInt(NecessidadeEspecial::getCodigo));
         tblDados.setModel(new NecessidadeTableModel(necessidades));
     }
 
     private void atulizarTabelaDepartamento() {
+        departamentos = dc.listarDepartamentos();
         Collections.sort(departamentos, Comparator.comparingInt(Departamento::getCodigo));
         tblDados.setModel(new DepartamentoTabelModel(departamentos));
     }
 
     private void atulizarTabelaServidor() {
+        servidores = sc.listarServidores();
         Collections.sort(servidores, Comparator.comparingInt(Servidor::getCodigo));
         tblDados.setModel(new ServidorTabelModel(servidores));
     }
-    
+
     private void atulizarTabelaTurmaAluno() {
         if (cbTurmas.getSelectedItem() != null) {
             Turma turma = (Turma) cbTurmas.getSelectedItem();
             tblDados.setModel(new TurmaAlunoTabelModel(turma.getCodigo()));
-        }     
+        }
     }
-    
+
     private void atulizarTabelaServidorAluno() {
         if (cbTurmas.getSelectedItem() != null) {
             Turma turma = (Turma) cbTurmas.getSelectedItem();
             tblDados.setModel(new TurmaServidorTabelModel(turma.getCodigo()));
-        }     
+        }
     }
 
 }

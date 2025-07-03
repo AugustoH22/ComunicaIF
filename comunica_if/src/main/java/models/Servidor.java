@@ -6,15 +6,19 @@ public class Servidor {
     
     int codigo;
     String nome;
+    String usuario;
+    String senha;
     Departamento departamento;
     Permissao permissao;
     
     public Servidor(){
     }
     
-    public Servidor(int codigo, String nome, Departamento departamento, Permissao permissao){
+    public Servidor(int codigo, String nome, String usuario, String senha, Departamento departamento, Permissao permissao){
         this.codigo = codigo;
         this.nome = nome;
+        this.usuario = usuario;
+        this.senha = senha;
         this.departamento = departamento;
         this.permissao = permissao;
     }
@@ -35,10 +39,26 @@ public class Servidor {
         this.nome = nome;
     }
 
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+    
     public Departamento getDepartamento() {
         return departamento;
     }
-
+    
     public void setDepartamento(Departamento departamento) {
         this.departamento = departamento;
     }
@@ -67,6 +87,6 @@ public class Servidor {
     
     @Override
     public String toString() {
-        return this.getNome();
+        return this.getUsuario();
     }
 }

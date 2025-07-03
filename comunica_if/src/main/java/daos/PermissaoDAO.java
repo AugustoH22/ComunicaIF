@@ -16,10 +16,9 @@ public class PermissaoDAO {
 
     // Inserir nova permissão
     public void salvar(Permissao p) {
-        String sql = "INSERT INTO Permissao (codigo, descricao) VALUES (?, ?)";
+        String sql = "INSERT INTO Permissao (descricao) VALUES (?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, p.getCodigo());
-            stmt.setString(2, p.getDescricao());
+            stmt.setString(1, p.getDescricao());
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();

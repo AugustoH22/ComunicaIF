@@ -6,13 +6,14 @@ import java.util.List;
 import models.Servidor;
 
 public class ServidorTabelModel extends AbstractTableModel {
+
     private final List<Servidor> servidores;
-    private final String[] colunas = {"Código","Nome", "Departamento", "Permissão"};
+    private final String[] colunas = {"Código", "Nome", "Usuário", "Departamento", "Permissão"};
 
     private ServidorController sc = new ServidorController();
-    
+
     public ServidorTabelModel(List<Servidor> servidores) {
-        this.servidores=servidores;
+        this.servidores = servidores;
     }
 
     public ServidorTabelModel() {
@@ -38,8 +39,10 @@ public class ServidorTabelModel extends AbstractTableModel {
             case 1:
                 return sc.getNome();
             case 2:
-                return sc.getDepartamento();
+                return sc.getUsuario();
             case 3:
+                return sc.getDepartamento();
+            case 4:
                 return sc.getPermissao();
             default:
                 return null;

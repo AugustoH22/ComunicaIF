@@ -27,4 +27,9 @@ public class Permissao {
         this.descricao = descricao;
     }
     
+    @Override
+    public String toString() {
+        return this.getDescricao();
+    }
+    
 }

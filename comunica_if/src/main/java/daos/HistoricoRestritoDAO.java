@@ -16,15 +16,14 @@ public class HistoricoRestritoDAO {
 
     // Salvar novo histórico
     public void salvar(HistoricoRestrito h) {
-        String sql = "INSERT INTO HistoricoRestrito (codigo, dataHora, ocorrencia, anotacao, codAluno, codServidor) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO HistoricoRestrito (dataHora, ocorrencia, anotacao, codAluno, codServidor) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, h.getCodigo());
-            stmt.setString(2, h.getDataHora());
-            stmt.setString(3, h.getOcorrencia());
-            stmt.setString(4, h.getAnotacao());
-            stmt.setInt(5, h.getCodAluno());
-            stmt.setInt(6, h.getCodServidor());
+            stmt.setString(1, h.getDataHora());
+            stmt.setString(2, h.getOcorrencia());
+            stmt.setString(3, h.getAnotacao());
+            stmt.setInt(4, h.getCodAluno());
+            stmt.setInt(5, h.getCodServidor());
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();

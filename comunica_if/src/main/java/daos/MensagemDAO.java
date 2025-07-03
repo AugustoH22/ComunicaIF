@@ -5,6 +5,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import models.Mensagem;
+import models.Servidor;
+import models.Aluno;
 
 public class MensagemDAO {
 
@@ -14,23 +16,22 @@ public class MensagemDAO {
         this.conexao = Conexao.conectar();
     }
 
-    // Salvar nova mensagem
     public void salvar(Mensagem m) {
-        String sql = "INSERT INTO Mensagem (codigo, titulo, texto, codServidorRemetente, codServidorDestinatario, dataHoraCriacao) " +
-                     "VALUES (?, ?, ?, ?, ?, ?)";
-
+        String sql = "INSERT INTO Mensagem (assunto, texto, codServidorRemetente, dataHoraCriacao) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, m.getCodigo());
-            stmt.setString(2, m.getTitulo());
-            stmt.setString(3, m.getTexto());
-            stmt.setInt(4, m.getCodServidorRemetente());
-            stmt.setInt(5, m.getCodServidorDestinatario());
-            stmt.setString(6, m.getDataHoraCriacao());
+            stmt.setString(1, m.getAssunto());
+            stmt.setString(2, m.getTexto());
+            stmt.setInt(3, m.getRemetente().getCodigo());
+            stmt.setDate(4, Date.valueOf(m.getDataHoraCriacao()));
             stmt.executeUpdate();
 
-            ResultSet generatedKeys = stmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                m.setCodigo(generatedKeys.getInt(1));
+            ResultSet rs = stmt.getGeneratedKeys();
+            if (rs.next()) {
+                int codigo = rs.getInt(1);
+                m.setCodigo(codigo);
+
+                salvarDestinatarios(m);
+                salvarAlunos(m);
             }
 
         } catch (SQLException ex) {
@@ -38,26 +39,30 @@ public class MensagemDAO {
         }
     }
 
-    // Atualizar mensagem existente
-    public void atualizar(Mensagem m) {
-        String sql = "UPDATE Mensagem SET titulo = ?, texto = ?, codServidorRemetente = ?, codServidorDestinatario = ?, dataHoraCriacao = ? " +
-                     "WHERE codigo = ?";
-
+    private void salvarDestinatarios(Mensagem m) throws SQLException {
+        String sql = "INSERT INTO Mensagem_Destinatario (codMensagem, codServidorDestinatario) VALUES (?, ?)";
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setString(1, m.getTitulo());
-            stmt.setString(2, m.getTexto());
-            stmt.setInt(3, m.getCodServidorRemetente());
-            stmt.setInt(4, m.getCodServidorDestinatario());
-            stmt.setString(5, m.getDataHoraCriacao());
-            stmt.setInt(6, m.getCodigo());
-            stmt.executeUpdate();
-
-        } catch (SQLException ex) {
-            System.out.println("Erro ao atualizar mensagem: " + ex.getMessage());
+            for (Servidor s : m.getDestinatarios()) {
+                stmt.setInt(1, m.getCodigo());
+                stmt.setInt(2, s.getCodigo());
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
         }
     }
 
-    // Listar todas as mensagens
+    private void salvarAlunos(Mensagem m) throws SQLException {
+        String sql = "INSERT INTO Mensagem_Aluno (codMensagem, codAluno) VALUES (?, ?)";
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            for (Aluno a : m.getAlunos()) {
+                stmt.setInt(1, m.getCodigo());
+                stmt.setInt(2, a.getCodigo());
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+        }
+    }
+
     public List<Mensagem> listar() {
         List<Mensagem> mensagens = new ArrayList<>();
         String sql = "SELECT * FROM Mensagem";
@@ -66,15 +71,21 @@ public class MensagemDAO {
              ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                /*Mensagem m = new Mensagem(
-                    rs.getInt("codigo"),
-                    rs.getString("titulo"),
-                    rs.getString("texto"),
-                    rs.getInt("codServidorRemetente"),
-                    rs.getInt("codServidorDestinatario"),
-                    rs.getString("dataHoraCriacao")
-                );
-                mensagens.add(m);*/
+                Mensagem m = new Mensagem();
+                m.setCodigo(rs.getInt("codigo"));
+                m.setAssunto(rs.getString("assunto"));
+                m.setTexto(rs.getString("texto"));
+                m.setDataHoraCriacao(rs.getDate("dataHoraCriacao").toLocalDate());
+
+                // Buscar remetente
+                ServidorDAO servidorDAO = new ServidorDAO();
+                m.setRemetente(servidorDAO.buscarPorId(rs.getInt("codServidorRemetente")));
+
+                // Buscar destinatários e alunos
+                m.setDestinatarios(buscarDestinatarios(m.getCodigo()));
+                m.setAlunos(buscarAlunos(m.getCodigo()));
+
+                mensagens.add(m);
             }
 
         } catch (SQLException ex) {
@@ -84,23 +95,63 @@ public class MensagemDAO {
         return mensagens;
     }
 
-    // Buscar mensagem por ID
+    private List<Servidor> buscarDestinatarios(int codMensagem) {
+        List<Servidor> lista = new ArrayList<>();
+        String sql = "SELECT codServidorDestinatario FROM Mensagem_Destinatario WHERE codMensagem = ?";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, codMensagem);
+            try (ResultSet rs = stmt.executeQuery()) {
+                ServidorDAO dao = new ServidorDAO();
+                while (rs.next()) {
+                    lista.add(dao.buscarPorId(rs.getInt("codServidorDestinatario")));
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao buscar destinatários: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+
+    private List<Aluno> buscarAlunos(int codMensagem) {
+        List<Aluno> lista = new ArrayList<>();
+        String sql = "SELECT codAluno FROM Mensagem_Aluno WHERE codMensagem = ?";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, codMensagem);
+            try (ResultSet rs = stmt.executeQuery()) {
+                AlunoDAO dao = new AlunoDAO();
+                while (rs.next()) {
+                    lista.add(dao.buscarPorId(rs.getInt("codAluno")));
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao buscar alunos: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+
     public Mensagem buscarPorId(int id) {
-        String sql = "SELECT * FROM Mensagem WHERE codigo = ?";
         Mensagem m = null;
+        String sql = "SELECT * FROM Mensagem WHERE codigo = ?";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, id);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    /*m = new Mensagem(
-                        rs.getInt("codigo"),
-                        rs.getString("titulo"),
-                        rs.getString("texto"),
-                        rs.getInt("codServidorRemetente"),
-                        rs.getInt("codServidorDestinatario"),
-                        rs.getString("dataHoraCriacao")
-                    );*/
+                    m = new Mensagem();
+                    m.setCodigo(rs.getInt("codigo"));
+                    m.setAssunto(rs.getString("assunto"));
+                    m.setTexto(rs.getString("texto"));
+                    m.setDataHoraCriacao(rs.getDate("dataHoraCriacao").toLocalDate());
+
+                    ServidorDAO servidorDAO = new ServidorDAO();
+                    m.setRemetente(servidorDAO.buscarPorId(rs.getInt("codServidorRemetente")));
+
+                    m.setDestinatarios(buscarDestinatarios(id));
+                    m.setAlunos(buscarAlunos(id));
                 }
             }
 
@@ -111,4 +162,3 @@ public class MensagemDAO {
         return m;
     }
 }
-
