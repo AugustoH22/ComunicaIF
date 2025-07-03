@@ -16,12 +16,7 @@ public class MensagemController {
     public void enviarMensagem(Mensagem m) {
         dao.salvar(m);
     }
-
-    // Atualizar mensagem existente
-    public void atualizarMensagem(Mensagem m) {
-        dao.atualizar(m);
-    }
-
+    
     // Listar todas as mensagens
     public List<Mensagem> listarMensagens() {
         return dao.listar();

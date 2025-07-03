@@ -10,7 +10,7 @@ public class Departamento {
     public Departamento() {
     }
 
-    public Departamento(int id, String nome) {
+    public Departamento(int codigo, String nome) {
         this.codigo = codigo;
         this.nome = nome;
     }
@@ -19,7 +19,7 @@ public class Departamento {
         return codigo;
     }
 
-    public void setCodigo(int id) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 

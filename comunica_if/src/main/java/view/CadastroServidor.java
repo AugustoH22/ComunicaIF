@@ -24,6 +24,14 @@ public class CadastroServidor extends javax.swing.JFrame {
         this.codigo = codigo;
         this.modo = modo;
         sc = new ServidorController();
+        
+        if(!listaDepartamento.isEmpty()){
+            this.listaDepartamento = listaDepartamento;
+        }
+        
+        if(!listaPermissao.isEmpty()){
+            this.listaPermissao = listaPermissao;
+        }
 
         btnSalvar.setEnabled(false);
 
@@ -248,7 +256,7 @@ public class CadastroServidor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void tfUsuarioCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfUsuarioCaretUpdate
-        // TODO add your handling code here:
+       verificarCampos();
     }//GEN-LAST:event_tfUsuarioCaretUpdate
 
     /**
@@ -310,11 +318,12 @@ public class CadastroServidor extends javax.swing.JFrame {
     private Servidor retornaServidor() {
         nome = tfNome.getText();
         usuario = tfUsuario.getText();
+        System.out.print(usuario);
         Departamento departamento = (Departamento) cbDepartamento.getSelectedItem();
         Permissao permissao = (Permissao) cbPermissao.getSelectedItem();
         int id1 = 0;
 
-        Servidor servidor = new Servidor(id1, nome,usuario, "123456", departamento, permissao);
+        Servidor servidor = new Servidor(id1, nome, usuario, "123456", departamento, permissao);
 
         return servidor;
     }

@@ -21,7 +21,7 @@ public class ServidorDAO {
         String sql = "INSERT INTO Servidor (nome, usuario, senha, departamento_id, permissao_id) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            
+
             stmt.setString(1, s.getNome());
             stmt.setString(2, s.getUsuario());
             stmt.setString(3, s.getSenha());
@@ -68,13 +68,15 @@ public class ServidorDAO {
                 Servidor s = new Servidor();
                 s.setCodigo(rs.getInt("id"));
                 s.setNome(rs.getString("nome"));
-
-                // Busca o departamento e a permissão pelos IDs
+ 
                 Departamento departamento = new DepartamentoDAO().buscarPorId(rs.getInt("departamento_id"));
                 Permissao permissao = new PermissaoDAO().buscarPorId(rs.getInt("permissao_id"));
 
                 s.setDepartamento(departamento);
                 s.setPermissao(permissao);
+
+                s.setUsuario(rs.getString("usuario"));
+                s.setSenha(rs.getString("senha"));
 
                 lista.add(s);
             }
@@ -105,6 +107,9 @@ public class ServidorDAO {
 
                     s.setDepartamento(departamento);
                     s.setPermissao(permissao);
+
+                    s.setUsuario(rs.getString("usuario"));
+                    s.setSenha(rs.getString("senha"));
                 }
             }
 

@@ -44,7 +44,7 @@ public class ServidorMensagem {
 
                 while (true) {
                     Mensagem mensagem = (Mensagem) entrada.readObject();
-                    ObjectOutputStream destino = clientes.get(mensagem.getCodServidorDestinatario());
+                    ObjectOutputStream destino = clientes.get(mensagem.getDestinatarios());
 
                     if (destino != null) {
                         destino.writeObject(mensagem);

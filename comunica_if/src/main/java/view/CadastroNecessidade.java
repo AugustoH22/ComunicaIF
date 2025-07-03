@@ -5,7 +5,9 @@
 package view;
 
 import controller.NecessidadeEspecialController;
+import java.awt.event.FocusEvent;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import models.NecessidadeEspecial;
 
 /**
@@ -29,9 +31,18 @@ public class CadastroNecessidade extends javax.swing.JFrame {
         btnSalvar.setEnabled(false);
 
         if (this.modo == 1) {
-
+            NecessidadeEspecial necessidade = nc.buscarPorId(this.codigo);
+            tfCodigo.setText(necessidade.getCodigoNecessidade());
+            tfDescricao.setText(necessidade.getDescricao());
         }
     }
+    
+     public void focusLost(FocusEvent e) {
+                // Aguarda um curto período para evitar interferência com outras ações
+                SwingUtilities.invokeLater(() -> {
+                    if (!jPanel2.isFocusOwner()) {
+                       jPanel2.requestFocusInWindow();
+                    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,8 +65,16 @@ public class CadastroNecessidade extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Necessidades");
+        setFocusable(false);
+
+        jPanel1.setFocusCycleRoot(true);
 
         jPanel2.setToolTipText("");
+        jPanel2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPanel2FocusLost(evt);
+            }
+        });
 
         jLabel2.setText("Código:");
 
@@ -85,6 +104,11 @@ public class CadastroNecessidade extends javax.swing.JFrame {
 
         tfDescricao.setColumns(20);
         tfDescricao.setRows(5);
+        tfDescricao.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                tfDescricaoCaretUpdate(evt);
+            }
+        });
         jScrollPane1.setViewportView(tfDescricao);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -167,7 +191,7 @@ public class CadastroNecessidade extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         System.out.println("" + modo);
         if (modo == 0) {
@@ -175,17 +199,20 @@ public class CadastroNecessidade extends javax.swing.JFrame {
             nc.cadastrarNecessidade(necessidade);
         }
         if (modo == 1) {
+            NecessidadeEspecial necessidade = retornaNecessidade();
+            necessidade.setCodigo(codigo);
+            nc.atualizarNecessidade(necessidade);
         }
         this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         int response = JOptionPane.showConfirmDialog(
-            this,
-            "Deseja sair sem salvar?",
-            "Sair sem salvar?",
-            JOptionPane.YES_NO_OPTION,
-            JOptionPane.WARNING_MESSAGE
+                this,
+                "Deseja sair sem salvar?",
+                "Sair sem salvar?",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE
         );
 
         // Ação baseada na resposta do usuário
@@ -199,6 +226,14 @@ public class CadastroNecessidade extends javax.swing.JFrame {
     private void tfCodigoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfCodigoCaretUpdate
         verificarCampos();
     }//GEN-LAST:event_tfCodigoCaretUpdate
+
+    private void tfDescricaoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfDescricaoCaretUpdate
+        verificarCampos(); // TODO add your handling code here:
+    }//GEN-LAST:event_tfDescricaoCaretUpdate
+
+    private void jPanel2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2FocusLost
 
     /**
      * @param args the command line arguments
@@ -246,7 +281,6 @@ public class CadastroNecessidade extends javax.swing.JFrame {
     private javax.swing.JTextArea tfDescricao;
     // End of variables declaration//GEN-END:variables
 
-    
     private NecessidadeEspecial retornaNecessidade() {
         codigoNecessidade = tfCodigo.getText();
         descricao = tfDescricao.getText();
@@ -255,7 +289,6 @@ public class CadastroNecessidade extends javax.swing.JFrame {
         return necessidade;
     }
 
-    
     private void verificarCampos() {
 
         btnSalvar.setEnabled(!tfCodigo.getText().trim().isEmpty() && !tfDescricao.getText().trim().isEmpty());

@@ -87,6 +87,6 @@ public class Servidor {
     
     @Override
     public String toString() {
-        return this.getNome();
+        return this.getUsuario();
     }
 }
