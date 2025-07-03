@@ -5,7 +5,9 @@
 package view;
 
 import controller.NecessidadeEspecialController;
+import java.awt.event.FocusEvent;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import models.NecessidadeEspecial;
 
 /**
@@ -29,9 +31,18 @@ public class CadastroNecessidade extends javax.swing.JFrame {
         btnSalvar.setEnabled(false);
 
         if (this.modo == 1) {
-
+            NecessidadeEspecial necessidade = nc.buscarPorId(this.codigo);
+            tfCodigo.setText(necessidade.getCodigoNecessidade());
+            tfDescricao.setText(necessidade.getDescricao());
         }
     }
+    
+     public void focusLost(FocusEvent e) {
+                // Aguarda um curto período para evitar interferência com outras ações
+                SwingUtilities.invokeLater(() -> {
+                    if (!jPanel2.isFocusOwner()) {
+                       jPanel2.requestFocusInWindow();
+                    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,11 +59,22 @@ public class CadastroNecessidade extends javax.swing.JFrame {
         tfCodigo = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
-        tfDescricao = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tfDescricao = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Necessidades");
+        setFocusable(false);
+
+        jPanel1.setFocusCycleRoot(true);
+
+        jPanel2.setToolTipText("");
+        jPanel2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jPanel2FocusLost(evt);
+            }
+        });
 
         jLabel2.setText("Código:");
 
@@ -78,13 +100,16 @@ public class CadastroNecessidade extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setText("Descrição");
+
+        tfDescricao.setColumns(20);
+        tfDescricao.setRows(5);
         tfDescricao.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 tfDescricaoCaretUpdate(evt);
             }
         });
-
-        jLabel3.setText("Descrição");
+        jScrollPane1.setViewportView(tfDescricao);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -101,10 +126,12 @@ public class CadastroNecessidade extends javax.swing.JFrame {
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 448, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(tfCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(206, 206, 206))
+                            .addComponent(jScrollPane1))))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -116,7 +143,7 @@ public class CadastroNecessidade extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(tfDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -128,9 +155,10 @@ public class CadastroNecessidade extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -163,12 +191,17 @@ public class CadastroNecessidade extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        System.out.println("" + modo);
         if (modo == 0) {
             NecessidadeEspecial necessidade = retornaNecessidade();
             nc.cadastrarNecessidade(necessidade);
         }
         if (modo == 1) {
+            NecessidadeEspecial necessidade = retornaNecessidade();
+            necessidade.setCodigo(codigo);
+            nc.atualizarNecessidade(necessidade);
         }
         this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -195,8 +228,12 @@ public class CadastroNecessidade extends javax.swing.JFrame {
     }//GEN-LAST:event_tfCodigoCaretUpdate
 
     private void tfDescricaoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfDescricaoCaretUpdate
-        verificarCampos();
+        verificarCampos(); // TODO add your handling code here:
     }//GEN-LAST:event_tfDescricaoCaretUpdate
+
+    private void jPanel2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel2FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel2FocusLost
 
     /**
      * @param args the command line arguments
@@ -239,11 +276,11 @@ public class CadastroNecessidade extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField tfCodigo;
-    private javax.swing.JTextField tfDescricao;
+    private javax.swing.JTextArea tfDescricao;
     // End of variables declaration//GEN-END:variables
 
-    
     private NecessidadeEspecial retornaNecessidade() {
         codigoNecessidade = tfCodigo.getText();
         descricao = tfDescricao.getText();
@@ -252,7 +289,6 @@ public class CadastroNecessidade extends javax.swing.JFrame {
         return necessidade;
     }
 
-    
     private void verificarCampos() {
 
         btnSalvar.setEnabled(!tfCodigo.getText().trim().isEmpty() && !tfDescricao.getText().trim().isEmpty());
