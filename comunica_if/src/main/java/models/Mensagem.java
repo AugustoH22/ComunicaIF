@@ -1,7 +1,7 @@
 package models;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +13,9 @@ public class  Mensagem implements Serializable{
     private Servidor remetente;
     private List<Servidor> destinatarios = new ArrayList<>();
     private List<Aluno> alunos = new ArrayList<>();
-    private LocalDate dataHoraCriacao;
+    private LocalDateTime dataHoraCriacao;
 
-    public Mensagem(int codigo, String texto, String assunto, Servidor remetente, List<Servidor> destinatarios, List<Aluno> alunos, LocalDate dataHora) {
+    public Mensagem(int codigo, String texto, String assunto, Servidor remetente, List<Servidor> destinatarios, List<Aluno> alunos, LocalDateTime dataHora) {
         this.codigo = codigo;
         this.texto = texto;
         this.assunto = assunto;
@@ -77,11 +77,11 @@ public class  Mensagem implements Serializable{
         this.alunos = alunos;
     }
 
-    public LocalDate getDataHoraCriacao() {
+    public LocalDateTime getDataHoraCriacao() {
         return dataHoraCriacao;
     }
 
-    public void setDataHoraCriacao(LocalDate dataHoraCriacao) {
+    public void setDataHoraCriacao(LocalDateTime dataHoraCriacao) {
         this.dataHoraCriacao = dataHoraCriacao;
     }
 

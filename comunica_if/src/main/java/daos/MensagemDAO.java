@@ -22,7 +22,7 @@ public class MensagemDAO {
             stmt.setString(1, m.getAssunto());
             stmt.setString(2, m.getTexto());
             stmt.setInt(3, m.getRemetente().getCodigo());
-            stmt.setDate(4, Date.valueOf(m.getDataHoraCriacao()));
+            stmt.setTimestamp(4, Timestamp.valueOf(m.getDataHoraCriacao()));
             stmt.executeUpdate();
 
             ResultSet rs = stmt.getGeneratedKeys();
@@ -67,15 +67,14 @@ public class MensagemDAO {
         List<Mensagem> mensagens = new ArrayList<>();
         String sql = "SELECT * FROM Mensagem";
 
-        try (PreparedStatement stmt = conexao.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        try (PreparedStatement stmt = conexao.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 Mensagem m = new Mensagem();
                 m.setCodigo(rs.getInt("codigo"));
                 m.setAssunto(rs.getString("assunto"));
                 m.setTexto(rs.getString("texto"));
-                m.setDataHoraCriacao(rs.getDate("dataHoraCriacao").toLocalDate());
+                m.setDataHoraCriacao(rs.getTimestamp("dataHoraCriacao").toLocalDateTime());
 
                 // Buscar remetente
                 ServidorDAO servidorDAO = new ServidorDAO();
@@ -145,7 +144,7 @@ public class MensagemDAO {
                     m.setCodigo(rs.getInt("codigo"));
                     m.setAssunto(rs.getString("assunto"));
                     m.setTexto(rs.getString("texto"));
-                    m.setDataHoraCriacao(rs.getDate("dataHoraCriacao").toLocalDate());
+                    m.setDataHoraCriacao(rs.getTimestamp("dataHoraCriacao").toLocalDateTime());
 
                     ServidorDAO servidorDAO = new ServidorDAO();
                     m.setRemetente(servidorDAO.buscarPorId(rs.getInt("codServidorRemetente")));
@@ -161,4 +160,42 @@ public class MensagemDAO {
 
         return m;
     }
+
+    public List<Mensagem> procurarPorDestinatario(Servidor destinatario) {
+        List<Mensagem> mensagens = new ArrayList<>();
+        String sql = """
+        SELECT m.* FROM Mensagem m
+        INNER JOIN Mensagem_Destinatario md ON m.codigo = md.codMensagem
+        WHERE md.codServidorDestinatario = ?
+        """;
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, destinatario.getCodigo());
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Mensagem m = new Mensagem();
+                    m.setCodigo(rs.getInt("codigo"));
+                    m.setAssunto(rs.getString("assunto"));
+                    m.setTexto(rs.getString("texto"));
+                    m.setDataHoraCriacao(rs.getTimestamp("dataHoraCriacao").toLocalDateTime());
+
+
+                    ServidorDAO servidorDAO = new ServidorDAO();
+                    m.setRemetente(servidorDAO.buscarPorId(rs.getInt("codServidorRemetente")));
+
+                    m.setDestinatarios(buscarDestinatarios(m.getCodigo()));
+                    m.setAlunos(buscarAlunos(m.getCodigo()));
+
+                    mensagens.add(m);
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao procurar mensagens por destinatário: " + ex.getMessage());
+        }
+
+        return mensagens;
+    }
+
 }

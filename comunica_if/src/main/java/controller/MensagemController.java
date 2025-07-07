@@ -3,6 +3,7 @@ package controller;
 import daos.MensagemDAO;
 import java.util.List;
 import models.Mensagem;
+import models.Servidor;
 
 public class MensagemController {
 
@@ -25,5 +26,9 @@ public class MensagemController {
     // Buscar mensagem por ID
     public Mensagem buscarMensagemPorId(int id) {
         return dao.buscarPorId(id);
+    }
+    
+    public List<Mensagem> buscarMensagemPorDestinatario(Servidor s){
+        return dao.procurarPorDestinatario(s);
     }
 }

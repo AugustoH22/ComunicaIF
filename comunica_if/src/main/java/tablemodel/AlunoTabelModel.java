@@ -3,16 +3,19 @@ package tablemodel;
 import controller.AlunoController;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
+import java.util.stream.Collectors;
 import models.Aluno;
+import models.NecessidadeEspecial;
 
 public class AlunoTabelModel extends AbstractTableModel {
+
     private final List<Aluno> alunos;
-    private final String[] colunas = {"Código","Nome", "Necessidade"};
+    private final String[] colunas = {"Código", "Nome", "Necessidade"};
 
     private AlunoController ac = new AlunoController();
-    
+
     public AlunoTabelModel(List<Aluno> alunos) {
-        this.alunos=alunos;
+        this.alunos = alunos;
     }
 
     public AlunoTabelModel() {
@@ -38,7 +41,14 @@ public class AlunoTabelModel extends AbstractTableModel {
             case 1:
                 return ac.getNome();
             case 2:
-                return ac.getNecessidades();
+                List<NecessidadeEspecial> necessidades = ac.getNecessidades();
+                if (necessidades.isEmpty()) {
+                    return "Sem necessidades cadastradas";
+                } else {
+                    return necessidades.stream()
+                            .map(n -> n.getCodigoNecessidade()) // ou n.toString() se quiser algo diferente
+                            .collect(Collectors.joining(", "));
+                }
             default:
                 return null;
         }
