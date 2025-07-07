@@ -62,7 +62,7 @@ public class CadastroTurma extends javax.swing.JFrame {
             }
         });
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de Turmas");
 
         btnSalvar.setBackground(new java.awt.Color(51, 153, 137));

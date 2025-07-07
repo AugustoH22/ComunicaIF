@@ -100,7 +100,8 @@ public class ServidorDAO {
                     s = new Servidor();
                     s.setCodigo(rs.getInt("id"));
                     s.setNome(rs.getString("nome"));
-
+                    s.setUsuario(rs.getString("usuario"));
+                    s.setSenha(rs.getString("senha"));
                     Departamento departamento = new DepartamentoDAO().buscarPorId(rs.getInt("departamento_id"));
                     Permissao permissao = new PermissaoDAO().buscarPorId(rs.getInt("permissao_id"));
 
