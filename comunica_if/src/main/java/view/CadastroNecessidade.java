@@ -14,18 +14,21 @@ import models.NecessidadeEspecial;
  *
  * @author augustobraga
  */
-public class CadastroNecessidade extends javax.swing.JFrame {
+public class CadastroNecessidade extends javax.swing.JDialog {
 
     int codigo;
     String codigoNecessidade;
     String descricao;
     int modo;
     private final NecessidadeEspecialController nc;
+    private FormPrincipal principal;
 
-    public CadastroNecessidade(int codigo, int modo) {
-        initComponents();
-        this.codigo = codigo;
-        this.modo = modo;
+    public CadastroNecessidade(java.awt.Frame parent, boolean modal, int codigo, int modo) {
+    super(parent, modal);
+    initComponents();
+    this.principal = (FormPrincipal) parent;
+    this.codigo = codigo;
+    this.modo = modo;
         nc = new NecessidadeEspecialController();
 
         btnSalvar.setEnabled(false);
@@ -43,6 +46,8 @@ public class CadastroNecessidade extends javax.swing.JFrame {
                     if (!jPanel2.isFocusOwner()) {
                        jPanel2.requestFocusInWindow();
                     }
+                    });
+                        }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -174,9 +179,9 @@ public class CadastroNecessidade extends javax.swing.JFrame {
             .addGap(0, 578, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 5, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 6, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,7 +198,7 @@ public class CadastroNecessidade extends javax.swing.JFrame {
 
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        System.out.println("" + modo);
+
         if (modo == 0) {
             NecessidadeEspecial necessidade = retornaNecessidade();
             nc.cadastrarNecessidade(necessidade);
@@ -265,7 +270,7 @@ public class CadastroNecessidade extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new CadastroNecessidade(0, 0).setVisible(true);
+            new CadastroNecessidade(new javax.swing.JFrame(),true, 0, 0).setVisible(true);
         });
     }
 

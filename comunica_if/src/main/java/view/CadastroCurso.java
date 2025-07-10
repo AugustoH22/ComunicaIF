@@ -2,17 +2,19 @@ package view;
 
 import controller.CursoController;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import models.Curso;
 
 
-public class CadastroCurso extends javax.swing.JFrame {
+public class CadastroCurso extends javax.swing.JDialog {
 
     int codigo;
     String nome;
     int modo;
     private final CursoController cc;
 
-    public CadastroCurso(int codigo, int modo) {
+    public CadastroCurso(java.awt.Frame parent, boolean modal, int codigo, int modo) {
+        super(parent, modal);
         initComponents();
         this.codigo = codigo;
         this.modo = modo;
@@ -155,7 +157,7 @@ public class CadastroCurso extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new CadastroCurso(0,0).setVisible(true);
+            new CadastroCurso(new javax.swing.JFrame(),true,0,0).setVisible(true);
         });
     }
 

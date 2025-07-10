@@ -22,7 +22,8 @@ public class CadastroAluno extends javax.swing.JDialog {
     Aluno a;
     private final AlunoController ac;
 
-    public CadastroAluno(int codigo, int modo, List<Curso> cursos, List<Turma> turmas, List<NecessidadeEspecial> necessidades) {
+    public CadastroAluno(java.awt.Frame parent, boolean modal, int codigo, int modo, List<Curso> cursos, List<Turma> turmas, List<NecessidadeEspecial> necessidades) {
+        super(parent, modal);
         initComponents();
         this.codigo = codigo;
         this.modo = modo;
@@ -31,7 +32,6 @@ public class CadastroAluno extends javax.swing.JDialog {
         btnSalvar.setEnabled(false);
         btnExcluir.setEnabled(false);
 
-        
         if (!necessidades.isEmpty()) {
             listaNecessidades = necessidades;
         }
@@ -93,6 +93,11 @@ public class CadastroAluno extends javax.swing.JDialog {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        cbNecessidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbNecessidadesActionPerformed(evt);
             }
         });
 
@@ -296,15 +301,15 @@ public class CadastroAluno extends javax.swing.JDialog {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void cbNecessidadesAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbNecessidadesAncestorAdded
-        if (modo == 0) {
-            cbNecessidades.removeAll();
+        cbNecessidades.removeAll();
+        cbNecessidades.addItem("Selecione..."); // ou new NecessidadeEspecial(0, "Selecione...")
 
-            if (!listaNecessidades.isEmpty()) {
-                for (NecessidadeEspecial cf : listaNecessidades) {
-                    cbNecessidades.addItem(cf);
-                }
-            }
+        for (NecessidadeEspecial cf : listaNecessidades) {
+            cbNecessidades.addItem(cf);
         }
+
+        cbNecessidades.setSelectedIndex(0); // ou -1 se quiser deixar sem nenhum selecionado
+
     }//GEN-LAST:event_cbNecessidadesAncestorAdded
 
     private void cbCursosAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_cbCursosAncestorAdded
@@ -323,6 +328,10 @@ public class CadastroAluno extends javax.swing.JDialog {
 
     }//GEN-LAST:event_cbSemestreAncestorAdded
 
+    private void cbNecessidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNecessidadesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbNecessidadesActionPerformed
+
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
@@ -330,7 +339,7 @@ public class CadastroAluno extends javax.swing.JDialog {
             List<Turma> t = new ArrayList<>();
             List<NecessidadeEspecial> n = new ArrayList<>();
 
-            CadastroAluno dialog = new CadastroAluno(0, 0, c, t, n);
+            CadastroAluno dialog = new CadastroAluno(new javax.swing.JFrame(), true, 0, 0, c, t, n);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -355,16 +364,16 @@ public class CadastroAluno extends javax.swing.JDialog {
     public javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
 
-    private void verificarCampos() {   
+    private void verificarCampos() {
         btnSalvar.setEnabled(!tfNome.getText().trim().isEmpty());
     }
 
     private Aluno retornaAluno() {
-        
+
         Aluno aux = new Aluno(0, tfNome.getText(), necessidades);
-        
-       return aux;
-        
+
+        return aux;
+
     }
 
 }
