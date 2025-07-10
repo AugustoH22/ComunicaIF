@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 import models.Curso;
 import models.Turma;
 
-public class CadastroTurma extends javax.swing.JFrame {
+public class CadastroTurma extends javax.swing.JDialog {
 
     private final TurmaController tc;
     int modo;
@@ -17,7 +17,8 @@ public class CadastroTurma extends javax.swing.JFrame {
     String semestre;
     List<Curso> listaCursos = new ArrayList<>();
 
-    public CadastroTurma(int codigo, List<Curso> cursos, int modo) {
+    public CadastroTurma(java.awt.Frame parent, boolean modal, int codigo, List<Curso> cursos, int modo) {
+        super(parent, modal);
         initComponents();
         this.codigo = codigo;
         this.modo = modo;
@@ -283,7 +284,7 @@ public class CadastroTurma extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
             List<Curso> l = new ArrayList<>();
-            new CadastroTurma(0, l, 0).setVisible(true);
+            new CadastroTurma(new javax.swing.JFrame(), true, 0, l, 0).setVisible(true);
         });
     }
 
