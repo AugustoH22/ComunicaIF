@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package view;
 
 import controller.NecessidadeEspecialController;
@@ -10,10 +6,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import models.NecessidadeEspecial;
 
-/**
- *
- * @author augustobraga
- */
 public class CadastroNecessidade extends javax.swing.JFrame {
 
     int codigo;
@@ -36,13 +28,15 @@ public class CadastroNecessidade extends javax.swing.JFrame {
             tfDescricao.setText(necessidade.getDescricao());
         }
     }
-    
-     public void focusLost(FocusEvent e) {
-                // Aguarda um curto período para evitar interferência com outras ações
-                SwingUtilities.invokeLater(() -> {
-                    if (!jPanel2.isFocusOwner()) {
-                       jPanel2.requestFocusInWindow();
-                    }
+
+    public void focusLost(FocusEvent e) {
+        // Aguarda um curto período para evitar interferência com outras ações
+        SwingUtilities.invokeLater(() -> {
+            if (!jPanel2.isFocusOwner()) {
+                jPanel2.requestFocusInWindow();
+            }
+        });
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

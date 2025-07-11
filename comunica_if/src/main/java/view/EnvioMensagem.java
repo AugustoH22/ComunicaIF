@@ -114,7 +114,7 @@ public final class EnvioMensagem extends javax.swing.JFrame {
         chipsPanelAlunos = new javax.swing.JPanel();
         barraPesquisaAlunos = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Assunto:");
 

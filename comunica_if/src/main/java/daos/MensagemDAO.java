@@ -164,10 +164,14 @@ public class MensagemDAO {
     public List<Mensagem> procurarPorDestinatario(Servidor destinatario) {
         List<Mensagem> mensagens = new ArrayList<>();
         String sql = """
-        SELECT m.* FROM Mensagem m
+        SELECT m.*, s.id AS codRemetente, s.nome AS nomeRemetente
+        FROM Mensagem m
         INNER JOIN Mensagem_Destinatario md ON m.codigo = md.codMensagem
+        INNER JOIN servidor s ON m.codServidorRemetente = s.id
         WHERE md.codServidorDestinatario = ?
-        """;
+        ORDER BY m.dataHoraCriacao DESC
+        LIMIT 100
+    """;
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setInt(1, destinatario.getCodigo());
@@ -180,13 +184,15 @@ public class MensagemDAO {
                     m.setTexto(rs.getString("texto"));
                     m.setDataHoraCriacao(rs.getTimestamp("dataHoraCriacao").toLocalDateTime());
 
+                    // Remetente já foi carregado no JOIN
+                    Servidor remetente = new Servidor();
+                    remetente.setCodigo(rs.getInt("codRemetente"));
+                    remetente.setNome(rs.getString("nomeRemetente"));
+                    m.setRemetente(remetente);
 
-                    ServidorDAO servidorDAO = new ServidorDAO();
-                    m.setRemetente(servidorDAO.buscarPorId(rs.getInt("codServidorRemetente")));
-
-                    m.setDestinatarios(buscarDestinatarios(m.getCodigo()));
-                    m.setAlunos(buscarAlunos(m.getCodigo()));
-
+                    // Evita buscar dados pesados aqui
+                    // m.setDestinatarios(...); 
+                    // m.setAlunos(...);
                     mensagens.add(m);
                 }
             }
