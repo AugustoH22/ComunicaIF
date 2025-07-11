@@ -9,7 +9,7 @@ import models.Permissao;
 import models.Servidor;
 
 
-public class CadastroServidor extends javax.swing.JFrame {
+public class CadastroServidor extends javax.swing.JDialog {
 
     int codigo;
     int modo;
@@ -19,7 +19,8 @@ public class CadastroServidor extends javax.swing.JFrame {
     List<Permissao> listaPermissao = new ArrayList<>();
     private final ServidorController sc;
 
-    public CadastroServidor(int codigo, List<Departamento> listaDepartamento, List<Permissao> listaPermissao, int modo) {
+    public CadastroServidor(java.awt.Frame parent, boolean modal, int codigo, List<Departamento> listaDepartamento, List<Permissao> listaPermissao, int modo) {
+        super(parent, modal);
         initComponents();
         this.codigo = codigo;
         this.modo = modo;
@@ -297,7 +298,7 @@ public class CadastroServidor extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             List<Departamento> listaDepartamento1 = new ArrayList<>();
             List<Permissao> listaPermissao1 = new ArrayList<>();
-            new CadastroServidor(0, listaDepartamento1, listaPermissao1, 0).setVisible(true);
+            new CadastroServidor(new javax.swing.JFrame(),true,0, listaDepartamento1, listaPermissao1, 0).setVisible(true);
         });
     }
 

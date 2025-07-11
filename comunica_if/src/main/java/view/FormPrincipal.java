@@ -53,6 +53,7 @@ import tablemodel.TurmaTabelModel;
 
 public class FormPrincipal extends javax.swing.JFrame {
 
+    private CadastroNecessidade telaNecessidade = null;
     private int clique = 0;
     private Shape shape;
     private int cliqueAux = 0;
@@ -81,7 +82,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     public FormPrincipal() {
 
-        user = sc.buscarServidorPorId(5);
+        user = sc.buscarServidorPorId(7);
         mensagens = mc.buscarMensagemPorDestinatario(user);
         alunos = ac.listarAlunos();
         cursos = cc.listarCursos();
@@ -977,35 +978,38 @@ public class FormPrincipal extends javax.swing.JFrame {
             int linhaSelecionada = tblDados.getSelectedRow();
             int aux = (int) tblDados.getValueAt(linhaSelecionada, 0);
             if (null != rota) {
+                {
                 switch (rota) {
-                    case "Home" ->
+                        case "Home" ->
+                       
                         mostrarMensagem(aux);
-                    case "Alunos" -> {
-                        CadastroAluno CadastroAluno = new CadastroAluno(aux, 1, cursos, turmas, necessidades);
-                        CadastroAluno.setVisible(true);
-                    }
-                    case "Cursos" -> {
-                        CadastroCurso CadastroCurso = new CadastroCurso(aux, 1);
-                        CadastroCurso.setVisible(true);
-                    }
-                    case "Turmas" -> {
-                        CadastroTurma CadastroTurma = new CadastroTurma(aux, cursos, 1);
-                        CadastroTurma.setVisible(true);
-                    }
-                    case "Necessidades" -> {
-                        CadastroNecessidade CadastroNecessidade = new CadastroNecessidade(aux, 1);
-                        CadastroNecessidade.setVisible(true);
-                    }
-                    case "Servidor" -> {
-                        CadastroServidor CadastroServidor = new CadastroServidor(aux, departamentos, permissoes, 1);
-                        CadastroServidor.setVisible(true);
-                    }
-                    case "Departamento" -> {
-                        CadastroDepartamento CadastroDepartamento = new CadastroDepartamento(new javax.swing.JFrame(),
+                        case "Alunos" -> {
+                            CadastroAluno CadastroAluno = new CadastroAluno(new javax.swing.JFrame(), true, aux, 1, cursos, turmas, necessidades);
+                            CadastroAluno.setVisible(true);
+                        }
+                        case "Cursos" -> {
+                            CadastroCurso CadastroCurso = new CadastroCurso(new javax.swing.JFrame(), true, aux, 1);
+                            CadastroCurso.setVisible(true);
+                        }
+                        case "Turmas" -> {
+                            CadastroTurma CadastroTurma = new CadastroTurma(new javax.swing.JFrame(), true, aux, cursos, 1);
+                            CadastroTurma.setVisible(true);
+                        }
+                        case "Necessidades" -> {
+                            CadastroNecessidade CadastroNecessidade = new CadastroNecessidade(new javax.swing.JFrame(), true, aux, 1);
+                            CadastroNecessidade.setVisible(true);
+                        }
+                        case "Servidor" -> {
+                            CadastroServidor CadastroServidor = new CadastroServidor(new javax.swing.JFrame(), true, aux, departamentos, permissoes, 1);
+                            CadastroServidor.setVisible(true);
+                        }
+                        case "Departamento" -> {
+                            CadastroDepartamento CadastroDepartamento = new CadastroDepartamento(new javax.swing.JFrame(),
                                 true, aux, 1);
-                        CadastroDepartamento.setVisible(true);
+                            CadastroDepartamento.setVisible(true);
+                        }
+                        default -> {
                     }
-                    default -> {
                     }
                 }
             }
@@ -1019,53 +1023,54 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void BotaoNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoNovoActionPerformed
         if (null != rota)
+           
             switch (rota) {
-                case "Home" -> {
-                    EnvioMensagem EnvioMensagem = new EnvioMensagem(user);
-                    EnvioMensagem.setVisible(true);
-                }
-                case "Alunos" -> {
-                    CadastroAluno CadastroAluno = new CadastroAluno(0, 0, cursos, turmas, necessidades);
-                    CadastroAluno.setVisible(true);
-                }
-                case "Cursos" -> {
-                    CadastroCurso CadastroCurso = new CadastroCurso(0, 0);
-                    CadastroCurso.setVisible(true);
-                }
-                case "Turmas" -> {
-                    CadastroTurma CadastroTurma = new CadastroTurma(0, cursos, 0);
-                    CadastroTurma.setVisible(true);
-                }
-                case "Necessidades" -> {
-                    CadastroNecessidade CadastroNecessidade = new CadastroNecessidade(0, 0);
-                    CadastroNecessidade.setVisible(true);
-                }
-                case "Servidor" -> {
-                    CadastroServidor CadastroServidor = new CadastroServidor(0, departamentos, permissoes, 0);
-                    CadastroServidor.setVisible(true);
-                }
-                case "Departamento" -> {
-                    CadastroDepartamento CadastroDepartamento = new CadastroDepartamento(new javax.swing.JFrame(),
+                    case "Home" -> {
+                        EnvioMensagem EnvioMensagem = new EnvioMensagem(user);
+                        EnvioMensagem.setVisible(true);
+                    }
+                    case "Alunos" -> {
+                        CadastroAluno CadastroAluno = new CadastroAluno(new javax.swing.JFrame(), true, 0, 0, cursos, turmas, necessidades);
+                        CadastroAluno.setVisible(true);
+                    }
+                    case "Cursos" -> {
+                        CadastroCurso CadastroCurso = new CadastroCurso(new javax.swing.JFrame(), true, 0, 0);
+                        CadastroCurso.setVisible(true);
+                    }
+                    case "Turmas" -> {
+                        CadastroTurma CadastroTurma = new CadastroTurma(new javax.swing.JFrame(), true, 0, cursos, 0);
+                        CadastroTurma.setVisible(true);
+                    }
+                    case "Necessidades" -> {
+                        CadastroNecessidade CadastroNecessidade = new CadastroNecessidade(new javax.swing.JFrame(), true, 0, 0);
+                        CadastroNecessidade.setVisible(true);
+                    }
+                    case "Servidor" -> {
+                        CadastroServidor CadastroServidor = new CadastroServidor(new javax.swing.JFrame(), true, 0, departamentos, permissoes, 0);
+                        CadastroServidor.setVisible(true);
+                    }
+                    case "Departamento" -> {
+                        CadastroDepartamento CadastroDepartamento = new CadastroDepartamento(new javax.swing.JFrame(),
                             true, 0, 0);
-                    CadastroDepartamento.setVisible(true);
-                }
-                case "TurmaAluno" -> {
-                    if (cbTurmas.getSelectedItem() != null) {
-                        Turma turma = (Turma) cbTurmas.getSelectedItem();
-                        AddAluno AddAluno = new AddAluno(turma.getCodigo());
-                        AddAluno.setVisible(true);
+                        CadastroDepartamento.setVisible(true);
+                    }
+                    case "TurmaAluno" -> {
+                        if (cbTurmas.getSelectedItem() != null) {
+                            Turma turma = (Turma) cbTurmas.getSelectedItem();
+                            AddAluno AddAluno = new AddAluno(turma.getCodigo());
+                            AddAluno.setVisible(true);
+                        }
+                    }
+                    case "TurmaServidor" -> {
+                        if (cbTurmas.getSelectedItem() != null) {
+                            Turma turma = (Turma) cbTurmas.getSelectedItem();
+                            AddServidor AddServidor = new AddServidor(turma.getCodigo());
+                            AddServidor.setVisible(true);
+                        }
+                    }
+                    default -> {
                     }
                 }
-                case "TurmaServidor" -> {
-                    if (cbTurmas.getSelectedItem() != null) {
-                        Turma turma = (Turma) cbTurmas.getSelectedItem();
-                        AddServidor AddServidor = new AddServidor(turma.getCodigo());
-                        AddServidor.setVisible(true);
-                    }
-                }
-                default -> {
-                }
-            }
     }//GEN-LAST:event_BotaoNovoActionPerformed
 
     private void BotaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoExcluirActionPerformed
