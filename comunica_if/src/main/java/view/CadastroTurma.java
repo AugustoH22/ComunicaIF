@@ -20,6 +20,7 @@ public class CadastroTurma extends javax.swing.JDialog {
     public CadastroTurma(java.awt.Frame parent, boolean modal, int codigo, List<Curso> cursos, int modo) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         this.codigo = codigo;
         this.modo = modo;
         tc = new TurmaController();

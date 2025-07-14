@@ -13,12 +13,12 @@ public class CadastroNecessidade extends javax.swing.JDialog {
     String descricao;
     int modo;
     private final NecessidadeEspecialController nc;
-    private FormPrincipal principal;
+
 
     public CadastroNecessidade(java.awt.Frame parent, boolean modal, int codigo, int modo) {
     super(parent, modal);
     initComponents();
-    this.principal = (FormPrincipal) parent;
+    setLocationRelativeTo(null);
     this.codigo = codigo;
     this.modo = modo;
         nc = new NecessidadeEspecialController();

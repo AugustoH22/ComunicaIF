@@ -31,4 +31,16 @@ public class ServidorController {
     public Servidor buscarServidorPorId(int id) {
         return dao.buscarPorId(id);
     }
+    
+    public boolean verificarLogin(String usuario, String senha) {
+        return dao.verificarLogin(usuario, senha);
+    }
+    
+    public Servidor buscarPorUsuario(String usuario) {
+        return dao.buscarPorUsuario(usuario);
+    }
+    
+    public void alterarSenha(String usuario, String senha){
+        dao.alterarSenha(usuario, senha);
+    }
 }

@@ -25,6 +25,7 @@ public class CadastroAluno extends javax.swing.JDialog {
     public CadastroAluno(java.awt.Frame parent, boolean modal, int codigo, int modo, List<Curso> cursos, List<Turma> turmas, List<NecessidadeEspecial> necessidades) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         this.codigo = codigo;
         this.modo = modo;
         ac = new AlunoController();

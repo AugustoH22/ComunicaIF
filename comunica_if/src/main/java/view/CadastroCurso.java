@@ -16,6 +16,7 @@ public class CadastroCurso extends javax.swing.JDialog {
     public CadastroCurso(java.awt.Frame parent, boolean modal, int codigo, int modo) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         this.codigo = codigo;
         this.modo = modo;
         cc = new CursoController();

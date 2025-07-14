@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -80,9 +81,9 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private String rota = "Home";
 
-    public FormPrincipal() {
+    public FormPrincipal(int u) {
 
-        user = sc.buscarServidorPorId(7);
+        user = sc.buscarServidorPorId(u);
         mensagens = mc.buscarMensagemPorDestinatario(user);
         alunos = ac.listarAlunos();
         cursos = cc.listarCursos();
@@ -94,6 +95,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
         initComponents();
+        setLocationRelativeTo(null);
 
         scrollPane1.setBorder(null);
         scrollPane1.getViewport().setBorder(null);
@@ -109,6 +111,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnCadastrarTurma.setVisible(false);
         btnVincularAluno.setVisible(false);
         btnVincularServidor.setVisible(false);
+        linha1.setVisible(false);
+        linha2.setVisible(false);
+        linha3.setVisible(false);
         btnResponder.setEnabled(false);
         btnResponder.setVisible(true);
         BD.Conexao.conectar();
@@ -122,6 +127,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         tela.add(telaListar, "lista");
         tela.add(telaResposta, "mensagem");
         tela.add(telaMensagem, "teste");
+        layout.show(tela, "teste");
+        corBotao();
+        Diretorio.setText("Home");
 
     }
 
@@ -179,7 +187,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnCadastrarTurma = new javax.swing.JButton();
         btnVincularAluno = new javax.swing.JButton();
         btnVincularServidor = new javax.swing.JButton();
-        btnNovaMensagem = new javax.swing.JButton();
+        btnNovaMensagem = new RoundedButton("Escrever");
+        linha3 = new javax.swing.JSeparator();
+        jSeparator10 = new javax.swing.JSeparator();
+        linha2 = new javax.swing.JSeparator();
+        linha1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -301,7 +313,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                                 .addComponent(cbTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 855, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(5, 5, 5)))
-                .addGap(0, 20, Short.MAX_VALUE))
+                .addGap(0, 30, Short.MAX_VALUE))
         );
         telaListarLayout.setVerticalGroup(
             telaListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -431,7 +443,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(btnVoltar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)
+                .addComponent(scrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 623, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnResponder)
                 .addContainerGap())
@@ -446,8 +458,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         telaRespostaLayout.setVerticalGroup(
             telaRespostaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(telaRespostaLayout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 47, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 25, Short.MAX_VALUE))
         );
 
         tela.add(telaResposta, "card7");
@@ -529,7 +541,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addComponent(LogOut)
                 .addGap(23, 23, 23))
             .addGroup(PanelSuperiorLayout.createSequentialGroup()
-                .addComponent(tela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tela, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         PanelSuperiorLayout.setVerticalGroup(
@@ -553,6 +565,16 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnHome.setText("Home");
         btnHome.setBorder(null);
         btnHome.setFocusable(false);
+        btnHome.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnHomeMouseMoved(evt);
+            }
+        });
+        btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnHomeMouseExited(evt);
+            }
+        });
         btnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHomeActionPerformed(evt);
@@ -565,6 +587,16 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnAlunos.setText("Alunos");
         btnAlunos.setBorder(null);
         btnAlunos.setFocusable(false);
+        btnAlunos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnAlunosMouseMoved(evt);
+            }
+        });
+        btnAlunos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAlunosMouseExited(evt);
+            }
+        });
         btnAlunos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlunosActionPerformed(evt);
@@ -577,6 +609,16 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnCursos.setText("Cursos");
         btnCursos.setBorder(null);
         btnCursos.setFocusable(false);
+        btnCursos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnCursosMouseMoved(evt);
+            }
+        });
+        btnCursos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCursosMouseExited(evt);
+            }
+        });
         btnCursos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCursosActionPerformed(evt);
@@ -589,6 +631,16 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnNecessidades.setText("Necessidades");
         btnNecessidades.setBorder(null);
         btnNecessidades.setFocusable(false);
+        btnNecessidades.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnNecessidadesMouseMoved(evt);
+            }
+        });
+        btnNecessidades.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnNecessidadesMouseExited(evt);
+            }
+        });
         btnNecessidades.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNecessidadesActionPerformed(evt);
@@ -601,6 +653,16 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnServidor.setText("Servidor");
         btnServidor.setBorder(null);
         btnServidor.setFocusable(false);
+        btnServidor.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnServidorMouseMoved(evt);
+            }
+        });
+        btnServidor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnServidorMouseExited(evt);
+            }
+        });
         btnServidor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnServidorActionPerformed(evt);
@@ -616,13 +678,28 @@ public class FormPrincipal extends javax.swing.JFrame {
         btnDepartamento.setMaximumSize(new java.awt.Dimension(139, 22));
         btnDepartamento.setMinimumSize(new java.awt.Dimension(139, 22));
         btnDepartamento.setPreferredSize(new java.awt.Dimension(139, 22));
+        btnDepartamento.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnDepartamentoMouseMoved(evt);
+            }
+        });
+        btnDepartamento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDepartamentoMouseExited(evt);
+            }
+        });
         btnDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDepartamentoActionPerformed(evt);
             }
         });
 
+        btnTurmas.setBackground(new java.awt.Color(204, 204, 204));
+        btnTurmas.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        btnTurmas.setForeground(new java.awt.Color(255, 255, 255));
         btnTurmas.setText("Turmas");
+        btnTurmas.setBorder(null);
+        btnTurmas.setContentAreaFilled(false);
         btnTurmas.setFocusable(false);
         btnTurmas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -651,7 +728,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jSeparator9.setBackground(new java.awt.Color(204, 204, 204));
         jSeparator9.setForeground(new java.awt.Color(153, 153, 153));
 
+        btnCadastrarTurma.setBackground(new java.awt.Color(204, 204, 204));
+        btnCadastrarTurma.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        btnCadastrarTurma.setForeground(new java.awt.Color(255, 255, 255));
         btnCadastrarTurma.setText("Cadastrar");
+        btnCadastrarTurma.setBorder(null);
         btnCadastrarTurma.setFocusable(false);
         btnCadastrarTurma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -659,7 +740,11 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnVincularAluno.setText("Vincular Alunos");
+        btnVincularAluno.setBackground(new java.awt.Color(204, 204, 204));
+        btnVincularAluno.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        btnVincularAluno.setForeground(new java.awt.Color(255, 255, 255));
+        btnVincularAluno.setText("Alunos");
+        btnVincularAluno.setBorder(null);
         btnVincularAluno.setFocusable(false);
         btnVincularAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -667,7 +752,11 @@ public class FormPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnVincularServidor.setText("Vincular Servidor");
+        btnVincularServidor.setBackground(new java.awt.Color(204, 204, 204));
+        btnVincularServidor.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
+        btnVincularServidor.setForeground(new java.awt.Color(255, 255, 255));
+        btnVincularServidor.setText("Servidores");
+        btnVincularServidor.setBorder(null);
         btnVincularServidor.setFocusPainted(false);
         btnVincularServidor.setFocusable(false);
         btnVincularServidor.addActionListener(new java.awt.event.ActionListener() {
@@ -677,14 +766,26 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
 
         btnNovaMensagem.setFont(new java.awt.Font("Microsoft JhengHei UI", 1, 18)); // NOI18N
-        btnNovaMensagem.setText("+ Nova Mensagem");
-        btnNovaMensagem.setBorder(null);
+        btnNovaMensagem.setForeground(new java.awt.Color(255, 255, 255));
+        btnNovaMensagem.setText("Escrever");
         btnNovaMensagem.setFocusable(false);
         btnNovaMensagem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovaMensagemActionPerformed(evt);
             }
         });
+
+        linha3.setBackground(new java.awt.Color(204, 204, 204));
+        linha3.setForeground(new java.awt.Color(153, 153, 153));
+
+        jSeparator10.setBackground(new java.awt.Color(204, 204, 204));
+        jSeparator10.setForeground(new java.awt.Color(153, 153, 153));
+
+        linha2.setBackground(new java.awt.Color(204, 204, 204));
+        linha2.setForeground(new java.awt.Color(180, 180, 180));
+
+        linha1.setBackground(new java.awt.Color(204, 204, 204));
+        linha1.setForeground(new java.awt.Color(180, 180, 180));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -708,18 +809,30 @@ public class FormPrincipal extends javax.swing.JFrame {
                             .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator6)
                             .addComponent(jSeparator8)
-                            .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.TRAILING)))
+                            .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator10, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnCadastrarTurma, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnVincularAluno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnVincularServidor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(btnVincularAluno, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(linha2, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(linha1)))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Categoria, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnNovaMensagem, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))))
+                            .addComponent(btnNovaMensagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(33, 33, 33)
+                                .addComponent(btnVincularServidor, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))
+                            .addComponent(linha3, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanelSuperior, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -729,7 +842,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(Categoria, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnNovaMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnNovaMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -756,14 +869,22 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addComponent(btnNecessidades, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTurmas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCadastrarTurma)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVincularAluno)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnVincularServidor)
+                .addGap(0, 0, 0)
+                .addComponent(btnTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnCadastrarTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(linha1, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnVincularAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(linha2, javax.swing.GroupLayout.PREFERRED_SIZE, 3, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(btnVincularServidor, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(linha3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(PanelSuperior, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -792,11 +913,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         rota = "Departamento";
         cbCursos.setVisible(false);
         cbTurmas.setVisible(false);
+        corBotao();
 
         CardLayout layout = (CardLayout) tela.getLayout();
         layout.show(tela, "lista");
 
         configurarTabela();
+        corBotao();
 
         BotaoNovo.setEnabled(true);
         BotaoExcluir.setEnabled(false);
@@ -809,11 +932,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         rota = "Servidor";
         cbCursos.setVisible(false);
         cbTurmas.setVisible(false);
+        corBotao();
 
         CardLayout layout = (CardLayout) tela.getLayout();
         layout.show(tela, "lista");
 
         configurarTabela();
+        corBotao();
 
         BotaoNovo.setEnabled(true);
         BotaoExcluir.setEnabled(false);
@@ -826,11 +951,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         rota = "Necessidades";
         cbCursos.setVisible(false);
         cbTurmas.setVisible(false);
+        corBotao();
 
         CardLayout layout = (CardLayout) tela.getLayout();
         layout.show(tela, "lista");
 
         configurarTabela();
+        corBotao();
 
         BotaoNovo.setEnabled(true);
         BotaoExcluir.setEnabled(false);
@@ -843,11 +970,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         rota = "Cursos";
         cbCursos.setVisible(false);
         cbTurmas.setVisible(false);
+        corBotao();
 
         CardLayout layout = (CardLayout) tela.getLayout();
         layout.show(tela, "lista");
 
         configurarTabela();
+        corBotao();
 
         BotaoNovo.setEnabled(true);
         BotaoExcluir.setEnabled(false);
@@ -860,11 +989,13 @@ public class FormPrincipal extends javax.swing.JFrame {
         rota = "Alunos";
         cbCursos.setVisible(false);
         cbTurmas.setVisible(false);
+        corBotao();
 
         CardLayout layout = (CardLayout) tela.getLayout();
         layout.show(tela, "lista");
 
         configurarTabela();
+        corBotao();
 
         BotaoNovo.setEnabled(true);
         BotaoExcluir.setEnabled(false);
@@ -882,6 +1013,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         layout.show(tela, "teste");
 
         configurarTabela();
+        corBotao();
 
         BotaoNovo.setEnabled(true);
         BotaoExcluir.setEnabled(false);
@@ -891,6 +1023,10 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void LogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutActionPerformed
 
+        this.dispose();
+
+        Login Login = new Login();
+        Login.setVisible(true);
     }//GEN-LAST:event_LogOutActionPerformed
 
     private void telaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_telaMouseClicked
@@ -902,10 +1038,17 @@ public class FormPrincipal extends javax.swing.JFrame {
             btnCadastrarTurma.setVisible(true);
             btnVincularAluno.setVisible(true);
             btnVincularServidor.setVisible(true);
+            linha1.setVisible(true);
+            linha2.setVisible(true);
+            linha3.setVisible(true);
+            btnTurmas.setBackground(new Color(204, 204, 204));
         } else {
             btnCadastrarTurma.setVisible(false);
             btnVincularAluno.setVisible(false);
             btnVincularServidor.setVisible(false);
+            linha1.setVisible(false);
+            linha2.setVisible(false);
+            linha3.setVisible(false);
         }
     }//GEN-LAST:event_btnTurmasActionPerformed
 
@@ -919,6 +1062,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         layout.show(tela, "lista");
 
         configurarTabela();
+        corBotao();
 
         BotaoNovo.setEnabled(true);
         BotaoNovo.setText("Adicionar");
@@ -937,6 +1081,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         layout.show(tela, "lista");
 
         configurarTabela();
+        corBotao();
 
         BotaoNovo.setEnabled(true);
         BotaoNovo.setText("Adicionar");
@@ -955,6 +1100,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         layout.show(tela, "lista");
 
         configurarTabela();
+        corBotao();
 
         BotaoNovo.setEnabled(true);
         BotaoNovo.setText("Novo");
@@ -979,10 +1125,10 @@ public class FormPrincipal extends javax.swing.JFrame {
             int aux = (int) tblDados.getValueAt(linhaSelecionada, 0);
             if (null != rota) {
                 {
-                switch (rota) {
+                    switch (rota) {
                         case "Home" ->
-                       
-                        mostrarMensagem(aux);
+
+                            mostrarMensagem(aux);
                         case "Alunos" -> {
                             CadastroAluno CadastroAluno = new CadastroAluno(new javax.swing.JFrame(), true, aux, 1, cursos, turmas, necessidades);
                             CadastroAluno.setVisible(true);
@@ -1005,11 +1151,11 @@ public class FormPrincipal extends javax.swing.JFrame {
                         }
                         case "Departamento" -> {
                             CadastroDepartamento CadastroDepartamento = new CadastroDepartamento(new javax.swing.JFrame(),
-                                true, aux, 1);
+                                    true, aux, 1);
                             CadastroDepartamento.setVisible(true);
                         }
                         default -> {
-                    }
+                        }
                     }
                 }
             }
@@ -1023,54 +1169,50 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private void BotaoNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoNovoActionPerformed
         if (null != rota)
-           
+
             switch (rota) {
-                    case "Home" -> {
-                        EnvioMensagem EnvioMensagem = new EnvioMensagem(user);
-                        EnvioMensagem.setVisible(true);
-                    }
-                    case "Alunos" -> {
-                        CadastroAluno CadastroAluno = new CadastroAluno(new javax.swing.JFrame(), true, 0, 0, cursos, turmas, necessidades);
-                        CadastroAluno.setVisible(true);
-                    }
-                    case "Cursos" -> {
-                        CadastroCurso CadastroCurso = new CadastroCurso(new javax.swing.JFrame(), true, 0, 0);
-                        CadastroCurso.setVisible(true);
-                    }
-                    case "Turmas" -> {
-                        CadastroTurma CadastroTurma = new CadastroTurma(new javax.swing.JFrame(), true, 0, cursos, 0);
-                        CadastroTurma.setVisible(true);
-                    }
-                    case "Necessidades" -> {
-                        CadastroNecessidade CadastroNecessidade = new CadastroNecessidade(new javax.swing.JFrame(), true, 0, 0);
-                        CadastroNecessidade.setVisible(true);
-                    }
-                    case "Servidor" -> {
-                        CadastroServidor CadastroServidor = new CadastroServidor(new javax.swing.JFrame(), true, 0, departamentos, permissoes, 0);
-                        CadastroServidor.setVisible(true);
-                    }
-                    case "Departamento" -> {
-                        CadastroDepartamento CadastroDepartamento = new CadastroDepartamento(new javax.swing.JFrame(),
+                case "Alunos" -> {
+                    CadastroAluno CadastroAluno = new CadastroAluno(new javax.swing.JFrame(), true, 0, 0, cursos, turmas, necessidades);
+                    CadastroAluno.setVisible(true);
+                }
+                case "Cursos" -> {
+                    CadastroCurso CadastroCurso = new CadastroCurso(new javax.swing.JFrame(), true, 0, 0);
+                    CadastroCurso.setVisible(true);
+                }
+                case "Turmas" -> {
+                    CadastroTurma CadastroTurma = new CadastroTurma(new javax.swing.JFrame(), true, 0, cursos, 0);
+                    CadastroTurma.setVisible(true);
+                }
+                case "Necessidades" -> {
+                    CadastroNecessidade CadastroNecessidade = new CadastroNecessidade(new javax.swing.JFrame(), true, 0, 0);
+                    CadastroNecessidade.setVisible(true);
+                }
+                case "Servidor" -> {
+                    CadastroServidor CadastroServidor = new CadastroServidor(new javax.swing.JFrame(), true, 0, departamentos, permissoes, 0);
+                    CadastroServidor.setVisible(true);
+                }
+                case "Departamento" -> {
+                    CadastroDepartamento CadastroDepartamento = new CadastroDepartamento(new javax.swing.JFrame(),
                             true, 0, 0);
-                        CadastroDepartamento.setVisible(true);
-                    }
-                    case "TurmaAluno" -> {
-                        if (cbTurmas.getSelectedItem() != null) {
-                            Turma turma = (Turma) cbTurmas.getSelectedItem();
-                            AddAluno AddAluno = new AddAluno(turma.getCodigo());
-                            AddAluno.setVisible(true);
-                        }
-                    }
-                    case "TurmaServidor" -> {
-                        if (cbTurmas.getSelectedItem() != null) {
-                            Turma turma = (Turma) cbTurmas.getSelectedItem();
-                            AddServidor AddServidor = new AddServidor(turma.getCodigo());
-                            AddServidor.setVisible(true);
-                        }
-                    }
-                    default -> {
+                    CadastroDepartamento.setVisible(true);
+                }
+                case "TurmaAluno" -> {
+                    if (cbTurmas.getSelectedItem() != null) {
+                        Turma turma = (Turma) cbTurmas.getSelectedItem();
+                        AddAluno AddAluno = new AddAluno(turma.getCodigo());
+                        AddAluno.setVisible(true);
                     }
                 }
+                case "TurmaServidor" -> {
+                    if (cbTurmas.getSelectedItem() != null) {
+                        Turma turma = (Turma) cbTurmas.getSelectedItem();
+                        AddServidor AddServidor = new AddServidor(turma.getCodigo());
+                        AddServidor.setVisible(true);
+                    }
+                }
+                default -> {
+                }
+            }
     }//GEN-LAST:event_BotaoNovoActionPerformed
 
     private void BotaoExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoExcluirActionPerformed
@@ -1163,12 +1305,97 @@ public class FormPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tbMensagensMouseMoved
 
     private void btnNovaMensagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovaMensagemActionPerformed
-        // TODO add your handling code here:
+        EnvioMensagem1 EnvioMensagem1 = new EnvioMensagem1(user);
+        EnvioMensagem1.setVisible(true);
     }//GEN-LAST:event_btnNovaMensagemActionPerformed
+
+    private void btnHomeMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseMoved
+        if (!"Home".equals(rota)) {
+            btnHome.setBackground(new Color(190, 190, 190));
+        } else {
+            corBotao();
+        }
+    }//GEN-LAST:event_btnHomeMouseMoved
+
+    private void btnHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseExited
+        btnHome.setBackground(new Color(204, 204, 204));
+        corBotao();
+    }//GEN-LAST:event_btnHomeMouseExited
+
+    private void btnAlunosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlunosMouseMoved
+        if (!"Alunos".equals(rota)) {
+            btnAlunos.setBackground(new Color(190, 190, 190));
+        } else {
+            corBotao();
+        }
+
+    }//GEN-LAST:event_btnAlunosMouseMoved
+
+    private void btnAlunosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAlunosMouseExited
+        btnAlunos.setBackground(new Color(204, 204, 204));
+        corBotao();
+    }//GEN-LAST:event_btnAlunosMouseExited
+
+    private void btnCursosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCursosMouseMoved
+        if (!"Cursos".equals(rota)) {
+            btnCursos.setBackground(new Color(190, 190, 190));
+        } else {
+            corBotao();
+        }
+
+    }//GEN-LAST:event_btnCursosMouseMoved
+
+    private void btnCursosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCursosMouseExited
+        btnCursos.setBackground(new Color(204, 204, 204));
+        corBotao();
+    }//GEN-LAST:event_btnCursosMouseExited
+
+    private void btnServidorMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnServidorMouseMoved
+        if (!"Servidor".equals(rota)) {
+            btnServidor.setBackground(new Color(190, 190, 190));
+        } else {
+            corBotao();
+        }
+
+    }//GEN-LAST:event_btnServidorMouseMoved
+
+    private void btnServidorMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnServidorMouseExited
+        btnServidor.setBackground(new Color(204, 204, 204));
+        corBotao();
+    }//GEN-LAST:event_btnServidorMouseExited
+
+    private void btnDepartamentoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDepartamentoMouseMoved
+        if (!"Departamento".equals(rota)) {
+            btnDepartamento.setBackground(new Color(190, 190, 190));
+        } else {
+            corBotao();
+        }
+
+
+    }//GEN-LAST:event_btnDepartamentoMouseMoved
+
+    private void btnDepartamentoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDepartamentoMouseExited
+        btnDepartamento.setBackground(new Color(204, 204, 204));
+        corBotao();
+    }//GEN-LAST:event_btnDepartamentoMouseExited
+
+    private void btnNecessidadesMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNecessidadesMouseMoved
+        if (!"Necessidades".equals(rota)) {
+            btnNecessidades.setBackground(new Color(190, 190, 190));
+        } else {
+            corBotao();
+        }
+
+    }//GEN-LAST:event_btnNecessidadesMouseMoved
+
+    private void btnNecessidadesMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNecessidadesMouseExited
+        btnNecessidades.setBackground(new Color(204, 204, 204));
+        corBotao();
+    }//GEN-LAST:event_btnNecessidadesMouseExited
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            new FormPrincipal().setVisible(true);
+            new FormPrincipal(0).setVisible(true);
         });
     }
 
@@ -1201,6 +1428,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -1208,6 +1436,9 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JSeparator linha1;
+    private javax.swing.JSeparator linha2;
+    private javax.swing.JSeparator linha3;
     private javax.swing.JLabel ocorrencia;
     private java.awt.Panel panel1;
     private javax.swing.JPanel panelMensagem;
@@ -1232,6 +1463,34 @@ public class FormPrincipal extends javax.swing.JFrame {
                 clique++;
             } else {
                 clique = 0;
+            }
+        }
+    }
+
+    private void corBotao() {
+        if (null != rota) {
+            switch (rota) {
+                case "Home" ->
+                    setBotaoAtivo(btnHome);
+                case "Alunos" ->
+                    setBotaoAtivo(btnAlunos);
+                case "Cursos" ->
+                    setBotaoAtivo(btnCursos);
+                case "Necessidades" ->
+                    setBotaoAtivo(btnNecessidades);
+                case "Servidor" ->
+                    setBotaoAtivo(btnServidor);
+                case "Departamento" ->
+                    setBotaoAtivo(btnDepartamento);
+                case "TurmaAluno" ->
+                    setBotaoAtivo(btnVincularAluno);
+                case "TurmaServidor" ->
+                    setBotaoAtivo(btnVincularServidor);
+                case "Turmas" ->
+                    setBotaoAtivo(btnCadastrarTurma);
+
+                default -> {
+                }
             }
         }
     }
@@ -1471,6 +1730,13 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         System.out.println("Assunto JLabel: " + remetenteMensagem.getText());
         System.out.println("Remetente JLabel: " + remetenteMensagem.getText());
+    }
+
+    private void setBotaoAtivo(JButton ativo) {
+        JButton[] botoes = {btnHome, btnAlunos, btnCursos, btnDepartamento, btnServidor, btnNecessidades, btnVincularAluno, btnVincularServidor, btnCadastrarTurma};
+        for (JButton b : botoes) {
+            b.setBackground(b == ativo ? new Color(170, 170, 170) : new Color(204, 204, 204));
+        }
     }
 
 }

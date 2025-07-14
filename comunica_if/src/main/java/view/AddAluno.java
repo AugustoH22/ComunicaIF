@@ -22,6 +22,7 @@ public class AddAluno extends javax.swing.JFrame {
     
     public AddAluno(int codigo) {
         initComponents();
+        setLocationRelativeTo(null);
         ac = new AlunoController();
         tc = new TurmaController();       
         this.codigo = codigo;

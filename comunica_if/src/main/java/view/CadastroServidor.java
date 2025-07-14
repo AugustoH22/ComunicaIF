@@ -22,6 +22,7 @@ public class CadastroServidor extends javax.swing.JDialog {
     public CadastroServidor(java.awt.Frame parent, boolean modal, int codigo, List<Departamento> listaDepartamento, List<Permissao> listaPermissao, int modo) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         this.codigo = codigo;
         this.modo = modo;
         sc = new ServidorController();
@@ -324,7 +325,7 @@ public class CadastroServidor extends javax.swing.JDialog {
         Permissao permissao = (Permissao) cbPermissao.getSelectedItem();
         int id1 = 0;
 
-        Servidor servidor = new Servidor(id1, nome, usuario, "123456", departamento, permissao);
+        Servidor servidor = new Servidor(id1, nome, usuario, "123456", departamento, permissao, true);
 
         return servidor;
     }

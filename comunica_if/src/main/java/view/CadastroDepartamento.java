@@ -14,6 +14,7 @@ public class CadastroDepartamento extends javax.swing.JDialog {
     public CadastroDepartamento(java.awt.Frame parent, boolean modal, int codigo, int modo) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         this.codigo = codigo;
         this.modo = modo;
         dc = new DepartamentoController();

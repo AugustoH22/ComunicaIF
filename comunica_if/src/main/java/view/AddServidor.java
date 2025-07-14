@@ -22,6 +22,7 @@ public class AddServidor extends javax.swing.JFrame {
     
     public AddServidor(int codigo) {
         initComponents();
+        setLocationRelativeTo(null);
         ac = new ServidorController();
         tc = new TurmaController();       
         this.codigo = codigo;

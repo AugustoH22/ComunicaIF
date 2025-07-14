@@ -1,6 +1,8 @@
 package daos;
 
 import BD.Conexao;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +20,17 @@ public class ServidorDAO {
 
     // Salvar novo servidor
     public void salvar(Servidor s) {
-        String sql = "INSERT INTO Servidor (nome, usuario, senha, departamento_id, permissao_id) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Servidor (nome, usuario, senha, departamento_id, permissao_id, isFirstLogin) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, s.getNome());
             stmt.setString(2, s.getUsuario());
-            stmt.setString(3, s.getSenha());
+            String senhaCriptografada = criptografarSenha(s.getSenha());
+            stmt.setString(3, senhaCriptografada);
             stmt.setInt(4, s.getDepartamento().getCodigo());
             stmt.setInt(5, s.getPermissao().getCodigo());
+            stmt.setBoolean(6, true);
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
@@ -41,15 +45,13 @@ public class ServidorDAO {
 
     // Atualizar servidor existente
     public void atualizar(Servidor s) {
-        String sql = "UPDATE Servidor SET nome = ?, usario = ?, senha = ?, departamento_id = ?, permissao_id = ? WHERE id = ?";
+        String sql = "UPDATE Servidor SET nome = ?, departamento_id = ?, permissao_id = ? WHERE id = ?";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
             stmt.setString(1, s.getNome());
-            stmt.setString(2, s.getUsuario());
-            stmt.setString(3, s.getSenha());
-            stmt.setInt(4, s.getDepartamento().getCodigo());
-            stmt.setInt(5, s.getPermissao().getCodigo());
-            stmt.setInt(6, s.getCodigo());
+            stmt.setInt(2, s.getDepartamento().getCodigo());
+            stmt.setInt(3, s.getPermissao().getCodigo());
+            stmt.setInt(4, s.getCodigo());
             stmt.executeUpdate();
 
         } catch (SQLException ex) {
@@ -68,7 +70,7 @@ public class ServidorDAO {
                 Servidor s = new Servidor();
                 s.setCodigo(rs.getInt("id"));
                 s.setNome(rs.getString("nome"));
- 
+
                 Departamento departamento = new DepartamentoDAO().buscarPorId(rs.getInt("departamento_id"));
                 Permissao permissao = new PermissaoDAO().buscarPorId(rs.getInt("permissao_id"));
 
@@ -77,6 +79,8 @@ public class ServidorDAO {
 
                 s.setUsuario(rs.getString("usuario"));
                 s.setSenha(rs.getString("senha"));
+
+                s.setPrimeiroLogin(rs.getBoolean("isFirstLogin"));
 
                 lista.add(s);
             }
@@ -108,6 +112,8 @@ public class ServidorDAO {
                     s.setDepartamento(departamento);
                     s.setPermissao(permissao);
 
+                    s.setPrimeiroLogin(rs.getBoolean("isFirstLogin"));
+
                     s.setUsuario(rs.getString("usuario"));
                     s.setSenha(rs.getString("senha"));
                 }
@@ -119,4 +125,93 @@ public class ServidorDAO {
 
         return s;
     }
+
+    public static String criptografarSenha(String senha) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA-256");
+            byte[] hash = md.digest(senha.getBytes());
+            StringBuilder hexString = new StringBuilder();
+
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) {
+                    hexString.append('0');
+                }
+                hexString.append(hex);
+            }
+
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException("Erro ao criptografar senha", e);
+        }
+    }
+
+    // Função para salvar senhas criptografadas
+    public void alterarSenha(String usuario, String novaSenha) {
+        String sql = "UPDATE servidor SET senha = ?, isFirstLogin = FALSE WHERE usuario = ?";
+
+        String senhaCriptografada = criptografarSenha(novaSenha);
+
+        try (PreparedStatement ps = conexao.prepareStatement(sql)) {
+            ps.setString(1, senhaCriptografada);
+            ps.setString(2, usuario);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    // Função para verificar o login
+    public boolean verificarLogin(String usuario, String senha) {
+        String sql = "SELECT senha FROM servidor WHERE usuario = ?";
+        String senhaCriptografada = criptografarSenha(senha);
+
+        try (PreparedStatement ps = conexao.prepareStatement(sql)) {
+            ps.setString(1, usuario);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String senhaArmazenada = rs.getString("senha");
+                    return senhaCriptografada.equals(senhaArmazenada);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        // Conexão será fechada externamente
+        return false;
+    }
+    
+    public Servidor buscarPorUsuario(String usuario) {
+    String sql = "SELECT * FROM servidor WHERE usuario = ?";
+    Servidor s = null;
+
+    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+        stmt.setString(1, usuario);
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                s = new Servidor();
+                s.setCodigo(rs.getInt("id"));
+                s.setNome(rs.getString("nome"));
+                s.setUsuario(rs.getString("usuario"));
+                s.setSenha(rs.getString("senha"));
+
+                Departamento departamento = new DepartamentoDAO().buscarPorId(rs.getInt("departamento_id"));
+                Permissao permissao = new PermissaoDAO().buscarPorId(rs.getInt("permissao_id"));
+
+                s.setDepartamento(departamento);
+                s.setPermissao(permissao);
+
+                s.setPrimeiroLogin(rs.getBoolean("isFirstLogin"));
+            }
+        }
+
+    } catch (SQLException ex) {
+        System.out.println("Erro ao buscar Servidor por usuário: " + ex.getMessage());
+    }
+
+    return s;
+}
+
 }

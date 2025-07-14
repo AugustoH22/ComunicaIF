@@ -22,9 +22,9 @@ import models.Aluno;
 import models.Mensagem;
 import models.Servidor;
 
-public final class EnvioMensagem extends javax.swing.JFrame {
+public final class EnvioMensagem1 extends javax.swing.JFrame {
 
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EnvioMensagem.class.getName());
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(EnvioMensagem1.class.getName());
 
     private JPopupMenu suggestionsPopupAlunos;
     private JList<Aluno> suggestionsListAlunos;
@@ -41,8 +41,9 @@ public final class EnvioMensagem extends javax.swing.JFrame {
     private List<Aluno> listaAlunos = new ArrayList<>();
     private final Servidor remetente;
 
-    public EnvioMensagem(Servidor remetente) {
+    public EnvioMensagem1(Servidor remetente) {
         initComponents();
+        setLocationRelativeTo(null);
         this.remetente = remetente;
         mc = new MensagemController();
         sc = new ServidorController();
@@ -53,7 +54,7 @@ public final class EnvioMensagem extends javax.swing.JFrame {
         chipsPanelAlunos.setLayout(new WrapLayout(FlowLayout.LEFT, 5, 5));
         suggestionsPopup = new JPopupMenu();
         suggestionsList = new JList<>();
-        suggestionsList.setVisibleRowCount(10);
+        suggestionsList.setVisibleRowCount(10); 
         suggestionsPopup.add(suggestionsList);
         suggestionsPopupAlunos = new JPopupMenu();
         suggestionsListAlunos = new JList<>();
@@ -87,6 +88,8 @@ public final class EnvioMensagem extends javax.swing.JFrame {
                 }
             }
         });
+        
+        
 
     }
 
@@ -94,6 +97,7 @@ public final class EnvioMensagem extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         tfAssunto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tfOcorrencia = new javax.swing.JTextArea();
@@ -101,8 +105,10 @@ public final class EnvioMensagem extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         chipsPanel = new javax.swing.JPanel();
         barraPesquisa = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         chipsPanelAlunos = new javax.swing.JPanel();
         barraPesquisaAlunos = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
@@ -110,20 +116,48 @@ public final class EnvioMensagem extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
 
-        tfAssunto.setText("Assunto");
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+
+        tfAssunto.setBackground(new java.awt.Color(204, 204, 204));
+        tfAssunto.setText(" Assunto");
+        tfAssunto.setBorder(null);
         tfAssunto.setMinimumSize(new java.awt.Dimension(64, 33));
         tfAssunto.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 tfAssuntoCaretUpdate(evt);
             }
         });
+        tfAssunto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfAssuntoFocusLost(evt);
+            }
+        });
+        tfAssunto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfAssuntoMouseClicked(evt);
+            }
+        });
 
+        jScrollPane1.setBorder(null);
+
+        tfOcorrencia.setBackground(new java.awt.Color(204, 204, 204));
         tfOcorrencia.setColumns(20);
         tfOcorrencia.setRows(5);
-        tfOcorrencia.setText("Ocorrência");
+        tfOcorrencia.setText("  Ocorrência");
+        tfOcorrencia.setBorder(null);
         tfOcorrencia.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 tfOcorrenciaCaretUpdate(evt);
+            }
+        });
+        tfOcorrencia.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfOcorrenciaFocusLost(evt);
+            }
+        });
+        tfOcorrencia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tfOcorrenciaMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tfOcorrencia);
@@ -149,8 +183,8 @@ public final class EnvioMensagem extends javax.swing.JFrame {
             }
         });
 
+        barraPesquisa.setBackground(new java.awt.Color(204, 204, 204));
         barraPesquisa.setColumns(20);
-        barraPesquisa.setText("Destino");
         barraPesquisa.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         barraPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -158,24 +192,30 @@ public final class EnvioMensagem extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Para:");
+
         javax.swing.GroupLayout chipsPanelLayout = new javax.swing.GroupLayout(chipsPanel);
         chipsPanel.setLayout(chipsPanelLayout);
         chipsPanelLayout.setHorizontalGroup(
             chipsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chipsPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(barraPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(barraPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         chipsPanelLayout.setVerticalGroup(
             chipsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chipsPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(barraPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(chipsPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(chipsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(barraPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        chipsPanelAlunos.setBackground(new java.awt.Color(255, 255, 255));
+        chipsPanelAlunos.setBackground(new java.awt.Color(204, 204, 204));
         chipsPanelAlunos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         chipsPanelAlunos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -183,8 +223,8 @@ public final class EnvioMensagem extends javax.swing.JFrame {
             }
         });
 
+        barraPesquisaAlunos.setBackground(new java.awt.Color(204, 204, 204));
         barraPesquisaAlunos.setColumns(20);
-        barraPesquisaAlunos.setText("Alunos");
         barraPesquisaAlunos.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         barraPesquisaAlunos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -192,20 +232,26 @@ public final class EnvioMensagem extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("Alunos:");
+
         javax.swing.GroupLayout chipsPanelAlunosLayout = new javax.swing.GroupLayout(chipsPanelAlunos);
         chipsPanelAlunos.setLayout(chipsPanelAlunosLayout);
         chipsPanelAlunosLayout.setHorizontalGroup(
             chipsPanelAlunosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chipsPanelAlunosLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(barraPesquisaAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(259, Short.MAX_VALUE))
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(barraPesquisaAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         chipsPanelAlunosLayout.setVerticalGroup(
             chipsPanelAlunosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, chipsPanelAlunosLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(barraPesquisaAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(chipsPanelAlunosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(barraPesquisaAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addContainerGap())
         );
 
@@ -218,30 +264,30 @@ public final class EnvioMensagem extends javax.swing.JFrame {
         jSeparator3.setBackground(new java.awt.Color(153, 153, 153));
         jSeparator3.setForeground(new java.awt.Color(153, 153, 153));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(chipsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar))
                     .addComponent(tfAssunto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(chipsPanelAlunos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(chipsPanelAlunos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1)
+                    .addComponent(jSeparator2)
+                    .addComponent(jSeparator3))
                 .addContainerGap())
-            .addComponent(jSeparator1)
-            .addComponent(jSeparator2)
-            .addComponent(jSeparator3)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(chipsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
@@ -254,13 +300,24 @@ public final class EnvioMensagem extends javax.swing.JFrame {
                 .addComponent(chipsPanelAlunos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 148, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEnviar)
                     .addComponent(btnCancelar))
                 .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -270,9 +327,9 @@ public final class EnvioMensagem extends javax.swing.JFrame {
 
         Mensagem mensagem = retornaMensagem();
         mc.enviarMensagem(mensagem);
-
+        
         this.dispose();
-
+        
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -355,12 +412,40 @@ public final class EnvioMensagem extends javax.swing.JFrame {
     }//GEN-LAST:event_chipsPanelAlunosMouseClicked
 
     private void tfAssuntoCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfAssuntoCaretUpdate
-        verificaCampos();
+       verificaCampos();
     }//GEN-LAST:event_tfAssuntoCaretUpdate
 
     private void tfOcorrenciaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfOcorrenciaCaretUpdate
-        verificaCampos();
+       verificaCampos();
     }//GEN-LAST:event_tfOcorrenciaCaretUpdate
+
+    private void tfAssuntoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfAssuntoMouseClicked
+        String aux = tfAssunto.getText();
+        if(aux.equals(" Assunto")){
+            tfAssunto.setText("");
+        }
+    }//GEN-LAST:event_tfAssuntoMouseClicked
+
+    private void tfAssuntoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfAssuntoFocusLost
+        String aux = tfAssunto.getText();
+        if(aux.equals("")){
+            tfAssunto.setText(" Assunto");
+        }
+    }//GEN-LAST:event_tfAssuntoFocusLost
+
+    private void tfOcorrenciaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tfOcorrenciaMouseClicked
+        String aux = tfOcorrencia.getText();
+        if(aux.equals("  Ocorrência")){
+            tfOcorrencia.setText("");
+        }
+    }//GEN-LAST:event_tfOcorrenciaMouseClicked
+
+    private void tfOcorrenciaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfOcorrenciaFocusLost
+        String aux = tfOcorrencia.getText();
+        if(aux.equals("")){
+            tfOcorrencia.setText("  Ocorrência");
+        }
+    }//GEN-LAST:event_tfOcorrenciaFocusLost
 
     /**
      * @param args the command line arguments
@@ -384,7 +469,7 @@ public final class EnvioMensagem extends javax.swing.JFrame {
         //</editor-fold>
 
         Servidor remetente = new Servidor();
-        java.awt.EventQueue.invokeLater(() -> new EnvioMensagem(remetente).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new EnvioMensagem1(remetente).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -394,6 +479,9 @@ public final class EnvioMensagem extends javax.swing.JFrame {
     private javax.swing.JButton btnEnviar;
     private javax.swing.JPanel chipsPanel;
     private javax.swing.JPanel chipsPanelAlunos;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -471,7 +559,7 @@ public final class EnvioMensagem extends javax.swing.JFrame {
         btnX.setMargin(new Insets(1, 4, 1, 4));
         btnX.setFocusable(false);
         btnX.setBorder(BorderFactory.createEmptyBorder());
-
+        
         alunosSelecionados.add(a);
         verificaCampos();
         listarAlunos();
@@ -491,25 +579,26 @@ public final class EnvioMensagem extends javax.swing.JFrame {
         chipsPanelAlunos.revalidate();
         chipsPanelAlunos.repaint();
     }
-
-    private void verificaCampos() {
-
+    
+    
+    private void verificaCampos(){
+        
         boolean campo = !servidoresSelecionados.isEmpty()
                 && !alunosSelecionados.isEmpty()
                 && !tfAssunto.getText().trim().isEmpty()
                 && !tfOcorrencia.getText().trim().isEmpty();
-
+        
         btnEnviar.setEnabled(campo);
     }
-
-    private Mensagem retornaMensagem() {
-
+    
+    private Mensagem retornaMensagem(){
+        
         LocalDateTime data = LocalDateTime.now();
-
-        Mensagem mensagem = new Mensagem(0, tfOcorrencia.getText(), tfAssunto.getText(), remetente, servidoresSelecionados, alunosSelecionados, data);
-
+        
+        Mensagem mensagem = new Mensagem(0, tfOcorrencia.getText(),tfAssunto.getText(), remetente, servidoresSelecionados, alunosSelecionados, data);
+        
         return mensagem;
-
+        
     }
 
 }

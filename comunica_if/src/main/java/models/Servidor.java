@@ -10,17 +10,19 @@ public class Servidor {
     String senha;
     Departamento departamento;
     Permissao permissao;
+    boolean primeiroLogin;
     
     public Servidor(){
     }
     
-    public Servidor(int codigo, String nome, String usuario, String senha, Departamento departamento, Permissao permissao){
+    public Servidor(int codigo, String nome, String usuario, String senha, Departamento departamento, Permissao permissao, boolean primeiroLogin){
         this.codigo = codigo;
         this.nome = nome;
         this.usuario = usuario;
         this.senha = senha;
         this.departamento = departamento;
         this.permissao = permissao;
+        this.primeiroLogin = primeiroLogin;
     }
 
     public int getCodigo() {
@@ -69,6 +71,14 @@ public class Servidor {
 
     public void setPermissao(Permissao permissao) {
         this.permissao = permissao;
+    }
+
+    public boolean isPrimeiroLogin() {
+        return primeiroLogin;
+    }
+
+    public void setPrimeiroLogin(boolean primeiroLogin) {
+        this.primeiroLogin = primeiroLogin;
     }
 
     @Override
