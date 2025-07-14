@@ -81,56 +81,74 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     private String rota = "Home";
 
-    public FormPrincipal(int u) {
+    public FormPrincipal() {
 
-        user = sc.buscarServidorPorId(u);
-        mensagens = mc.buscarMensagemPorDestinatario(user);
-        alunos = ac.listarAlunos();
-        cursos = cc.listarCursos();
-        turmas = tc.listarTurmas();
-        necessidades = nc.listarNecessidades();
-        departamentos = dc.listarDepartamentos();
-        permissoes = pc.listarPermissoes();
-        servidores = sc.listarServidores();
-        centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        if (!autenticado) {
+            this.dispose();
 
-        initComponents();
-        setLocationRelativeTo(null);
+            Login Login = new Login();
+            Login.setVisible(true);
+        }
 
-        scrollPane1.setBorder(null);
-        scrollPane1.getViewport().setBorder(null);
+    }
 
-        tblDados.getSelectionModel().addListSelectionListener(e -> linhaselecionada());
-        tbMensagens.getSelectionModel().addListSelectionListener(e -> linhaselecionada());
-        ((JScrollPane) tbMensagens.getParent().getParent()).setColumnHeaderView(null);
-        tblDados.setRowHeight(30);
-        tbMensagens.setRowHeight(40);
-        configurarTabela();
-        cbCursos.setVisible(false);
-        cbTurmas.setVisible(false);
-        btnCadastrarTurma.setVisible(false);
-        btnVincularAluno.setVisible(false);
-        btnVincularServidor.setVisible(false);
-        linha1.setVisible(false);
-        linha2.setVisible(false);
-        linha3.setVisible(false);
-        btnResponder.setEnabled(false);
-        btnResponder.setVisible(true);
-        BD.Conexao.conectar();
+    public FormPrincipal(int u, boolean a) {
+        autenticado = a;
+        if (!autenticado) {
+            this.dispose();
 
-        Runnable callback = this::configurarTabela;
+            Login Login = new Login();
+            Login.setVisible(true);
+        } else {
 
-        MensagemListener listener = new MensagemListener(callback);
-        listener.start();
+            user = sc.buscarServidorPorId(u);
+            mensagens = mc.buscarMensagemPorDestinatario(user);
+            alunos = ac.listarAlunos();
+            cursos = cc.listarCursos();
+            turmas = tc.listarTurmas();
+            necessidades = nc.listarNecessidades();
+            departamentos = dc.listarDepartamentos();
+            permissoes = pc.listarPermissoes();
+            servidores = sc.listarServidores();
+            centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
 
-        CardLayout layout = (CardLayout) tela.getLayout();
-        tela.add(telaListar, "lista");
-        tela.add(telaResposta, "mensagem");
-        tela.add(telaMensagem, "teste");
-        layout.show(tela, "teste");
-        corBotao();
-        Diretorio.setText("Home");
+            initComponents();
+            setLocationRelativeTo(null);
 
+            scrollPane1.setBorder(null);
+            scrollPane1.getViewport().setBorder(null);
+
+            tblDados.getSelectionModel().addListSelectionListener(e -> linhaselecionada());
+            tbMensagens.getSelectionModel().addListSelectionListener(e -> linhaselecionada());
+            ((JScrollPane) tbMensagens.getParent().getParent()).setColumnHeaderView(null);
+            tblDados.setRowHeight(30);
+            tbMensagens.setRowHeight(40);
+            configurarTabela();
+            cbCursos.setVisible(false);
+            cbTurmas.setVisible(false);
+            btnCadastrarTurma.setVisible(false);
+            btnVincularAluno.setVisible(false);
+            btnVincularServidor.setVisible(false);
+            linha1.setVisible(false);
+            linha2.setVisible(false);
+            linha3.setVisible(false);
+            btnResponder.setEnabled(false);
+            btnResponder.setVisible(true);
+            BD.Conexao.conectar();
+
+            Runnable callback = this::configurarTabela;
+
+            MensagemListener listener = new MensagemListener(callback);
+            listener.start();
+
+            CardLayout layout = (CardLayout) tela.getLayout();
+            tela.add(telaListar, "lista");
+            tela.add(telaResposta, "mensagem");
+            tela.add(telaMensagem, "teste");
+            layout.show(tela, "teste");
+            corBotao();
+            Diretorio.setText("Home");
+        }
     }
 
     public static void setAutenticado(boolean status) {
@@ -194,6 +212,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         linha1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("ComunicaIF");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -539,7 +558,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                 .addComponent(Diretorio, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(LogOut)
-                .addGap(23, 23, 23))
+                .addGap(18, 18, 18))
             .addGroup(PanelSuperiorLayout.createSequentialGroup()
                 .addComponent(tela, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -547,11 +566,12 @@ public class FormPrincipal extends javax.swing.JFrame {
         PanelSuperiorLayout.setVerticalGroup(
             PanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelSuperiorLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
                 .addGroup(PanelSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LogOut)
-                    .addComponent(Diretorio, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(Diretorio, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(PanelSuperiorLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(LogOut)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1395,7 +1415,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
-            new FormPrincipal(0).setVisible(true);
+            new FormPrincipal(0, false).setVisible(true);
         });
     }
 

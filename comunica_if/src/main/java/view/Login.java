@@ -302,7 +302,7 @@ public class Login extends javax.swing.JFrame {
                     this.dispose();
 
                     // Cria e exibe a nova janela na posição capturada
-                    FormPrincipal formPrincipal = new FormPrincipal(user.getCodigo());
+                    FormPrincipal formPrincipal = new FormPrincipal(user.getCodigo(), true);
                     formPrincipal.setVisible(true);
                 }                // Captura a posição da janela atual
 
@@ -332,7 +332,7 @@ public class Login extends javax.swing.JFrame {
                 this.dispose();
 
                 // Cria e exibe a nova janela na posição capturada
-                FormPrincipal formPrincipal = new FormPrincipal(user.getCodigo());
+                FormPrincipal formPrincipal = new FormPrincipal(user.getCodigo(), true);
                 formPrincipal.setVisible(true);
 
             } else {
