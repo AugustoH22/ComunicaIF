@@ -43,4 +43,17 @@ public class ServidorController {
     public void alterarSenha(String usuario, String senha){
         dao.alterarSenha(usuario, senha);
     }
+    
+    public boolean existeUsuario(String usuario){
+        return dao.existeUsuario(usuario);
+    }
+    
+    public List<Servidor> listarServidoresNaoVinculadosNaTurma(int codTurma) {
+        return dao.listarServidoresNaoVinculadosNaTurma(codTurma);
+    }
+    
+     public void inativarServidor(int s) {
+        dao.inativarServidor(s);
+    }
+
 }

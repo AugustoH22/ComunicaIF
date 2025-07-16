@@ -9,15 +9,17 @@ public class Aluno {
     int codigo;
     String nome;
     List<NecessidadeEspecial> necessidades = new ArrayList<>();
+    boolean ativo;
     
     
     public Aluno(){   
     }
     
-    public Aluno(int codigo, String nome, List<NecessidadeEspecial> necessidades){
+    public Aluno(int codigo, String nome, List<NecessidadeEspecial> necessidades, boolean ativo){
         this.codigo = codigo;
         this.nome = nome;
         this.necessidades = necessidades;
+        this.ativo = ativo;
     }
 
     public List<NecessidadeEspecial> getNecessidades() {
@@ -42,6 +44,14 @@ public class Aluno {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
     
         @Override

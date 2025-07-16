@@ -1,24 +1,18 @@
 package tablemodel;
 
 import controller.TurmaController;
-import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 import models.Aluno;
 
 public class TurmaAlunoTabelModel extends AbstractTableModel {
     private final List<Aluno> alunos;
-    private final List<Boolean> selecionados;
-    private final String[] colunas = {"Select","Código","Nome"};
+    private final String[] colunas = {"Código","Nome"};
 
-    private TurmaController tc = new TurmaController();
+    private final TurmaController tc = new TurmaController();
     
     public TurmaAlunoTabelModel(int t) {
         this.alunos= tc.listarAlunos(t);
-        this.selecionados = new ArrayList<>();
-        for (int i = 0; i < alunos.size(); i++) {
-            selecionados.add(false); // Inicialmente todos desmarcados
-        }
     }
 
     @Override
@@ -34,26 +28,13 @@ public class TurmaAlunoTabelModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Aluno ac = alunos.get(rowIndex);
-        switch (columnIndex) {
-            case 0:
-                return selecionados.get(rowIndex);
-            case 1:
-                return ac.getCodigo();
-            case 2:
-                return ac.getNome();
-            default:
-                return null;
-        }
+        return switch (columnIndex) {
+            case 0 -> ac.getCodigo();
+            case 1 -> ac.getNome();
+            default -> null;
+        };
     }
-    
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        if (columnIndex == 0) {
-            selecionados.set(rowIndex, (Boolean) aValue);
-            fireTableCellUpdated(rowIndex, columnIndex);
-        }
-    } 
-    
+       
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return columnIndex == 0; // Apenas a coluna do checkbox é editável
@@ -72,14 +53,4 @@ public class TurmaAlunoTabelModel extends AbstractTableModel {
         return String.class;
     }
 
-    // 🔥 Método utilitário para pegar os cursos selecionados
-    public List<Aluno> getAlunosSelecionados() {
-        List<Aluno> selecionadosAlunos = new ArrayList<>();
-        for (int i = 0; i < alunos.size(); i++) {
-            if (selecionados.get(i)) {
-                selecionadosAlunos.add(alunos.get(i));
-            }
-        }
-        return selecionadosAlunos;
-    }
 }

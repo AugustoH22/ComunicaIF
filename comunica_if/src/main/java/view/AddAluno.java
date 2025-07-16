@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import models.Aluno;
 import tablemodel.AddAlunoTabelModel;
 
-public class AddAluno extends javax.swing.JFrame {
+public class AddAluno extends javax.swing.JDialog {
     
     List<Aluno> alunos = new ArrayList();
     List<Aluno> alunosSelecionados = new ArrayList();
@@ -20,13 +20,14 @@ public class AddAluno extends javax.swing.JFrame {
     private final AlunoController ac;
     private final AddAlunoTabelModel model;
     
-    public AddAluno(int codigo) {
+    public AddAluno(java.awt.Frame parent, boolean modal, int codigo) {
+        super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         ac = new AlunoController();
         tc = new TurmaController();       
         this.codigo = codigo;
-        alunos = ac.listarAlunos();
+        alunos = ac.listarAlunosSemTurma();
         Collections.sort(alunos, Comparator.comparing(Aluno::getNome));
         model = new AddAlunoTabelModel(alunos);
         jTable2.setModel(model);
@@ -41,7 +42,7 @@ public class AddAluno extends javax.swing.JFrame {
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -150,7 +151,7 @@ public class AddAluno extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AddAluno(0).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new AddAluno(new javax.swing.JFrame(), true, 0).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

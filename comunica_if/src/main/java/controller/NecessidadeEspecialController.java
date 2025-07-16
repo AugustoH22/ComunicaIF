@@ -32,4 +32,8 @@ public class NecessidadeEspecialController {
         return dao.buscarPorId(id);
     }
     
+    public void excluir(int id){
+        dao.excluir(id);
+    }
+    
 }

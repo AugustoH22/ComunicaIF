@@ -7,7 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import models.Aluno;
 import models.NecessidadeEspecial;
 
@@ -20,12 +22,13 @@ public class AlunoDAO {
     }
 
     public void salvar(Aluno a) {
-        String sql = "INSERT INTO Aluno (nome) VALUES (?)"; // Removido 'codigo', assumindo auto_increment
+        String sql = "INSERT INTO Aluno (nome, isativo) VALUES (?, ?)"; // Removido 'codigo', assumindo auto_increment
         String sqlNecessidades = "INSERT INTO aluno_necessidades (aluno_id, necessidade_id) VALUES (?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); PreparedStatement stmtNecessidades = conexao.prepareStatement(sqlNecessidades)) {
 
             stmt.setString(1, a.getNome());
+            stmt.setBoolean(2, true);
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
@@ -78,28 +81,49 @@ public class AlunoDAO {
     }
 
     public List<Aluno> listar() {
-        List<Aluno> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Aluno";
+        Map<Integer, Aluno> alunoMap = new HashMap<>();
+
+        String sql = """
+        SELECT a.codigo AS aluno_id, a.nome AS aluno_nome,
+               ne.codigo AS necessidade_id, ne.codigoNecessidade, ne.descricao
+        FROM Aluno a
+        LEFT JOIN aluno_necessidades an ON a.codigo = an.aluno_id
+        LEFT JOIN NecessidadeEspecial ne ON an.necessidade_id = ne.codigo
+        WHERE a.isativo = true
+        ORDER BY a.codigo
+    """;
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
-                Aluno a = new Aluno();
-                a.setCodigo(rs.getInt("codigo"));
-                a.setNome(rs.getString("nome"));
-                a.setNecessidades(buscarNecessidadesDoAluno(a.getCodigo()));
-                lista.add(a);
-            }
+                int idAluno = rs.getInt("aluno_id");
 
+                Aluno aluno = alunoMap.get(idAluno);
+                if (aluno == null) {
+                    aluno = new Aluno();
+                    aluno.setCodigo(idAluno);
+                    aluno.setNome(rs.getString("aluno_nome"));
+                    aluno.setNecessidades(new ArrayList<>());
+                    alunoMap.put(idAluno, aluno);
+                }
+
+                int necessidadeId = rs.getInt("necessidade_id");
+                if (necessidadeId != 0) {
+                    NecessidadeEspecial n = new NecessidadeEspecial();
+                    n.setCodigo(necessidadeId);
+                    n.setCodigoNecessidade(rs.getString("codigoNecessidade"));
+                    n.setDescricao(rs.getString("descricao"));
+                    aluno.getNecessidades().add(n);
+                }
+            }
         } catch (SQLException ex) {
-            System.out.println("Erro ao listar Alunos: " + ex.getMessage());
+            System.out.println("Erro ao listar Alunos com necessidades: " + ex.getMessage());
         }
 
-        return lista;
+        return new ArrayList<>(alunoMap.values());
     }
 
     public Aluno buscarPorId(int id) {
-        String sql = "SELECT * FROM Aluno WHERE codigo = ?";
+        String sql = "SELECT * FROM Aluno WHERE codigo = ? AND isativo = true";
         Aluno a = null;
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -109,10 +133,10 @@ public class AlunoDAO {
                     a = new Aluno();
                     a.setCodigo(rs.getInt("codigo"));
                     a.setNome(rs.getString("nome"));
+                    a.setAtivo(rs.getBoolean("isAtivo"));
                     a.setNecessidades(buscarNecessidadesDoAluno(a.getCodigo()));
                 }
             }
-
         } catch (SQLException ex) {
             System.out.println("Erro ao buscar Aluno por ID: " + ex.getMessage());
         }
@@ -143,6 +167,61 @@ public class AlunoDAO {
         }
 
         return lista;
+    }
+
+    public List<Aluno> listarAlunosSemTurma() {
+        List<Aluno> lista = new ArrayList<>();
+        String sql = """
+        SELECT * FROM Aluno 
+        WHERE codigo NOT IN (SELECT codAluno FROM turma_aluno)
+        AND isativo = true
+    """;
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                Aluno a = new Aluno();
+                a.setCodigo(rs.getInt("codigo"));
+                a.setNome(rs.getString("nome"));
+                a.setAtivo(rs.getBoolean("isAtivo"));
+                a.setNecessidades(buscarNecessidadesDoAluno(a.getCodigo())); // inclui necessidades
+                lista.add(a);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao listar alunos sem turma: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+
+    public void desativar(int alunoId) {
+        String sqlDesativar = "UPDATE Aluno SET isativo = false WHERE codigo = ?";
+        String sqlRemoverTurma = "DELETE FROM turma_aluno WHERE codAluno = ?";
+        String sqlRemoverNecessidades = "DELETE FROM aluno_necessidades WHERE aluno_id = ?";
+        String sqlRemoverMensagens = "DELETE FROM mensagem_aluno WHERE codaluno = ?";
+
+        try (
+                PreparedStatement stmtDesativar = conexao.prepareStatement(sqlDesativar); PreparedStatement stmtTurma = conexao.prepareStatement(sqlRemoverTurma); PreparedStatement stmtNecessidades = conexao.prepareStatement(sqlRemoverNecessidades); PreparedStatement stmtMensagens = conexao.prepareStatement(sqlRemoverMensagens)) {
+            // Desativa o aluno
+            stmtDesativar.setInt(1, alunoId);
+            stmtDesativar.executeUpdate();
+
+            // Remove vínculos com turmas
+            stmtTurma.setInt(1, alunoId);
+            stmtTurma.executeUpdate();
+
+            // Remove vínculos com necessidades especiais
+            stmtNecessidades.setInt(1, alunoId);
+            stmtNecessidades.executeUpdate();
+
+            // Remove vínculos com mensagens
+            stmtMensagens.setInt(1, alunoId);
+            stmtMensagens.executeUpdate();
+
+            System.out.println("Aluno desativado e todos vínculos removidos com sucesso!");
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao desativar aluno e remover vínculos: " + ex.getMessage());
+        }
     }
 
 }

@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import models.Servidor;
 import tablemodel.AddServidorTabelModel;
 
-public class AddServidor extends javax.swing.JFrame {
+public class AddServidor extends javax.swing.JDialog {
     
     List<Servidor> servidores = new ArrayList();
     List<Servidor> servidoresSelecionados = new ArrayList();
@@ -20,13 +20,14 @@ public class AddServidor extends javax.swing.JFrame {
     private final ServidorController ac;
     private final AddServidorTabelModel model;
     
-    public AddServidor(int codigo) {
+    public AddServidor(java.awt.Frame parent, boolean modal, int codigo) {
+        super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
         ac = new ServidorController();
         tc = new TurmaController();       
         this.codigo = codigo;
-        servidores = ac.listarServidores();
+        servidores = ac.listarServidoresNaoVinculadosNaTurma(this.codigo);
         Collections.sort(servidores, Comparator.comparing(Servidor::getNome));
         model = new AddServidorTabelModel(servidores);
         jTable2.setModel(model);
@@ -150,7 +151,7 @@ public class AddServidor extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new AddServidor(0).setVisible(true));
+        java.awt.EventQueue.invokeLater(() -> new AddServidor(new javax.swing.JFrame(), true, 0).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

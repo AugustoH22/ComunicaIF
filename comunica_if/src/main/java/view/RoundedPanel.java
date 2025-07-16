@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class RoundedPanel extends JPanel {
+
     private int arcWidth = 40;
     private int arcHeight = 40;
 

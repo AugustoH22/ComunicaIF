@@ -38,4 +38,13 @@ public class AlunoController {
     public List<NecessidadeEspecial> buscarNecessidadesDoAluno(int alunoId) {
         return dao.buscarNecessidadesDoAluno(alunoId);
     }
+    
+    public List<Aluno> listarAlunosSemTurma() {
+        return dao.listarAlunosSemTurma();
+    }
+    
+    public void desativarAluno(int a) {
+        dao.desativar(a);
+    }
+
 }

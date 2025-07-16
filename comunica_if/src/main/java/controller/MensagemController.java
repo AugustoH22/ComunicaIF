@@ -31,4 +31,8 @@ public class MensagemController {
     public List<Mensagem> buscarMensagemPorDestinatario(Servidor s){
         return dao.procurarPorDestinatario(s);
     }
+    
+    public List<Mensagem> procurarPorRemetente(Servidor s){
+        return dao.procurarPorRemetente(s);
+    }
 }

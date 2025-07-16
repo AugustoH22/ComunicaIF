@@ -65,4 +65,12 @@ public class TurmaController {
     public List<Servidor> listarServidores(int t){
         return dao.listarServidoresDaTurma(t);
     }
+    
+    public void excluir(int id){
+        dao.excluir(id);
+    }
+    
+    public boolean possuiVinculoComAlunoOuServidor(int id){
+        return dao.possuiVinculoComAlunoOuServidor(id);
+    }
 }

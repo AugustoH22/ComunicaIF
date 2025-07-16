@@ -2,7 +2,6 @@ package view;
 
 import controller.CursoController;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import models.Curso;
 
 
@@ -25,7 +24,8 @@ public class CadastroCurso extends javax.swing.JDialog {
 
 
         if (this.modo == 1) {
-
+          Curso curso = cc.buscarCursoPorId(this.codigo);
+          tfNome.setText(curso.getNome());
         }
     }
 

@@ -5,24 +5,18 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import models.Aluno;
-import models.Curso;
 import models.NecessidadeEspecial;
-import models.Turma;
 import tablemodel.NecessidadeTableModel;
 
 public class CadastroAluno extends javax.swing.JDialog {
 
     int codigo;
     int modo;
-    String nome;
-    List<Curso> listaCursos = new ArrayList<>();
-    List<Turma> listaTurmas = new ArrayList<>();
     List<NecessidadeEspecial> listaNecessidades = new ArrayList<>();
     List<NecessidadeEspecial> necessidades = new ArrayList<>();
-    Aluno a;
     private final AlunoController ac;
 
-    public CadastroAluno(java.awt.Frame parent, boolean modal, int codigo, int modo, List<Curso> cursos, List<Turma> turmas, List<NecessidadeEspecial> necessidades) {
+    public CadastroAluno(java.awt.Frame parent, boolean modal, int codigo, int modo, List<NecessidadeEspecial> necessidades) {
         super(parent, modal);
         initComponents();
         setLocationRelativeTo(null);
@@ -38,7 +32,11 @@ public class CadastroAluno extends javax.swing.JDialog {
         }
 
         if (modo == 1) {
-
+            Aluno aluno = ac.buscarPorId(this.codigo);
+            this.necessidades = aluno.getNecessidades();
+            tfNome.setText(aluno.getNome());
+            jTable2.setModel(new NecessidadeTableModel(this.necessidades));
+            btnExcluir.setEnabled(true);
         }
 
     }
@@ -215,7 +213,7 @@ public class CadastroAluno extends javax.swing.JDialog {
         if (modo == 1) {
             Aluno aluno = retornaAluno();
             aluno.setCodigo(codigo);
-            ac.atualizarAluno(a);
+            ac.atualizarAluno(aluno);
         }
         this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -336,11 +334,9 @@ public class CadastroAluno extends javax.swing.JDialog {
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(() -> {
-            List<Curso> c = new ArrayList<>();
-            List<Turma> t = new ArrayList<>();
             List<NecessidadeEspecial> n = new ArrayList<>();
 
-            CadastroAluno dialog = new CadastroAluno(new javax.swing.JFrame(), true, 0, 0, c, t, n);
+            CadastroAluno dialog = new CadastroAluno(new javax.swing.JFrame(), true, 0, 0, n);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
@@ -371,7 +367,7 @@ public class CadastroAluno extends javax.swing.JDialog {
 
     private Aluno retornaAluno() {
 
-        Aluno aux = new Aluno(0, tfNome.getText(), necessidades);
+        Aluno aux = new Aluno(0, tfNome.getText(), necessidades, true);
 
         return aux;
 

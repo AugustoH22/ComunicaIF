@@ -30,4 +30,12 @@ public class CursoController {
     public Curso buscarCursoPorId(int codigo) {
         return dao.buscarPorId(codigo);
     }
+    
+    public void excluir(int id){
+        dao.excluir(id);
+    }
+    
+    public boolean existeTurmaVinculada(int id){
+        return dao.existeTurmaVinculada(id);
+    }
 }

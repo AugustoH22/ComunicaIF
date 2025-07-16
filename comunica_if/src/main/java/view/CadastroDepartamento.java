@@ -22,7 +22,8 @@ public class CadastroDepartamento extends javax.swing.JDialog {
         btnSalvar.setEnabled(false);
 
         if (this.modo == 1) {
-
+            Departamento dp = dc.buscarDepartamentoPorId(this.codigo);
+            tfNome.setText(dp.getNome());
         }
     }
 
@@ -95,13 +96,13 @@ public class CadastroDepartamento extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (modo == 0) {
-            Departamento curso = retornaDepartamento();
-            dc.cadastrarDepartamento(curso);
+            Departamento dp = retornaDepartamento();
+            dc.cadastrarDepartamento(dp);
         }
         if (modo == 1) {
-            Departamento curso = retornaDepartamento();
-            curso.setCodigo(codigo);
-            dc.atualizarDepartamento(curso);
+            Departamento dp = retornaDepartamento();
+            dp.setCodigo(codigo);
+            dc.atualizarDepartamento(dp);
         }
         this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -163,7 +164,8 @@ public class CadastroDepartamento extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     public javax.swing.JTextField tfNome;
     // End of variables declaration//GEN-END:variables
-private Departamento retornaDepartamento() {
+
+    private Departamento retornaDepartamento() {
         nome = tfNome.getText();
         int id1 = 0;
         Departamento departamento = new Departamento(id1, nome);

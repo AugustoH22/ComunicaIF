@@ -86,4 +86,29 @@ public class DepartamentoDAO {
         return d;
     }
 
+    public void excluir(int id) {
+        String sql = "DELETE FROM Departamento WHERE codigo = ?";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Erro ao excluir Departamento: " + ex.getMessage());
+        }
+    }
+
+    public boolean possuiServidoresVinculados(int departamentoId) {
+        String sql = "SELECT 1 FROM Servidor WHERE departamento_id = ? LIMIT 1";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, departamentoId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next(); // Retorna true se houver ao menos um servidor vinculado
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao verificar servidores vinculados: " + ex.getMessage());
+            return false;
+        }
+    }
+
 }

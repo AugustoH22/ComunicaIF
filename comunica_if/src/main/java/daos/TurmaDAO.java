@@ -244,4 +244,40 @@ public class TurmaDAO {
         return servidores;
     }
 
+    public void excluir(int codTurma) {
+        String sql = "DELETE FROM Turma WHERE id = ?";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, codTurma);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Erro ao excluir Turma: " + ex.getMessage());
+        }
+    }
+
+    public boolean possuiVinculoComAlunoOuServidor(int codTurma) {
+        String sqlAlunos = "SELECT 1 FROM turma_aluno WHERE codTurma = ? LIMIT 1";
+        String sqlServidores = "SELECT 1 FROM turma_servidor WHERE codTurma = ? LIMIT 1";
+
+        try (
+                PreparedStatement stmtAluno = conexao.prepareStatement(sqlAlunos); PreparedStatement stmtServidor = conexao.prepareStatement(sqlServidores)) {
+            stmtAluno.setInt(1, codTurma);
+            ResultSet rsAluno = stmtAluno.executeQuery();
+            if (rsAluno.next()) {
+                return true; // Existe aluno vinculado
+            }
+
+            stmtServidor.setInt(1, codTurma);
+            ResultSet rsServidor = stmtServidor.executeQuery();
+            if (rsServidor.next()) {
+                return true; // Existe servidor vinculado
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao verificar vínculos da turma: " + ex.getMessage());
+        }
+
+        return false;
+    }
+
 }

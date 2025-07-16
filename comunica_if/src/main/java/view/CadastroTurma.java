@@ -32,6 +32,11 @@ public class CadastroTurma extends javax.swing.JDialog {
         }
 
         if (modo == 1) {
+            
+            Turma turma = tc.buscarTurmaPorId(this.codigo);
+            tfNome.setText(turma.getNome());
+            cbCursos.setSelectedItem(turma.getCurso());
+            cbAno.setSelectedItem(turma.getAno());
 
         }
     }
@@ -188,6 +193,10 @@ public class CadastroTurma extends javax.swing.JDialog {
 
         }
         if (modo == 1) {
+            Turma turma = retornaTurma();
+            turma.setCodigo(codigo);
+            tc.atualizarTurma(turma);
+            
         }
         this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed

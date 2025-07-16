@@ -8,7 +8,6 @@ import models.Departamento;
 import models.Permissao;
 import models.Servidor;
 
-
 public class CadastroServidor extends javax.swing.JDialog {
 
     int codigo;
@@ -18,6 +17,7 @@ public class CadastroServidor extends javax.swing.JDialog {
     List<Departamento> listaDepartamento = new ArrayList<>();
     List<Permissao> listaPermissao = new ArrayList<>();
     private final ServidorController sc;
+    Servidor servidor;
 
     public CadastroServidor(java.awt.Frame parent, boolean modal, int codigo, List<Departamento> listaDepartamento, List<Permissao> listaPermissao, int modo) {
         super(parent, modal);
@@ -26,12 +26,12 @@ public class CadastroServidor extends javax.swing.JDialog {
         this.codigo = codigo;
         this.modo = modo;
         sc = new ServidorController();
-        
-        if(!listaDepartamento.isEmpty()){
+
+        if (!listaDepartamento.isEmpty()) {
             this.listaDepartamento = listaDepartamento;
         }
-        
-        if(!listaPermissao.isEmpty()){
+
+        if (!listaPermissao.isEmpty()) {
             this.listaPermissao = listaPermissao;
         }
 
@@ -39,6 +39,11 @@ public class CadastroServidor extends javax.swing.JDialog {
 
         if (this.modo == 1) {
 
+            servidor = sc.buscarServidorPorId(this.codigo);
+            tfNome.setText(servidor.getNome());
+            tfUsuario.setText(servidor.getUsuario());
+            cbDepartamento.setSelectedItem(servidor.getDepartamento());
+            cbPermissao.setSelectedItem(servidor.getPermissao());
         }
     }
 
@@ -74,6 +79,11 @@ public class CadastroServidor extends javax.swing.JDialog {
         tfUsuario.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 tfUsuarioCaretUpdate(evt);
+            }
+        });
+        tfUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfUsuarioFocusLost(evt);
             }
         });
 
@@ -211,6 +221,15 @@ public class CadastroServidor extends javax.swing.JDialog {
                     cbDepartamento.addItem(cf);
                 }
             }
+        } else {
+            cbDepartamento.removeAll();
+
+            if (!listaDepartamento.isEmpty()) {
+                for (Departamento cf : listaDepartamento) {
+                    cbDepartamento.addItem(cf);
+                }
+                cbDepartamento.setSelectedItem(servidor.getDepartamento());
+            }
         }
     }//GEN-LAST:event_cbDepartamentoAncestorAdded
 
@@ -227,6 +246,15 @@ public class CadastroServidor extends javax.swing.JDialog {
                     cbPermissao.addItem(cf);
                 }
             }
+        } else {
+            cbPermissao.removeAll();
+
+            if (!listaPermissao.isEmpty()) {
+                for (Permissao cf : listaPermissao) {
+                    cbPermissao.addItem(cf);
+                }
+                cbPermissao.setSelectedItem(servidor.getPermissao());
+            }
         }
     }//GEN-LAST:event_cbPermissaoAncestorAdded
 
@@ -236,6 +264,9 @@ public class CadastroServidor extends javax.swing.JDialog {
             sc.cadastrarServidor(servidor);
         }
         if (modo == 1) {
+            Servidor servidor = retornaServidor();
+            servidor.setCodigo(codigo);
+            sc.atualizarServidor(servidor);
         }
         this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -258,8 +289,32 @@ public class CadastroServidor extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void tfUsuarioCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_tfUsuarioCaretUpdate
-       verificarCampos();
+        verificarCampos();
     }//GEN-LAST:event_tfUsuarioCaretUpdate
+
+    private void tfUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfUsuarioFocusLost
+        if (modo == 0) {
+            if (sc.existeUsuario(tfUsuario.getText())) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Usuário já existe!",
+                        "Atenção",
+                        JOptionPane.WARNING_MESSAGE
+                );
+            }
+        } else {
+            if (sc.existeUsuario(tfUsuario.getText()) && !servidor.getUsuario().equals(tfUsuario.getText())) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Usuário já existe!",
+                        "Atenção",
+                        JOptionPane.WARNING_MESSAGE
+                );
+            }
+        }
+
+
+    }//GEN-LAST:event_tfUsuarioFocusLost
 
     /**
      * @param args the command line arguments
@@ -299,7 +354,7 @@ public class CadastroServidor extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(() -> {
             List<Departamento> listaDepartamento1 = new ArrayList<>();
             List<Permissao> listaPermissao1 = new ArrayList<>();
-            new CadastroServidor(new javax.swing.JFrame(),true,0, listaDepartamento1, listaPermissao1, 0).setVisible(true);
+            new CadastroServidor(new javax.swing.JFrame(), true, 0, listaDepartamento1, listaPermissao1, 0).setVisible(true);
         });
     }
 
@@ -325,17 +380,26 @@ public class CadastroServidor extends javax.swing.JDialog {
         Permissao permissao = (Permissao) cbPermissao.getSelectedItem();
         int id1 = 0;
 
-        Servidor servidor = new Servidor(id1, nome, usuario, "123456", departamento, permissao, true);
+        Servidor servidor = new Servidor(id1, nome, usuario, "123456", departamento, permissao, true, true);
 
         return servidor;
     }
 
     private void verificarCampos() {
 
-        boolean camposPreenchidos = !tfNome.getText().trim().isEmpty()
-                && !tfUsuario.getText().trim().isEmpty()
-                && cbDepartamento.getSelectedItem() != null
-                && cbPermissao.getSelectedItem() != null;
+        boolean camposPreenchidos;
+
+        if (modo == 0) {
+            camposPreenchidos = !tfNome.getText().trim().isEmpty()
+                    && (!tfUsuario.getText().trim().isEmpty() && !sc.existeUsuario(tfUsuario.getText()))
+                    && cbDepartamento.getSelectedItem() != null
+                    && cbPermissao.getSelectedItem() != null;
+        }else{
+            camposPreenchidos = !tfNome.getText().trim().isEmpty()
+                    && (!tfUsuario.getText().trim().isEmpty() && (!sc.existeUsuario(tfUsuario.getText()) || servidor.getUsuario().equals(tfUsuario.getText())))
+                    && cbDepartamento.getSelectedItem() != null
+                    && cbPermissao.getSelectedItem() != null;
+        }
 
         // Habilita o botão "Salvar" somente quando todas as condições são atendidas
         btnSalvar.setEnabled(camposPreenchidos);

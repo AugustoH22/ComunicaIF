@@ -78,9 +78,6 @@
           <Properties>
             <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
-          <Events>
-            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jPanel2FocusLost"/>
-          </Events>
 
           <Layout>
             <DimensionLayout dim="0">

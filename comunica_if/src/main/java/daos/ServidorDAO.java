@@ -20,7 +20,7 @@ public class ServidorDAO {
 
     // Salvar novo servidor
     public void salvar(Servidor s) {
-        String sql = "INSERT INTO Servidor (nome, usuario, senha, departamento_id, permissao_id, isFirstLogin) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Servidor (nome, usuario, senha, departamento_id, permissao_id, isFirstLogin, isAtivo) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -31,6 +31,7 @@ public class ServidorDAO {
             stmt.setInt(4, s.getDepartamento().getCodigo());
             stmt.setInt(5, s.getPermissao().getCodigo());
             stmt.setBoolean(6, true);
+            stmt.setBoolean(7, true);
             stmt.executeUpdate();
 
             ResultSet generatedKeys = stmt.getGeneratedKeys();
@@ -62,26 +63,21 @@ public class ServidorDAO {
     // Listar todos os servidores
     public List<Servidor> listar() {
         List<Servidor> lista = new ArrayList<>();
-        String sql = "SELECT * FROM Servidor";
+        String sql = "SELECT * FROM Servidor WHERE isAtivo = true";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
-
             while (rs.next()) {
                 Servidor s = new Servidor();
                 s.setCodigo(rs.getInt("id"));
                 s.setNome(rs.getString("nome"));
-
                 Departamento departamento = new DepartamentoDAO().buscarPorId(rs.getInt("departamento_id"));
                 Permissao permissao = new PermissaoDAO().buscarPorId(rs.getInt("permissao_id"));
-
                 s.setDepartamento(departamento);
                 s.setPermissao(permissao);
-
                 s.setUsuario(rs.getString("usuario"));
                 s.setSenha(rs.getString("senha"));
-
                 s.setPrimeiroLogin(rs.getBoolean("isFirstLogin"));
-
+                s.setAtivo(true);
                 lista.add(s);
             }
 
@@ -94,7 +90,7 @@ public class ServidorDAO {
 
     // Buscar servidor por ID
     public Servidor buscarPorId(int id) {
-        String sql = "SELECT * FROM Servidor WHERE id = ?";
+        String sql = "SELECT * FROM Servidor WHERE id = ? AND isAtivo = true";
         Servidor s = null;
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
@@ -108,14 +104,10 @@ public class ServidorDAO {
                     s.setSenha(rs.getString("senha"));
                     Departamento departamento = new DepartamentoDAO().buscarPorId(rs.getInt("departamento_id"));
                     Permissao permissao = new PermissaoDAO().buscarPorId(rs.getInt("permissao_id"));
-
                     s.setDepartamento(departamento);
                     s.setPermissao(permissao);
-
                     s.setPrimeiroLogin(rs.getBoolean("isFirstLogin"));
-
-                    s.setUsuario(rs.getString("usuario"));
-                    s.setSenha(rs.getString("senha"));
+                    s.setAtivo(true);
                 }
             }
 
@@ -165,7 +157,7 @@ public class ServidorDAO {
 
     // Função para verificar o login
     public boolean verificarLogin(String usuario, String senha) {
-        String sql = "SELECT senha FROM servidor WHERE usuario = ?";
+        String sql = "SELECT senha FROM servidor WHERE usuario = ? AND isAtivo = true";
         String senhaCriptografada = criptografarSenha(senha);
 
         try (PreparedStatement ps = conexao.prepareStatement(sql)) {
@@ -179,39 +171,110 @@ public class ServidorDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        // Conexão será fechada externamente
         return false;
     }
-    
+
     public Servidor buscarPorUsuario(String usuario) {
-    String sql = "SELECT * FROM servidor WHERE usuario = ?";
-    Servidor s = null;
+        String sql = "SELECT * FROM servidor WHERE usuario = ? AND isAtivo = true";
+        Servidor s = null;
 
-    try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-        stmt.setString(1, usuario);
-        try (ResultSet rs = stmt.executeQuery()) {
-            if (rs.next()) {
-                s = new Servidor();
-                s.setCodigo(rs.getInt("id"));
-                s.setNome(rs.getString("nome"));
-                s.setUsuario(rs.getString("usuario"));
-                s.setSenha(rs.getString("senha"));
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, usuario);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    s = new Servidor();
+                    s.setCodigo(rs.getInt("id"));
+                    s.setNome(rs.getString("nome"));
+                    s.setUsuario(rs.getString("usuario"));
+                    s.setSenha(rs.getString("senha"));
 
-                Departamento departamento = new DepartamentoDAO().buscarPorId(rs.getInt("departamento_id"));
-                Permissao permissao = new PermissaoDAO().buscarPorId(rs.getInt("permissao_id"));
+                    Departamento departamento = new DepartamentoDAO().buscarPorId(rs.getInt("departamento_id"));
+                    Permissao permissao = new PermissaoDAO().buscarPorId(rs.getInt("permissao_id"));
 
-                s.setDepartamento(departamento);
-                s.setPermissao(permissao);
+                    s.setDepartamento(departamento);
+                    s.setPermissao(permissao);
 
-                s.setPrimeiroLogin(rs.getBoolean("isFirstLogin"));
+                    s.setPrimeiroLogin(rs.getBoolean("isFirstLogin"));
+                    s.setAtivo(rs.getBoolean("isAtivo"));
+                }
             }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao buscar Servidor por usuário: " + ex.getMessage());
         }
 
-    } catch (SQLException ex) {
-        System.out.println("Erro ao buscar Servidor por usuário: " + ex.getMessage());
+        return s;
     }
 
-    return s;
-}
+    public boolean existeUsuario(String usuario) {
+        String sql = "SELECT 1 FROM servidor WHERE usuario = ? LIMIT 1";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setString(1, usuario);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next(); // Se existe, retorna true
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao verificar existência de usuário: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public List<Servidor> listarServidoresNaoVinculadosNaTurma(int codTurma) {
+        List<Servidor> lista = new ArrayList<>();
+        String sql = """
+        SELECT * FROM servidor 
+        WHERE id NOT IN (
+            SELECT codServidor FROM turma_servidor WHERE codTurma = ?
+        )
+    """;
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, codTurma);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Servidor s = new Servidor();
+                    s.setCodigo(rs.getInt("id"));
+                    s.setNome(rs.getString("nome"));
+                    s.setUsuario(rs.getString("usuario"));
+                    s.setSenha(rs.getString("senha"));
+                    s.setPrimeiroLogin(rs.getBoolean("isFirstLogin"));
+                    s.setAtivo(rs.getBoolean("isAtivo"));
+
+                    Departamento departamento = new DepartamentoDAO().buscarPorId(rs.getInt("departamento_id"));
+                    Permissao permissao = new PermissaoDAO().buscarPorId(rs.getInt("permissao_id"));
+                    s.setDepartamento(departamento);
+                    s.setPermissao(permissao);
+
+                    lista.add(s);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Erro ao listar servidores não vinculados à turma: " + e.getMessage());
+        }
+
+        return lista;
+    }
+
+    public void inativarServidor(int servidorId) {
+        String sqlInativar = "UPDATE Servidor SET isAtivo = false WHERE id = ?";
+        String sqlRemoverTurmas = "DELETE FROM turma_servidor WHERE codServidor = ?";
+
+        try (
+                PreparedStatement stmtInativar = conexao.prepareStatement(sqlInativar); PreparedStatement stmtRemoverTurmas = conexao.prepareStatement(sqlRemoverTurmas)) {
+            // Inativa o servidor
+            stmtInativar.setInt(1, servidorId);
+            stmtInativar.executeUpdate();
+
+            // Remove vínculos com turmas
+            stmtRemoverTurmas.setInt(1, servidorId);
+            stmtRemoverTurmas.executeUpdate();
+
+            System.out.println("Servidor inativado e vínculos removidos (exceto mensagens).");
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao inativar servidor e remover vínculos: " + ex.getMessage());
+        }
+    }
 
 }

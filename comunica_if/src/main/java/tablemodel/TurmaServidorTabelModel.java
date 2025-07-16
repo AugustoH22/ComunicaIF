@@ -1,25 +1,18 @@
 package tablemodel;
 
-import controller.ServidorController;
 import controller.TurmaController;
-import java.util.ArrayList;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 import models.Servidor;
 
 public class TurmaServidorTabelModel extends AbstractTableModel {
     private final List<Servidor> servidores;
-    private final List<Boolean> selecionados;
-    private final String[] colunas = {"Select","Código","Nome"};
+    private final String[] colunas = {"Código","Nome"};
 
-    private TurmaController tc = new TurmaController();
+    private final TurmaController tc = new TurmaController();
     
     public TurmaServidorTabelModel(int t) {
         this.servidores = tc.listarServidores(t);
-        this.selecionados = new ArrayList<>();
-        for (int i = 0; i < servidores.size(); i++) {
-            selecionados.add(false); // Inicialmente todos desmarcados
-        }
     }
 
     @Override
@@ -35,25 +28,14 @@ public class TurmaServidorTabelModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Servidor ac = servidores.get(rowIndex);
-        switch (columnIndex) {
-            case 0:
-                return selecionados.get(rowIndex);
-            case 1:
-                return ac.getCodigo();
-            case 2:
-                return ac.getNome();
-            default:
-                return null;
-        }
+        return switch (columnIndex) {
+            case 0 -> ac.getCodigo();
+            case 1 -> ac.getNome();
+            default -> null;
+        };
     }
     
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        if (columnIndex == 0) {
-            selecionados.set(rowIndex, (Boolean) aValue);
-            fireTableCellUpdated(rowIndex, columnIndex);
-        }
-    } 
+
     
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -73,14 +55,4 @@ public class TurmaServidorTabelModel extends AbstractTableModel {
         return String.class;
     }
 
-    // 🔥 Método utilitário para pegar os cursos selecionados
-    public List<Servidor> getServidoresSelecionados() {
-        List<Servidor> selecionadosServidores = new ArrayList<>();
-        for (int i = 0; i < servidores.size(); i++) {
-            if (selecionados.get(i)) {
-                selecionadosServidores.add(servidores.get(i));
-            }
-        }
-        return selecionadosServidores;
-    }
 }

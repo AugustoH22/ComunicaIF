@@ -90,4 +90,23 @@ public class NecessidadeEspecialDAO {
         return necessidade;
     }
 
+    public void excluir(int id) {
+        String sqlDeletarVinculos = "DELETE FROM aluno_necessidades WHERE necessidade_id = ?";
+        String sqlDeletarNecessidade = "DELETE FROM NecessidadeEspecial WHERE codigo = ?";
+
+        try (
+                PreparedStatement stmt1 = conexao.prepareStatement(sqlDeletarVinculos); PreparedStatement stmt2 = conexao.prepareStatement(sqlDeletarNecessidade)) {
+            // Primeiro remove as ligações com os alunos
+            stmt1.setInt(1, id);
+            stmt1.executeUpdate();
+
+            // Depois remove a necessidade especial
+            stmt2.setInt(1, id);
+            stmt2.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao excluir Necessidade Especial: " + ex.getMessage());
+        }
+    }
+
 }

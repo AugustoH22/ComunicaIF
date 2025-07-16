@@ -11,11 +11,12 @@ public class Servidor {
     Departamento departamento;
     Permissao permissao;
     boolean primeiroLogin;
+    boolean ativo;
     
     public Servidor(){
     }
     
-    public Servidor(int codigo, String nome, String usuario, String senha, Departamento departamento, Permissao permissao, boolean primeiroLogin){
+    public Servidor(int codigo, String nome, String usuario, String senha, Departamento departamento, Permissao permissao, boolean primeiroLogin, boolean ativo){
         this.codigo = codigo;
         this.nome = nome;
         this.usuario = usuario;
@@ -23,6 +24,7 @@ public class Servidor {
         this.departamento = departamento;
         this.permissao = permissao;
         this.primeiroLogin = primeiroLogin;
+        this.ativo = ativo;
     }
 
     public int getCodigo() {
@@ -79,6 +81,14 @@ public class Servidor {
 
     public void setPrimeiroLogin(boolean primeiroLogin) {
         this.primeiroLogin = primeiroLogin;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
     }
 
     @Override

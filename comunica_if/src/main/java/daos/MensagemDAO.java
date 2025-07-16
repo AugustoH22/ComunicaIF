@@ -204,4 +204,42 @@ public class MensagemDAO {
         return mensagens;
     }
 
+    public List<Mensagem> procurarPorRemetente(Servidor remetente) {
+        List<Mensagem> mensagens = new ArrayList<>();
+        String sql = """
+        SELECT m.*, s.id AS codRemetente, s.nome AS nomeRemetente
+        FROM Mensagem m
+        INNER JOIN servidor s ON m.codServidorRemetente = s.id
+        WHERE m.codServidorRemetente = ?
+        ORDER BY m.dataHoraCriacao DESC
+        LIMIT 100
+    """;
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, remetente.getCodigo());
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Mensagem m = new Mensagem();
+                    m.setCodigo(rs.getInt("codigo"));
+                    m.setAssunto(rs.getString("assunto"));
+                    m.setTexto(rs.getString("texto"));
+                    m.setDataHoraCriacao(rs.getTimestamp("dataHoraCriacao").toLocalDateTime());
+
+                    Servidor servidorRemetente = new Servidor();
+                    servidorRemetente.setCodigo(rs.getInt("codRemetente"));
+                    servidorRemetente.setNome(rs.getString("nomeRemetente"));
+                    m.setRemetente(servidorRemetente);
+
+                    mensagens.add(m);
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao procurar mensagens por remetente: " + ex.getMessage());
+        }
+
+        return mensagens;
+    }
+
 }

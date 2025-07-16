@@ -31,4 +31,12 @@ public class DepartamentoController {
     public Departamento buscarDepartamentoPorId(int id) {
         return dao.buscarPorId(id);
     }
+    
+    public void excluir(int id){
+        dao.excluir(id);
+    }
+    
+    public boolean possuiServidoresVinculados(int id){
+        return dao.possuiServidoresVinculados(id);
+    } 
 }

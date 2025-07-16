@@ -87,4 +87,29 @@ public class CursoDAO {
         return c;
     }
 
+    public void excluir(int id) {
+        String sql = "DELETE FROM Curso WHERE codigo = ?";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            System.out.println("Erro ao excluir Curso: " + ex.getMessage());
+        }
+    }
+
+    public boolean existeTurmaVinculada(int idCurso) {
+        String sql = "SELECT 1 FROM Turma WHERE curso_id = ? LIMIT 1";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, idCurso);
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next(); // se retornar algo, há vínculo
+            }
+        } catch (SQLException ex) {
+            System.out.println("Erro ao verificar se existe turma vinculada: " + ex.getMessage());
+            return false;
+        }
+    }
+
 }
