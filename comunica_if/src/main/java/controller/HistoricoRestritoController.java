@@ -31,4 +31,8 @@ public class HistoricoRestritoController {
     public HistoricoRestrito buscarHistoricoPorId(int id) {
         return dao.buscarPorId(id);
     }
+    
+    public List<HistoricoRestrito> listarPorAluno(int codAluno) {
+        return dao.listarPorAluno(codAluno);
+    }
 }

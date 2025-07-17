@@ -231,6 +231,9 @@ public class MensagemDAO {
                     servidorRemetente.setNome(rs.getString("nomeRemetente"));
                     m.setRemetente(servidorRemetente);
 
+                    // Carrega os destinatários da mensagem
+                    m.setDestinatarios(buscarDestinatarios(m.getCodigo()));
+
                     mensagens.add(m);
                 }
             }

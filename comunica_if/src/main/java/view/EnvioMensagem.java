@@ -1,6 +1,7 @@
 package view;
 
 import controller.AlunoController;
+import controller.HistoricoRestritoController;
 import controller.MensagemController;
 import controller.ServidorController;
 import java.awt.Color;
@@ -19,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import models.Aluno;
+import models.HistoricoRestrito;
 import models.Mensagem;
 import models.Servidor;
 
@@ -37,6 +39,7 @@ public final class EnvioMensagem extends javax.swing.JDialog {
     private final ServidorController sc;
     private final AlunoController ac;
     private final MensagemController mc;
+    private final HistoricoRestritoController hc;
     private List<Servidor> listaServidores = new ArrayList<>();
     private List<Aluno> listaAlunos = new ArrayList<>();
     private final Servidor remetente;
@@ -53,6 +56,7 @@ public final class EnvioMensagem extends javax.swing.JDialog {
         mc = new MensagemController();
         sc = new ServidorController();
         ac = new AlunoController();
+        hc = new HistoricoRestritoController();
         listaServidores = sc.listarServidores();
         listaServidores.remove(this.remetente);
         listaAlunos = ac.listarAlunos();
@@ -304,11 +308,11 @@ public final class EnvioMensagem extends javax.swing.JDialog {
                         .addComponent(btnEnviar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCancelar))
-                    .addComponent(tfAssunto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(chipsPanelAlunos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
                     .addComponent(jSeparator2)
-                    .addComponent(jSeparator3))
+                    .addComponent(jSeparator3)
+                    .addComponent(tfAssunto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -352,6 +356,7 @@ public final class EnvioMensagem extends javax.swing.JDialog {
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
 
         Mensagem mensagem = retornaMensagem();
+        salvaHistorico();
         mc.enviarMensagem(mensagem);
 
         this.dispose();
@@ -632,6 +637,19 @@ public final class EnvioMensagem extends javax.swing.JDialog {
 
         return mensagem;
 
+    }
+
+    private void salvaHistorico() {
+
+        LocalDateTime data = LocalDateTime.now();
+
+        if (!alunosSelecionados.isEmpty()) {
+            for (Aluno a : alunosSelecionados) {
+                HistoricoRestrito historico = new HistoricoRestrito(0, data, tfAssunto.getText(), tfOcorrencia.getText(), a.getCodigo(), remetente.getCodigo());
+                hc.registrarHistorico(historico);
+            }
+        }
+        
     }
 
 }

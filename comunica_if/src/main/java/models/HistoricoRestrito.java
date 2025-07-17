@@ -1,14 +1,16 @@
 package models;
 
+import java.time.LocalDateTime;
+
 public class HistoricoRestrito {
     private int codigo;
-    private String dataHora;
+    private LocalDateTime dataHora;
     private String ocorrencia;
     private String anotacao;
     private int codAluno;
     private int codServidor;
 
-    public HistoricoRestrito(int codigo, String dataHora, String ocorrencia, String anotacao, int codAluno, int codServidor) {
+    public HistoricoRestrito(int codigo, LocalDateTime dataHora, String ocorrencia, String anotacao, int codAluno, int codServidor) {
         this.codigo = codigo;
         this.dataHora = dataHora;
         this.ocorrencia = ocorrencia;
@@ -27,11 +29,11 @@ public class HistoricoRestrito {
         this.codigo = codigo;
     }
 
-    public String getDataHora() {
+    public LocalDateTime getDataHora() {
         return dataHora;
     }
 
-    public void setDataHora(String dataHora) {
+    public void setDataHora(LocalDateTime dataHora) {
         this.dataHora = dataHora;
     }
 

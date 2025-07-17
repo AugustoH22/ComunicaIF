@@ -11,7 +11,7 @@ public class HistoricoRestritoDAO {
     private final Connection conexao;
 
     public HistoricoRestritoDAO() {
-        this.conexao = Conexao.conectar(); // substitua conforme sua estrutura
+        this.conexao = Conexao.conectar();
     }
 
     // Salvar novo histórico
@@ -19,16 +19,17 @@ public class HistoricoRestritoDAO {
         String sql = "INSERT INTO HistoricoRestrito (dataHora, ocorrencia, anotacao, codAluno, codServidor) VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-            stmt.setString(1, h.getDataHora());
+            stmt.setTimestamp(1, Timestamp.valueOf(h.getDataHora()));
             stmt.setString(2, h.getOcorrencia());
             stmt.setString(3, h.getAnotacao());
             stmt.setInt(4, h.getCodAluno());
             stmt.setInt(5, h.getCodServidor());
             stmt.executeUpdate();
 
-            ResultSet generatedKeys = stmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                h.setCodigo(generatedKeys.getInt(1));
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    h.setCodigo(generatedKeys.getInt(1));
+                }
             }
 
         } catch (SQLException ex) {
@@ -41,7 +42,7 @@ public class HistoricoRestritoDAO {
         String sql = "UPDATE HistoricoRestrito SET dataHora = ?, ocorrencia = ?, anotacao = ?, codAluno = ?, codServidor = ? WHERE codigo = ?";
 
         try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
-            stmt.setString(1, h.getDataHora());
+            stmt.setTimestamp(1, Timestamp.valueOf(h.getDataHora()));
             stmt.setString(2, h.getOcorrencia());
             stmt.setString(3, h.getAnotacao());
             stmt.setInt(4, h.getCodAluno());
@@ -57,19 +58,18 @@ public class HistoricoRestritoDAO {
     // Listar todos os históricos
     public List<HistoricoRestrito> listar() {
         List<HistoricoRestrito> lista = new ArrayList<>();
-        String sql = "SELECT * FROM HistoricoRestrito";
+        String sql = "SELECT * FROM HistoricoRestrito ORDER BY dataHora DESC";
 
-        try (PreparedStatement stmt = conexao.prepareStatement(sql);
-             ResultSet rs = stmt.executeQuery()) {
+        try (PreparedStatement stmt = conexao.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
                 HistoricoRestrito h = new HistoricoRestrito(
-                    rs.getInt("codigo"),
-                    rs.getString("dataHora"),
-                    rs.getString("ocorrencia"),
-                    rs.getString("anotacao"),
-                    rs.getInt("codAluno"),
-                    rs.getInt("codServidor")
+                        rs.getInt("codigo"),
+                        rs.getTimestamp("dataHora").toLocalDateTime(),
+                        rs.getString("ocorrencia"),
+                        rs.getString("anotacao"),
+                        rs.getInt("codAluno"),
+                        rs.getInt("codServidor")
                 );
                 lista.add(h);
             }
@@ -91,12 +91,12 @@ public class HistoricoRestritoDAO {
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     h = new HistoricoRestrito(
-                        rs.getInt("codigo"),
-                        rs.getString("dataHora"),
-                        rs.getString("ocorrencia"),
-                        rs.getString("anotacao"),
-                        rs.getInt("codAluno"),
-                        rs.getInt("codServidor")
+                            rs.getInt("codigo"),
+                            rs.getTimestamp("dataHora").toLocalDateTime(),
+                            rs.getString("ocorrencia"),
+                            rs.getString("anotacao"),
+                            rs.getInt("codAluno"),
+                            rs.getInt("codServidor")
                     );
                 }
             }
@@ -107,5 +107,33 @@ public class HistoricoRestritoDAO {
 
         return h;
     }
-}
 
+    public List<HistoricoRestrito> listarPorAluno(int codAluno) {
+        List<HistoricoRestrito> lista = new ArrayList<>();
+        String sql = "SELECT * FROM HistoricoRestrito WHERE codAluno = ? ORDER BY dataHora DESC";
+
+        try (PreparedStatement stmt = conexao.prepareStatement(sql)) {
+            stmt.setInt(1, codAluno);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    HistoricoRestrito h = new HistoricoRestrito(
+                            rs.getInt("codigo"),
+                            rs.getTimestamp("dataHora").toLocalDateTime(),
+                            rs.getString("ocorrencia"),
+                            rs.getString("anotacao"),
+                            rs.getInt("codAluno"),
+                            rs.getInt("codServidor")
+                    );
+                    lista.add(h);
+                }
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Erro ao listar históricos do aluno: " + ex.getMessage());
+        }
+
+        return lista;
+    }
+
+}

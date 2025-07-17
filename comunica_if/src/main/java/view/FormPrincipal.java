@@ -3,6 +3,7 @@ package view;
 import controller.AlunoController;
 import controller.CursoController;
 import controller.DepartamentoController;
+import controller.HistoricoRestritoController;
 import controller.MensagemController;
 import controller.NecessidadeEspecialController;
 import controller.PermissaoController;
@@ -36,6 +37,7 @@ import javax.swing.table.TableColumn;
 import models.Aluno;
 import models.Curso;
 import models.Departamento;
+import models.HistoricoRestrito;
 import models.Mensagem;
 import models.NecessidadeEspecial;
 import models.Permissao;
@@ -46,6 +48,7 @@ import observer.MensagemListener;
 import tablemodel.AlunoTabelModel;
 import tablemodel.CursoTabelModel;
 import tablemodel.DepartamentoTabelModel;
+import tablemodel.MensagemEnviadaTabelModel;
 import tablemodel.MensagemTabelModel;
 import tablemodel.NecessidadeTableModel;
 import tablemodel.ServidorTabelModel;
@@ -67,6 +70,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     List<Departamento> departamentos = new ArrayList();
     List<Permissao> permissoes = new ArrayList();
     List<Servidor> servidores = new ArrayList();
+    List<HistoricoRestrito> vazio = new ArrayList();
     MensagemController mc = new MensagemController();
     AlunoController ac = new AlunoController();
     CursoController cc = new CursoController();
@@ -76,6 +80,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     PermissaoController pc = new PermissaoController();
     ServidorController sc = new ServidorController();
     TurmaController tc = new TurmaController();
+    HistoricoRestritoController hc = new HistoricoRestritoController();
     DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
     String permissao;
     Mensagem abrirMensagem;
@@ -130,6 +135,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         BotaoExcluir = new javax.swing.JButton();
         cbCursos = new javax.swing.JComboBox();
         cbTurmas = new javax.swing.JComboBox();
+        btnHistorico = new javax.swing.JButton();
         LogOut = new javax.swing.JButton();
         Categoria = new javax.swing.JLabel();
         btnHome = new javax.swing.JButton();
@@ -210,9 +216,10 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setPreferredSize(new java.awt.Dimension(900, 685));
+        jPanel3.setPreferredSize(new java.awt.Dimension(900, 695));
 
         btnVoltar.setText("Voltar");
+        btnVoltar.setFocusable(false);
         btnVoltar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVoltarActionPerformed(evt);
@@ -220,6 +227,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
 
         btnResponder.setText("Responder");
+        btnResponder.setFocusable(false);
         btnResponder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnResponderActionPerformed(evt);
@@ -275,29 +283,29 @@ public class FormPrincipal extends javax.swing.JFrame {
             .addGroup(panel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 866, Short.MAX_VALUE)
                     .addGroup(panel1Layout.createSequentialGroup()
-                        .addComponent(remetenteMensagem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 552, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(dataMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel1Layout.createSequentialGroup()
                         .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(assuntoMensagem)
-                            .addComponent(remetenteUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane4)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(remetenteMensagem)
+                            .addComponent(remetenteUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(assuntoMensagem))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panel1Layout.setVerticalGroup(
             panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addContainerGap()
                 .addComponent(assuntoMensagem)
-                .addGap(31, 31, 31)
-                .addGroup(panel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dataMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(remetenteMensagem))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(15, 15, 15)
+                .addComponent(dataMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addComponent(remetenteMensagem)
+                .addGap(12, 12, 12)
                 .addComponent(remetenteUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -313,11 +321,11 @@ public class FormPrincipal extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addComponent(btnVoltar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 718, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 702, Short.MAX_VALUE)
                 .addComponent(btnResponder)
-                .addContainerGap())
+                .addGap(17, 17, 17))
             .addComponent(scrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
@@ -336,7 +344,9 @@ public class FormPrincipal extends javax.swing.JFrame {
         telaResposta.setLayout(telaRespostaLayout);
         telaRespostaLayout.setHorizontalGroup(
             telaRespostaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(telaRespostaLayout.createSequentialGroup()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
+                .addContainerGap())
         );
         telaRespostaLayout.setVerticalGroup(
             telaRespostaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -355,6 +365,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
 
         panelMensagem.setBackground(new java.awt.Color(255, 255, 255));
+        panelMensagem.setPreferredSize(new java.awt.Dimension(900, 695));
         panelMensagem.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
@@ -415,12 +426,12 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
 
         telaListar.setBackground(new java.awt.Color(255, 255, 255));
+        telaListar.setPreferredSize(new java.awt.Dimension(900, 695));
         telaListar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 telaListarMouseClicked(evt);
             }
         });
-        telaListar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
@@ -449,16 +460,14 @@ public class FormPrincipal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tblDados);
 
-        telaListar.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 61, 855, 590));
-
         BotaoNovo.setText("Cadastrar");
         BotaoNovo.setEnabled(false);
+        BotaoNovo.setFocusable(false);
         BotaoNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BotaoNovoActionPerformed(evt);
             }
         });
-        telaListar.add(BotaoNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 20, -1, -1));
 
         BotaoExcluir.setText("Excluir");
         BotaoExcluir.setEnabled(false);
@@ -467,7 +476,6 @@ public class FormPrincipal extends javax.swing.JFrame {
                 BotaoExcluirActionPerformed(evt);
             }
         });
-        telaListar.add(BotaoExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 660, -1, -1));
 
         cbCursos.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -483,7 +491,6 @@ public class FormPrincipal extends javax.swing.JFrame {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        telaListar.add(cbCursos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 26, 235, -1));
 
         cbTurmas.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -499,25 +506,70 @@ public class FormPrincipal extends javax.swing.JFrame {
             public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
             }
         });
-        telaListar.add(cbTurmas, new org.netbeans.lib.awtextra.AbsoluteConstraints(267, 26, 209, -1));
+
+        btnHistorico.setText("Histórico");
+        btnHistorico.setEnabled(false);
+        btnHistorico.setFocusable(false);
+        btnHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistoricoActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout telaListarLayout = new javax.swing.GroupLayout(telaListar);
+        telaListar.setLayout(telaListarLayout);
+        telaListarLayout.setHorizontalGroup(
+            telaListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(telaListarLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(telaListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(telaListarLayout.createSequentialGroup()
+                        .addComponent(btnHistorico)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BotaoExcluir))
+                    .addGroup(telaListarLayout.createSequentialGroup()
+                        .addComponent(cbCursos, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(cbTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BotaoNovo))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 855, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
+        telaListarLayout.setVerticalGroup(
+            telaListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(telaListarLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addGroup(telaListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BotaoNovo)
+                    .addComponent(cbCursos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 599, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(telaListarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BotaoExcluir)
+                    .addComponent(btnHistorico))
+                .addGap(19, 19, 19))
+        );
 
         javax.swing.GroupLayout telaListarPrincipalLayout = new javax.swing.GroupLayout(telaListarPrincipal);
         telaListarPrincipal.setLayout(telaListarPrincipalLayout);
         telaListarPrincipalLayout.setHorizontalGroup(
             telaListarPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 890, Short.MAX_VALUE)
+            .addGap(0, 910, Short.MAX_VALUE)
             .addGroup(telaListarPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(telaListarPrincipalLayout.createSequentialGroup()
-                    .addComponent(telaListar, javax.swing.GroupLayout.DEFAULT_SIZE, 884, Short.MAX_VALUE)
+                    .addComponent(telaListar, javax.swing.GroupLayout.DEFAULT_SIZE, 904, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         telaListarPrincipalLayout.setVerticalGroup(
             telaListarPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 722, Short.MAX_VALUE)
+            .addGap(0, 730, Short.MAX_VALUE)
             .addGroup(telaListarPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(telaListarPrincipalLayout.createSequentialGroup()
-                    .addComponent(telaListar, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 21, Short.MAX_VALUE)))
+                    .addComponent(telaListar, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 25, Short.MAX_VALUE)))
         );
 
         tela.add(telaListarPrincipal, "card7");
@@ -1194,12 +1246,16 @@ public class FormPrincipal extends javax.swing.JFrame {
             BotaoNovo.setEnabled(true);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(true);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         } else {
             BotaoNovo.setEnabled(true);
             BotaoNovo.setVisible(false);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(false);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         }
     }//GEN-LAST:event_btnDepartamentoActionPerformed
@@ -1221,12 +1277,16 @@ public class FormPrincipal extends javax.swing.JFrame {
             BotaoNovo.setEnabled(true);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(true);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         } else {
             BotaoNovo.setEnabled(true);
             BotaoNovo.setVisible(false);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(false);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         }
     }//GEN-LAST:event_btnServidorActionPerformed
@@ -1248,12 +1308,16 @@ public class FormPrincipal extends javax.swing.JFrame {
             BotaoNovo.setEnabled(true);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(true);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         } else {
             BotaoNovo.setEnabled(true);
             BotaoNovo.setVisible(false);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(false);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         }
     }//GEN-LAST:event_btnNecessidadesActionPerformed
@@ -1275,12 +1339,16 @@ public class FormPrincipal extends javax.swing.JFrame {
             BotaoNovo.setEnabled(true);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(true);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         } else {
             BotaoNovo.setEnabled(true);
             BotaoNovo.setVisible(false);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(false);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         }
     }//GEN-LAST:event_btnCursosActionPerformed
@@ -1302,12 +1370,16 @@ public class FormPrincipal extends javax.swing.JFrame {
             BotaoNovo.setEnabled(true);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(true);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(true);
             clique = 0;
         } else {
             BotaoNovo.setEnabled(true);
             BotaoNovo.setVisible(false);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(false);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(true);
             clique = 0;
         }
 
@@ -1347,6 +1419,8 @@ public class FormPrincipal extends javax.swing.JFrame {
             linha2.setVisible(true);
             linha3.setVisible(true);
             btnTurmas.setBackground(new Color(204, 204, 204));
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
         } else {
             btnCadastrarTurma.setVisible(false);
             btnVincularAluno.setVisible(false);
@@ -1354,6 +1428,8 @@ public class FormPrincipal extends javax.swing.JFrame {
             linha1.setVisible(false);
             linha2.setVisible(false);
             linha3.setVisible(false);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
         }
     }//GEN-LAST:event_btnTurmasActionPerformed
 
@@ -1373,12 +1449,16 @@ public class FormPrincipal extends javax.swing.JFrame {
             BotaoNovo.setEnabled(true);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(true);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         } else {
             BotaoNovo.setEnabled(true);
             BotaoNovo.setVisible(false);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(false);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         }
     }//GEN-LAST:event_btnVincularAlunoActionPerformed
@@ -1399,12 +1479,16 @@ public class FormPrincipal extends javax.swing.JFrame {
             BotaoNovo.setEnabled(true);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(true);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         } else {
             BotaoNovo.setEnabled(true);
             BotaoNovo.setVisible(false);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(false);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         }
     }//GEN-LAST:event_btnVincularServidorActionPerformed
@@ -1425,12 +1509,16 @@ public class FormPrincipal extends javax.swing.JFrame {
             BotaoNovo.setEnabled(true);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(true);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         } else {
             BotaoNovo.setEnabled(true);
             BotaoNovo.setVisible(false);
             BotaoExcluir.setEnabled(false);
             BotaoExcluir.setVisible(false);
+            btnHistorico.setEnabled(false);
+            btnHistorico.setVisible(false);
             clique = 0;
         }
     }//GEN-LAST:event_btnCadastrarTurmaActionPerformed
@@ -1657,7 +1745,7 @@ public class FormPrincipal extends javax.swing.JFrame {
                 }
                 case "Enviadas" -> {
                     if (aux >= 0) {
-                        mostrarMensagem(aux);
+                        mostrarMensagemEnviada(aux);
                     }
                 }
                 default -> {
@@ -1912,6 +2000,35 @@ public class FormPrincipal extends javax.swing.JFrame {
         clique = 0;
     }//GEN-LAST:event_btnEnviadasActionPerformed
 
+    private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoActionPerformed
+        int linhaSelecionada = tblDados.getSelectedRow();
+        int aux = (int) tblDados.getValueAt(linhaSelecionada, 0);
+        clique = 0;
+
+
+        vazio = hc.listarPorAluno(aux);
+        
+        
+        if (vazio.isEmpty()) {
+
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Aluno não Possui Histórico!",
+                    "Atenção",
+                    JOptionPane.WARNING_MESSAGE
+            );
+
+            BotaoExcluir.setEnabled(false);
+            btnHistorico.setEnabled(false);
+
+        } else {
+            HistoricoAluno HistoricoAluno = new HistoricoAluno(new javax.swing.JFrame(), true, aux);
+            HistoricoAluno.setVisible(true);
+        }
+
+
+    }//GEN-LAST:event_btnHistoricoActionPerformed
+
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             new FormPrincipal().setVisible(true);
@@ -1943,6 +2060,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnCursos;
     private javax.swing.JButton btnDepartamento;
     private javax.swing.JButton btnEnviadas;
+    private javax.swing.JButton btnHistorico;
     private javax.swing.JButton btnHome;
     private javax.swing.JButton btnNecessidades;
     private javax.swing.JButton btnNovaMensagem;
@@ -2073,8 +2191,12 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         if (selectedRowIndex != -1) {
             BotaoExcluir.setEnabled(true);
+            if (rota.equals("Alunos")) {
+                btnHistorico.setEnabled(true);
+            }
         } else {
             BotaoExcluir.setEnabled(false);
+            btnHistorico.setEnabled(false);
         }
     }
 
@@ -2111,7 +2233,7 @@ public class FormPrincipal extends javax.swing.JFrame {
         tbMensagens.getColumnModel().getColumn(2).setCellRenderer(rendererCentro);
         tbMensagens.getColumnModel().getColumn(3).setCellRenderer(rendererCentro);
         tbMensagens.getColumnModel().getColumn(4).setCellRenderer(rendererDireita);
-        
+
         btnResponder.setEnabled(true);
         btnResponder.setVisible(true);
 
@@ -2298,6 +2420,8 @@ public class FormPrincipal extends javax.swing.JFrame {
         linha3.setVisible(false);
         btnResponder.setEnabled(false);
         btnResponder.setVisible(true);
+        btnHistorico.setEnabled(false);
+        btnHistorico.setVisible(false);
     }
 
     private void configurarTextAreas() {
@@ -2501,7 +2625,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     private void atulizarTabelaEnviadas() {
         mensagens = mc.procurarPorRemetente(user);
         mensagens.sort(Comparator.comparing(Mensagem::getDataHoraCriacao).reversed());
-        tbMensagens.setModel(new MensagemTabelModel(mensagens));
+        tbMensagens.setModel(new MensagemEnviadaTabelModel(mensagens));
         ((JScrollPane) tbMensagens.getParent().getParent()).setColumnHeaderView(null);
         tbMensagens.setFillsViewportHeight(true);
         tbMensagens.setBackground(Color.WHITE);
@@ -2530,9 +2654,54 @@ public class FormPrincipal extends javax.swing.JFrame {
         tbMensagens.getColumnModel().getColumn(2).setCellRenderer(rendererCentro);
         tbMensagens.getColumnModel().getColumn(3).setCellRenderer(rendererCentro);
         tbMensagens.getColumnModel().getColumn(4).setCellRenderer(rendererDireita);
-        
+
         btnResponder.setEnabled(false);
         btnResponder.setVisible(false);
+    }
+
+    private void mostrarMensagemEnviada(int aux) {
+
+        abrirMensagem = mc.buscarMensagemPorId(aux);
+        List<Servidor> destinatarios = abrirMensagem.getDestinatarios();
+        LocalDateTime data = abrirMensagem.getDataHoraCriacao();
+        List<Aluno> alunosAux = abrirMensagem.getAlunos();
+
+        // Formatando os destinatários
+        String nomesDestinatarios = destinatarios.stream()
+                .map(Servidor::getNome)
+                .collect(Collectors.joining(", "));
+
+        String usuariosDestinatarios = destinatarios.stream()
+                .map(s -> "<" + s.getUsuario() + ">")
+                .collect(Collectors.joining(", "));
+
+        // Formatando a data
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE, dd 'de' MMM', 'HH:mm", new Locale("pt", "BR"));
+        String dataFormatada = data.format(formatter);
+
+        // Cálculo de tempo relativo
+        long dias = ChronoUnit.DAYS.between(data.toLocalDate(), LocalDate.now());
+        String tempoRelativo = dias == 0 ? "(hoje)" : dias == 1 ? "(há 1 dia)" : "(há " + dias + " dias)";
+
+        // Formatando lista de alunos
+        String auxAlunos = alunosAux.stream()
+                .map(Aluno::getNome)
+                .collect(Collectors.joining(", "));
+
+        // Setando nos labels
+        assuntoMensagem.setText(abrirMensagem.getAssunto());
+        remetenteMensagem.setText(nomesDestinatarios);         // agora exibe nomes dos DESTINATÁRIOS
+        remetenteUsuario.setText(usuariosDestinatarios);       // e os "e-mails"/usuários também
+        dataMensagem.setText(dataFormatada + " " + tempoRelativo);
+        alunosMensagem.setText(auxAlunos);
+        ocorrencia.setText(abrirMensagem.getTexto());
+
+        // Exibe o painel da mensagem
+        CardLayout layout = (CardLayout) tela.getLayout();
+        layout.show(tela, "mensagem");
+
+        System.out.println("Assunto JLabel: " + assuntoMensagem.getText());
+        System.out.println("Destinatários JLabel: " + remetenteMensagem.getText());
     }
 
 }
