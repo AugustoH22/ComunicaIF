@@ -23,12 +23,10 @@ public class IsativoListener extends Thread {
             PGConnection pgConn = conn.unwrap(PGConnection.class);
             try (Statement stmt = conn.createStatement()) {
                 stmt.execute("LISTEN isativo_alterado");
-                System.out.println("Iniciando IsativoListener...");
 
             }
 
             while (!Thread.interrupted()) {
-                System.out.println("Aguardando notificações...");
 
                 PGNotification[] notifications = pgConn.getNotifications();
                 if (notifications != null) {
