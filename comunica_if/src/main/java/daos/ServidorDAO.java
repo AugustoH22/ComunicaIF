@@ -77,7 +77,7 @@ public class ServidorDAO {
                 s.setUsuario(rs.getString("usuario"));
                 s.setSenha(rs.getString("senha"));
                 s.setPrimeiroLogin(rs.getBoolean("isFirstLogin"));
-                s.setAtivo(true);
+                s.setAtivo(rs.getBoolean("isAtivo"));
                 lista.add(s);
             }
 

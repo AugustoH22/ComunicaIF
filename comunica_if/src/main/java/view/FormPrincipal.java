@@ -77,6 +77,7 @@ public class FormPrincipal extends javax.swing.JFrame {
     DepartamentoController dc = new DepartamentoController();
     NecessidadeEspecialController nc = new NecessidadeEspecialController();
     Servidor user;
+    int userAux;
     PermissaoController pc = new PermissaoController();
     ServidorController sc = new ServidorController();
     TurmaController tc = new TurmaController();
@@ -1879,6 +1880,8 @@ public class FormPrincipal extends javax.swing.JFrame {
 
                 autenticado = true;
                 user = sc.buscarPorUsuario(usuario);
+                userAux = user.getCodigo();
+                permissao = user.getPermissao().getDescricao();
 
                 if (user.isPrimeiroLogin()) {
                     System.out.print("Entro no IF");
@@ -2465,7 +2468,7 @@ public class FormPrincipal extends javax.swing.JFrame {
 
         // Listener para mensagens em tempo real
         Runnable callback = this::configurarTabela;
-        Runnable callbackAtivo = this::configurarTabela;
+        Runnable callbackAtivo = this::isAtivo;
         MensagemListener listener = new MensagemListener(callback);
         listener.start();
         IsativoListener listenerAtivo = new IsativoListener(callbackAtivo);
@@ -2605,7 +2608,9 @@ public class FormPrincipal extends javax.swing.JFrame {
     }
 
     public void isAtivo() {
-
+        
+        user = sc.buscarServidorPorId(userAux);
+        
         if (!user.isAtivo()) {
 
             autenticado = false;
